@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Horario extends ActiveRecord
+class Office extends ActiveRecord
 {
     protected static $tabla = 'office';
     protected static $columnasDB = ['off_nombre', 'off_situacion'];

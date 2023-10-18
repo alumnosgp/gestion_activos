@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Horario extends ActiveRecord
+class Antiviru extends ActiveRecord
 {
     protected static $tabla = 'antivirus';
     protected static $columnasDB = ['ant_nombre', 'ant_situacion'];

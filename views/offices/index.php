@@ -1,10 +1,10 @@
-<h1 class="text-center mt-5">OFFICES</h1>
+<h1 class="text-center mt-5">PAQUETE DE OFICINA</h1>
 <div class="row justify-content-center my-4">
-    <form class="col-lg-8 border bg-light p-3" id="formularioOffice">
+    <form class="col-lg-8 border bg-light p-3" id="formularioOffices">
         <input type="number" name="off_id" id="off_id" class="form-control" hidden>
         <div class="row mb-3">
             <div class="col">
-                <label for="off_nombre">Antivirus</label>
+                <label for="off_nombre">Offices</label>
                 <input type="text" name="off_nombre" id="off_nombre" class="form-control">
             </div>
         </div>      
@@ -26,7 +26,7 @@
 </div>
 <div class="row justify-content-center">
     <div class="col table-responsive">
-        <table id="tablaOffice" class="table table-bordered table-hover">
+        <table id="tablaOffices" class="table table-bordered table-hover">
         </table>
     </div>
 </div>

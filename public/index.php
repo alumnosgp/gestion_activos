@@ -7,6 +7,7 @@ use Controllers\AppController;
 use Controllers\SistemaController;
 use Controllers\AntiviruController;
 use Controllers\OfficeController;
+use Controllers\InventarioController;
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
@@ -27,12 +28,22 @@ $router->post('/API/antivirus/guardar', [AntiviruController::class, 'guardarApi'
 $router->post('/API/antivirus/modificar', [AntiviruController::class, 'modificarApi']);
 $router->post('/API/antivirus/eliminar', [AntiviruController::class, 'eliminarApi']);
 
+
 //antivirus
 $router->get('/offices', [OfficeController::class, 'index']);
 $router->get('/API/offices/buscar', [OfficeController::class, 'buscarApi']);
 $router->post('/API/offices/guardar', [OfficeController::class, 'guardarApi']);
 $router->post('/API/offices/modificar', [OfficeController::class, 'modificarApi']);
 $router->post('/API/offices/eliminar', [OfficeController::class, 'eliminarApi']);
+
+
+//Inventarios
+$router->get('/inventarios', [InventarioController::class, 'index']);
+// $router->get('/API/offices/buscar', [OfficeController::class, 'buscarApi']);
+// $router->post('/API/offices/guardar', [OfficeController::class, 'guardarApi']);
+// $router->post('/API/offices/modificar', [OfficeController::class, 'modificarApi']);
+// $router->post('/API/offices/eliminar', [OfficeController::class, 'eliminarApi']);
+
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

@@ -4,7 +4,7 @@ import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-const formulario = document.getElementById('formularioOffices')
+const formulario = document.getElementById('formularioAntivirus')
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -16,7 +16,7 @@ btnCancelar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 
 let contador = 1;
-const datatable = new Datatable('#tablaOffices', {
+const datatable = new Datatable('#tablaAntivirus', {
     language: lenguaje,
     data: null,
     columns: [
@@ -26,19 +26,19 @@ const datatable = new Datatable('#tablaOffices', {
 
         },
         {
-            title: 'OFFICE',
-            data: 'off_nombre'
+            title: 'ANTIVIRUS',
+            data: 'ant_nombre'
         },
         {
             title: 'MODIFICAR',
-            data: 'off_id',
+            data: 'ant_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-office='${row.off_nombre}'>Modificar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-antiviru='${row.ant_nombre}'>Modificar</button>`
         },
         {
             title: 'ELIMINAR',
-            data: 'off_id',
+            data: 'ant_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
@@ -48,7 +48,7 @@ const datatable = new Datatable('#tablaOffices', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/offices/buscar`;
+    const url = `/gestion_activos/API/antivirus/buscar`;
     const config = {
         method: 'GET'
     }
@@ -74,7 +74,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['off_id'])) {
+    if (!validarFormulario(formulario, ['ant_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -83,8 +83,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('off_id');
-    const url = '/gestion_activos/API/offices/guardar';
+    body.delete('ant_id');
+    const url = '/gestion_activos/API/antivirus/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -131,8 +131,8 @@ const eliminar = async (e) => {
     // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('off_id', id)
-        const url = '/gestion_activos/API/offices/eliminar';
+        body.append('ant_id', id)
+        const url = '/gestion_activos/API/antivirus/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -178,7 +178,7 @@ const eliminar = async (e) => {
 }
 
 const modificar = async () => {
-    if (!validarFormulario(formulario,['off_id'])) {
+    if (!validarFormulario(formulario,['ant_id'])) {
         alert('Debe llenar todos los campos');
         return
     }
@@ -189,7 +189,7 @@ const modificar = async () => {
         console.log(pair[0]+ ', ' + pair[1]); 
     }
 
-    const url = '/gestion_activos/API/offices/modificar';
+    const url = '/gestion_activos/API/antivirus/modificar';
     const config = {
         method: 'POST',
         body
@@ -229,22 +229,22 @@ const modificar = async () => {
 const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
-    const office = button.dataset.office;
+    const antiviru = button.dataset.antiviru;
 
     const dataset = {
         id,
-        office
+        antiviru
     };
 
     colocarDatos(dataset);
     const body = new FormData(formulario);
-    body.append('off_id', id);
-    body.append('off_nombre', office);
+    body.append('ant_id', id);
+    body.append('ant_nombre', antiviru);
 };
 
 const colocarDatos = (dataset) => {
-    formulario.off_nombre.value = dataset.office
-    formulario.off_id.value = dataset.id
+    formulario.ant_nombre.value = dataset.antiviru
+    formulario.ant_id.value = dataset.id
 
 
     btnGuardar.disabled = true

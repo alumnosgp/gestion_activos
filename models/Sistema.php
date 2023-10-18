@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Horario extends ActiveRecord
+class Sistema extends ActiveRecord
 {
     protected static $tabla = 'sistema_operativo';
     protected static $columnasDB = ['sist_nombre', 'sist_situacion'];
