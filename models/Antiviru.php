@@ -17,6 +17,10 @@ class Antiviru extends ActiveRecord
         $this->ant_situacion = $args['ant_situacion'] ?? '1';
        
     }
+    public function antivirusNombre(){
+        $sql = "SELECT ant_id, ant_nombre FROM antivirus WHERE ant_situacion = 1";
+        return $this->fetchArray($sql);
+    }
 }
 
 ?>

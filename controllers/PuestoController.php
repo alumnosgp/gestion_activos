@@ -3,17 +3,17 @@
 namespace Controllers;
 
 use Exception;
-use Model\Antiviru;
+use Model\Puesto;
 use MVC\Router;
 
-class AntiviruController{
+class PuestoController{
     public static function index(Router $router){
-            $router->render('antivirus/index');
+            $router->render('puestos/index');
     }
     public static function guardarApi(){
         try {
-            $antivirus = new Antiviru($_POST);
-            $resultado = $antivirus->crear();
+            $puestos = new Puesto($_POST);
+            $resultado = $puestos->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -37,17 +37,17 @@ class AntiviruController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM antivirus where ant_situacion = 1 ";
-        if (isset($_GET['ant_nombre']) && $_GET['ant_nombre'] != '') {
-            $ant_nombre = $_GET['ant_nombre'];
-            $sql .= " and ant_nombre like '%$ant_nombre%' ";
+        $sql = "SELECT * FROM puestos where pue_situacion = 1 ";
+        if (isset($_GET['pue_nombre']) && $_GET['pue_nombre'] != '') {
+            $pue_nombre = $_GET['pue_nombre'];
+            $sql .= " and pue_nombre like '%$pue_nombre%' ";
         }
         try {
 
-            $antivirus = Antiviru::fetchArray($sql);
+            $puestos = Puesto::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $antivirus,
+                'mensaje' => $puestos,
                 'codigo' => 1
             ]);
 
@@ -63,9 +63,9 @@ class AntiviruController{
     public static function modificarAPI()
     {
         try {
-            $antivirus = new Antiviru($_POST);           
+            $puestos = new Puesto($_POST);           
            
-            $resultado = $antivirus->actualizar();
+            $resultado = $puestos->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -87,33 +87,35 @@ class AntiviruController{
         }
     }
 
-    public static function eliminarAPI()
-    {
-        try {
-            $ant_id = $_POST['ant_id'];
-            $antivirus = Antiviru::find($ant_id);
-            $antivirus->ant_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $antivirus->actualizar();
+  
+public static function eliminarAPI()
+{
+    try {
+        $puesto_id = $_POST['puesto_id'];
+        $puestos = Puesto::find($puesto_id);
+        $puestos->pue_situacion = '0'; // Cambiar a la situación deseada al eliminar (en este caso, '0')
+        $resultado = $puestos->actualizar();
 
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Dato eliminado correctamente',
-                    'codigo' => 1
-                ]);
-            } else {
-                echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
-                    'codigo' => 0
-                ]);
-            }
-        } catch (Exception $e) {
+        if ($resultado['resultado'] == 1) {
             echo json_encode([
-                'detalle' => $e->getMessage(),
+                'mensaje' => 'Dato eliminado correctamente',
+                'codigo' => 1
+            ]);
+        } else {
+            echo json_encode([
                 'mensaje' => 'Ocurrió un error',
                 'codigo' => 0
             ]);
         }
+    } catch (Exception $e) {
+        echo json_encode([
+            'detalle' => $e->getMessage(),
+            'mensaje' => 'Ocurrió un error',
+            'codigo' => 0
+        ]);
     }
+}
+ 
 }
 
 ?>

@@ -6,9 +6,14 @@ module.exports = {
   entry: {
     'js/app' : './src/js/app.js',
     'js/inicio' : './src/js/inicio.js',
+    'js/armas/index' : './src/js/armas/index.js',
+    'js/grados/index' : './src/js/grados/index.js',
+    'js/offices/index' : './src/js/offices/index.js',
+    'js/puestos/index' : './src/js/puestos/index.js',
+    'js/personas/index' : './src/js/personas/index.js',
+    'js/oficinas/index' : './src/js/oficinas/index.js',
     'js/sistemas/index' : './src/js/sistemas/index.js',
     'js/antivirus/index' : './src/js/antivirus/index.js',
-    'js/offices/index' : './src/js/offices/index.js',
     'js/inventarios/index' : './src/js/inventarios/index.js',
   },
   output: {

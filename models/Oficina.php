@@ -1,7 +1,7 @@
 <?php
 namespace Model;
 
-class Oficinas extends ActiveRecord
+class Oficina extends ActiveRecord
 {
     protected static $tabla = 'oficinas';
     protected static $columnasDB = ['ofic_nombre', 'ofic_telefono', 'ofic_direccion', 'ofic_situacion'];
@@ -20,6 +20,10 @@ class Oficinas extends ActiveRecord
         $this->ofic_direccion = $args['ofic_direccion'] ?? '';
         $this->ofic_situacion = $args['ofic_situacion'] ?? '1';
        
+    }
+    public function oficinaNombre(){
+        $sql = "SELECT ofic_id, ofic_nombre FROM oficinas WHERE ofic_situacion = 1";
+        return $this->fetchArray($sql);
     }
 }
 

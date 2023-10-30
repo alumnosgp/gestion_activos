@@ -4,12 +4,12 @@ import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-const formulario = document.getElementById('formularioAntivirus')
+const formulario = document.getElementById('formularioArmas')
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
-const anti_nombre = document.getElementById('ant_nombre').value;
+const arma_descrip = document.getElementById('arm_desc').value;
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
@@ -17,7 +17,7 @@ btnCancelar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 
 let contador = 1;
-const datatable = new Datatable('#tablaAntivirus', {
+const datatable = new Datatable('#tablaArmas', {
     language: lenguaje,
     data: null,
     columns: [
@@ -27,19 +27,19 @@ const datatable = new Datatable('#tablaAntivirus', {
 
         },
         {
-            title: 'ANTIVIRUS',
-            data: 'ant_nombre'
+            title: 'ARMAS',
+            data: 'arm_desc'
         },
         {
             title: 'MODIFICAR',
-            data: 'ant_id',
+            data: 'arm_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-antiviru='${row.ant_nombre}'>Modificar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-arma='${row.arm_desc}'>Modificar</button>`
         },
         {
             title: 'ELIMINAR',
-            data: 'ant_id',
+            data: 'arm_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
@@ -49,7 +49,7 @@ const datatable = new Datatable('#tablaAntivirus', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/antivirus/buscar?ant_nombre=${anti_nombre}`;
+    const url = `/gestion_activos/API/armas/buscar?arm_desc=${arma_descrip}`;
     const config = {
         method: 'GET'
     }
@@ -75,7 +75,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['ant_id'])) {
+    if (!validarFormulario(formulario, ['arm_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -84,8 +84,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('ant_id');
-    const url = '/gestion_activos/API/antivirus/guardar';
+    body.delete('arm_id');
+    const url = '/gestion_activos/API/armas/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -131,8 +131,8 @@ const eliminar = async (e) => {
     // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('ant_id', id)
-        const url = '/gestion_activos/API/antivirus/eliminar';
+        body.append('arm_id', id)
+        const url = '/gestion_activos/API/armas/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -176,13 +176,13 @@ const eliminar = async (e) => {
 }
 
 const modificar = async () => {
-    if (!validarFormulario(formulario,['ant_id'])) {
+    if (!validarFormulario(formulario,['arm_id'])) {
         alert('Debe llenar todos los campos');
         return
     }
     
     const body = new FormData(formulario)
-    const url = '/gestion_activos/API/antivirus/modificar';
+    const url = '/gestion_activos/API/armas/modificar';
     const config = {
         method: 'POST',
         body
@@ -222,22 +222,22 @@ const modificar = async () => {
 const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
-    const antiviru = button.dataset.antiviru;
+    const arma = button.dataset.arma;
 
     const dataset = {
         id,
-        antiviru
+        arma
     };
 
     colocarDatos(dataset);
     const body = new FormData(formulario);
-    body.append('ant_id', id);
-    body.append('ant_nombre', antiviru);
+    body.append('arm_id', id);
+    body.append('arm_desc', arma);
 };
 
 const colocarDatos = (dataset) => {
-    formulario.ant_nombre.value = dataset.antiviru
-    formulario.ant_id.value = dataset.id
+    formulario.arm_desc.value = dataset.arma
+    formulario.arm_id.value = dataset.id
 
     btnModificar.disabled = false;
     btnModificar.parentElement.style.display = '';
@@ -261,7 +261,6 @@ const cancelarAccion = () => {
 
 buscar();
 formulario.addEventListener('submit', guardar)
-// btnBuscar.addEventListener('click', buscar)
 datatable.on('click', '.btn-warning', traeDatos)
 datatable.on('click', '.btn-danger', eliminar)
 btnCancelar.addEventListener('click', cancelarAccion)

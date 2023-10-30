@@ -3,17 +3,17 @@
 namespace Controllers;
 
 use Exception;
-use Model\Antiviru;
+use Model\Oficina;
 use MVC\Router;
 
-class AntiviruController{
-    public static function index(Router $router){
-            $router->render('antivirus/index');
+class OficinaController{
+    public static function index(Router $router){ 
+        $router->render('oficinas/index');
     }
     public static function guardarApi(){
         try {
-            $antivirus = new Antiviru($_POST);
-            $resultado = $antivirus->crear();
+            $oficinas = new Oficina($_POST);
+            $resultado = $oficinas->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -37,17 +37,17 @@ class AntiviruController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM antivirus where ant_situacion = 1 ";
-        if (isset($_GET['ant_nombre']) && $_GET['ant_nombre'] != '') {
-            $ant_nombre = $_GET['ant_nombre'];
-            $sql .= " and ant_nombre like '%$ant_nombre%' ";
+        $sql = "SELECT * FROM oficinas where ofic_situacion = 1 ";
+        if (isset($_GET['ofic_nombre']) && $_GET['ofic_nombre'] != '') {
+            $ofic_nombre = $_GET['ofic_nombre'];
+            $sql .= " and ofic_nombre like '%$ofic_nombre%' ";
         }
         try {
 
-            $antivirus = Antiviru::fetchArray($sql);
+            $oficinas = Oficina::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $antivirus,
+                'mensaje' => $oficinas,
                 'codigo' => 1
             ]);
 
@@ -63,9 +63,9 @@ class AntiviruController{
     public static function modificarAPI()
     {
         try {
-            $antivirus = new Antiviru($_POST);           
+            $oficinas = new Oficina($_POST);           
            
-            $resultado = $antivirus->actualizar();
+            $resultado = $oficinas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -90,10 +90,10 @@ class AntiviruController{
     public static function eliminarAPI()
     {
         try {
-            $ant_id = $_POST['ant_id'];
-            $antivirus = Antiviru::find($ant_id);
-            $antivirus->ant_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $antivirus->actualizar();
+            $ofic_id = $_POST['ofic_id'];
+            $oficinas = Oficina::find($ofic_id);
+            $oficinas->ofic_situacion = '2'; // Cambiar a la situación deseada para eliminar
+            $resultado = $oficinas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

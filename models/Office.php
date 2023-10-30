@@ -17,6 +17,10 @@ class Office extends ActiveRecord
         $this->off_situacion = $args['off_situacion'] ?? '1';
        
     }
+    public function OfficeNombre(){
+        $sql = "SELECT off_id, off_nombre FROM office WHERE off_situacion = 1";
+        return $this->fetchArray($sql);
+    }
 }
 
 ?>

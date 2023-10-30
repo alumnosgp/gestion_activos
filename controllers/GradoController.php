@@ -3,17 +3,17 @@
 namespace Controllers;
 
 use Exception;
-use Model\Antiviru;
+use Model\Grado;
 use MVC\Router;
 
-class AntiviruController{
+class GradoController{
     public static function index(Router $router){
-            $router->render('antivirus/index');
+            $router->render('grados/index');
     }
     public static function guardarApi(){
         try {
-            $antivirus = new Antiviru($_POST);
-            $resultado = $antivirus->crear();
+            $grados = new Grado($_POST);
+            $resultado = $grados->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -37,17 +37,17 @@ class AntiviruController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM antivirus where ant_situacion = 1 ";
-        if (isset($_GET['ant_nombre']) && $_GET['ant_nombre'] != '') {
-            $ant_nombre = $_GET['ant_nombre'];
-            $sql .= " and ant_nombre like '%$ant_nombre%' ";
+        $sql = "SELECT * FROM grados where grado_situacion = 1 ";
+        if (isset($_GET['grado_descr']) && $_GET['grado_descr'] != '') {
+            $grado_descr = $_GET['grado_descr'];
+            $sql .= " and grado_descr like '%$grado_descr%' ";
         }
         try {
 
-            $antivirus = Antiviru::fetchArray($sql);
+            $grados = Grado::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $antivirus,
+                'mensaje' => $grados,
                 'codigo' => 1
             ]);
 
@@ -63,9 +63,9 @@ class AntiviruController{
     public static function modificarAPI()
     {
         try {
-            $antivirus = new Antiviru($_POST);           
+            $grados = new Grado($_POST);           
            
-            $resultado = $antivirus->actualizar();
+            $resultado = $grados->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -90,10 +90,10 @@ class AntiviruController{
     public static function eliminarAPI()
     {
         try {
-            $ant_id = $_POST['ant_id'];
-            $antivirus = Antiviru::find($ant_id);
-            $antivirus->ant_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $antivirus->actualizar();
+            $grado_id = $_POST['grado_id'];
+            $grados = Grado::find($grado_id);
+            $grados->grado_situacion = '2'; // Cambiar a la situación deseada para eliminar
+            $resultado = $grados->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

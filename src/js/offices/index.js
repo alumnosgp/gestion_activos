@@ -9,6 +9,7 @@ const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
+const office_nombre = document.getElementById('off_nombre').value;
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
@@ -48,7 +49,7 @@ const datatable = new Datatable('#tablaOffices', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/offices/buscar`;
+    const url = `/gestion_activos/API/offices/buscar?off_nombre=${office_nombre}`;
     const config = {
         method: 'GET'
     }
@@ -56,10 +57,10 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         datatable.clear().draw()
-        console.log(data)
-        if (data) {
+        // console.log(data)
+        if (data.codigo == 1) {
             contador = 1;
-            datatable.rows.add(data).draw();
+            datatable.rows.add(data.mensaje).draw();
         } else {
             Toast.fire({
                 title: 'No se encontraron registros',
@@ -96,13 +97,12 @@ const guardar = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        const { id, mensaje, detalle } = data;
+        const { codigo, mensaje, detalle } = data;
         let icon = 'info';
-        switch (id) {
+        switch (codigo) {
             case 1:
                 formulario.reset();
-                icon = 'success', 
-                        'mensaje';
+                icon = 'success';
                 buscar();
                 break;
 
@@ -146,9 +146,9 @@ const eliminar = async (e) => {
             // return;
 
 
-            const { id, mensaje, detalle } = data;
+            const { codigo, mensaje, detalle } = data;
             let icon = 'info'
-            switch (id) {
+            switch (codigo) {
                 case 1:
                     // formulario.reset();
                     icon = 'success'
@@ -198,14 +198,14 @@ const modificar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         console.log(data)
-        const { id, mensaje, detalle } = data;
+        const { codigo, mensaje, detalle } = data;
         let icon = 'info'
-        switch (id) {
+        switch (codigo) {
             case 1:
                 formulario.reset();
                 icon = 'success'
-                buscar();
                 cancelarAccion();
+                buscar();
                 break;
             case 0:
                 icon = 'error'
@@ -246,32 +246,30 @@ const colocarDatos = (dataset) => {
     formulario.off_nombre.value = dataset.office
     formulario.off_id.value = dataset.id
 
-
-    btnGuardar.disabled = true
-    btnGuardar.parentElement.style.display = 'none'
-    btnBuscar.disabled = true
-    btnBuscar.parentElement.style.display = 'none'
-    btnModificar.disabled = false
-    btnModificar.parentElement.style.display = ''
-    btnCancelar.disabled = false
-    btnCancelar.parentElement.style.display = ''
+    btnModificar.disabled = false;
+    btnModificar.parentElement.style.display = '';
+    
+    btnCancelar.disabled = false;
+    btnCancelar.parentElement.style.display = '';
+    
+    
+    btnGuardar.disabled = true;
+    btnGuardar.parentElement.style.display = 'none';
 };
 
 const cancelarAccion = () => {
-    btnGuardar.disabled = false
+    btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = ''
-    btnBuscar.disabled = false
-    btnBuscar.parentElement.style.display = ''
-    btnModificar.disabled = true
+    btnModificar.disabled = false
     btnModificar.parentElement.style.display = 'none'
-    btnCancelar.disabled = true
+    btnCancelar.disabled = false
     btnCancelar.parentElement.style.display = 'none'
 
 };
 
 buscar();
 formulario.addEventListener('submit', guardar)
-btnBuscar.addEventListener('click', buscar)
+// btnBuscar.addEventListener('click', buscar)
 datatable.on('click', '.btn-warning', traeDatos)
 datatable.on('click', '.btn-danger', eliminar)
 btnCancelar.addEventListener('click', cancelarAccion)

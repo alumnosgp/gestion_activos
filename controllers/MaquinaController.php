@@ -3,17 +3,26 @@
 namespace Controllers;
 
 use Exception;
+use Model\Maquina;
 use Model\Antiviru;
+use Model\Sistema;
+use Model\Office;
 use MVC\Router;
 
-class AntiviruController{
+class MaquinaController{
     public static function index(Router $router){
-            $router->render('antivirus/index');
+        $antiviru = new Antiviru();
+        $antivirus = $antiviru->antivirusNombre(); 
+        $office = new Office();
+        $offices = $office->officeNombre(); 
+        $sistema = new Sistema();
+        $sistemas = $sistema->sistemaNombre(); 
+        $router->render('maquinas/index', ['antivirus' => $antivirus, 'offices' => $offices, 'sistemas' => $sistemas,]);
     }
     public static function guardarApi(){
         try {
-            $antivirus = new Antiviru($_POST);
-            $resultado = $antivirus->crear();
+            $maquinas = new Maquina($_POST);
+            $resultado = $maquinas->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -37,17 +46,17 @@ class AntiviruController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM antivirus where ant_situacion = 1 ";
-        if (isset($_GET['ant_nombre']) && $_GET['ant_nombre'] != '') {
-            $ant_nombre = $_GET['ant_nombre'];
-            $sql .= " and ant_nombre like '%$ant_nombre%' ";
+        $sql = "SELECT * FROM maquinas where maq_situacion = 1 ";
+        if (isset($_GET['maq_nombre']) && $_GET['maq_nombre'] != '') {
+            $maq_nombre = $_GET['maq_nombre'];
+            $sql .= " and maq_nombre like '%$maq_nombre%' ";
         }
         try {
 
-            $antivirus = Antiviru::fetchArray($sql);
+            $maquinas = Maquina::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $antivirus,
+                'mensaje' => $maquinas,
                 'codigo' => 1
             ]);
 
@@ -63,9 +72,9 @@ class AntiviruController{
     public static function modificarAPI()
     {
         try {
-            $antivirus = new Antiviru($_POST);           
+            $maquinas = new Maquina($_POST);           
            
-            $resultado = $antivirus->actualizar();
+            $resultado = $maquinas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -90,10 +99,10 @@ class AntiviruController{
     public static function eliminarAPI()
     {
         try {
-            $ant_id = $_POST['ant_id'];
-            $antivirus = Antiviru::find($ant_id);
-            $antivirus->ant_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $antivirus->actualizar();
+            $maq_id = $_POST['maq_id'];
+            $maquinas = Maquina::find($maq_id);
+            $maquinas->maq_situacion = '2'; // Cambiar a la situación deseada para eliminar
+            $resultado = $maquinas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

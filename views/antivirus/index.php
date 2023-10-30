@@ -10,16 +10,16 @@
         </div>      
         <div class="row">
             <div class="col">
-                <button type="submit" form="formularioHorario" id="btnGuardar" class="btn btn-primary btn-block">Guardar</button>
+                <button type="submit" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
             </div>
             <div class="col">
-                <button type="button" id="btnModificar" class="btn btn-warning btn-block">Modificar</button>
+                <button type="button" id="btnModificar" class="btn btn-warning btn-block w-100">Modificar</button>
             </div>
-            <div class="col">
+            <!-- <div class="col">
                 <button type="button" id="btnBuscar" class="btn btn-info btn-block">Buscar</button>
-            </div>
+            </div> -->
             <div class="col">
-                <button type="button" id="btnCancelar" class="btn btn-danger btn-block">Cancelar</button>
+                <button type="button" id="btnCancelar" class="btn btn-danger btn-block w-100">Cancelar</button>
             </div>
         </div>
     </form>

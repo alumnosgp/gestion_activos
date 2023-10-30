@@ -37,6 +37,13 @@ class Persona extends ActiveRecord
         $this->per_situacion = $args['per_situacion'] ?? '1';
        
     }
+    public function personaDatos(){
+        $sql = "SELECT per_id, per_catalogo, per_grado, per_nombre || ' ' || per_apellido AS personaNombre, per_puesto
+        FROM persona
+        WHERE per_situacion = 1";
+        return $this->fetchArray($sql);
+    }
+
 }
 
 ?>

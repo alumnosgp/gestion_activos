@@ -9,11 +9,13 @@ const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
+const siste_nombre = document.getElementById('sist_nombre').value;
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
 btnCancelar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
+
 
 let contador = 1;
 const datatable = new Datatable('#tablaSistemas', {
@@ -48,18 +50,18 @@ const datatable = new Datatable('#tablaSistemas', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/sistemas/buscar`;
+    const url = `/gestion_activos/API/sistemas/buscar?sist_nombre=${siste_nombre}`;
     const config = {
         method: 'GET'
     }
     try {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
-        datatable.clear().draw()
-        console.log(data)
-        if (data) {
+        datatable.clear().draw();
+
+        if (data.codigo == 1) {
             contador = 1;
-            datatable.rows.add(data).draw();
+            datatable.rows.add(data.mensaje).draw();
         } else {
             Toast.fire({
                 title: 'No se encontraron registros',
@@ -84,7 +86,7 @@ const guardar = async (evento) => {
 
     const body = new FormData(formulario);
     body.delete('sist_id');
-    const url = '/gestion_activos/API/sistemas/guardar';
+    const url = '/gestion_activos/API/sistemas/guardar'; 
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -96,13 +98,12 @@ const guardar = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        const { id, mensaje, detalle } = data;
+        const { codigo, mensaje, detalle } = data;
         let icon = 'info';
-        switch (id) {
+        switch (codigo) {
             case 1:
                 formulario.reset();
-                icon = 'success', 
-                        'mensaje';
+                icon = 'success';
                 buscar();
                 break;
 
@@ -132,7 +133,7 @@ const eliminar = async (e) => {
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
         body.append('sist_id', id)
-        const url = '/gestion_activos/API/sistemas/eliminar';
+        const url = '/gestion_activos/API/antivirus/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -144,11 +145,9 @@ const eliminar = async (e) => {
             const data = await respuesta.json();
             // console.log(data);
             // return;
-
-
-            const { id, mensaje, detalle } = data;
+            const { codigo, mensaje, detalle } = data;
             let icon = 'info'
-            switch (id) {
+            switch (codigo) {
                 case 1:
                     // formulario.reset();
                     icon = 'success'
@@ -182,13 +181,7 @@ const modificar = async () => {
         alert('Debe llenar todos los campos');
         return
     }
-    
-
     const body = new FormData(formulario)
-    for (var pair of body.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-    }
-
     const url = '/gestion_activos/API/sistemas/modificar';
     const config = {
         method: 'POST',
@@ -198,9 +191,9 @@ const modificar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         console.log(data)
-        const { id, mensaje, detalle } = data;
+        const { codigo, mensaje, detalle } = data;
         let icon = 'info'
-        switch (id) {
+        switch (codigo) {
             case 1:
                 formulario.reset();
                 icon = 'success'
@@ -235,43 +228,38 @@ const traeDatos = (e) => {
         id,
         sistema
     };
-
     colocarDatos(dataset);
+
     const body = new FormData(formulario);
     body.append('sist_id', id);
     body.append('sist_nombre', sistema);
 };
 
 const colocarDatos = (dataset) => {
-    formulario.sist_nombre.value = dataset.sistema
-    formulario.sist_id.value = dataset.id
+    formulario.sist_nombre.value = dataset.sistema;
+    formulario.sist_id.value = dataset.id;
 
+    btnModificar.disabled = false;
+    btnModificar.parentElement.style.display = '';
+    btnCancelar.disabled = false;
+    btnCancelar.parentElement.style.display = '';
 
-    btnGuardar.disabled = true
-    btnGuardar.parentElement.style.display = 'none'
-    btnBuscar.disabled = true
-    btnBuscar.parentElement.style.display = 'none'
-    btnModificar.disabled = false
-    btnModificar.parentElement.style.display = ''
-    btnCancelar.disabled = false
-    btnCancelar.parentElement.style.display = ''
+    btnGuardar.disabled = true;
+    btnGuardar.parentElement.style.display = 'none';
 };
 
 const cancelarAccion = () => {
-    btnGuardar.disabled = false
+    btnGuardar.disabled = true
     btnGuardar.parentElement.style.display = ''
-    btnBuscar.disabled = false
-    btnBuscar.parentElement.style.display = ''
-    btnModificar.disabled = true
+    btnModificar.disabled = false
     btnModificar.parentElement.style.display = 'none'
-    btnCancelar.disabled = true
+    btnCancelar.disabled = false
     btnCancelar.parentElement.style.display = 'none'
 
 };
 
 buscar();
 formulario.addEventListener('submit', guardar)
-btnBuscar.addEventListener('click', buscar)
 datatable.on('click', '.btn-warning', traeDatos)
 datatable.on('click', '.btn-danger', eliminar)
 btnCancelar.addEventListener('click', cancelarAccion)

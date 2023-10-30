@@ -8,11 +8,8 @@ use MVC\Router;
 
 class SistemaController{
     public static function index(Router $router){
-            $router->render('sistemas/index', []);
+            $router->render('sistemas/index');
     }
-
-
-
     public static function guardarApi(){
         try {
             $sitemas = new Sistema($_POST);
@@ -40,17 +37,19 @@ class SistemaController{
 
     public static function buscarAPI()
     {
-        $sist_nombre = $_GET['sist_nombre'];
-
         $sql = "SELECT * FROM sistema_operativo where sist_situacion = 1 ";
-        if ($sist_nombre != '') {
+        if (isset($_GET['sist_nombre']) && $_GET['sist_nombre'] != '') {
+            $sist_nombre = $_GET['sist_nombre'];
             $sql .= " and sist_nombre like '%$sist_nombre%' ";
         }
         try {
 
             $sistemas = Sistema::fetchArray($sql);
 
-            echo json_encode($sistemas);
+            echo json_encode([
+                'mensaje' => $sistemas,
+                'codigo' => 1
+            ]);
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -69,7 +68,7 @@ class SistemaController{
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
-                    'mensaje' => 'Pago modificado correctamente',
+                    'mensaje' => 'Dato modificado correctamente',
                     'codigo' => 1
                 ]);
             } else {
@@ -87,33 +86,34 @@ class SistemaController{
         }
     }
 
-    public static function eliminarAPI()
-    {
-        try {
-            $sist_id = $_POST['sist_id'];
-            $sitemas = Sistema::find($sist_id);
-            $sitemas->sist_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $sitemas->actualizar();
 
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Sistema eliminada correctamente',
-                    'codigo' => 1
-                ]);
-            } else {
-                echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
-                    'codigo' => 0
-                ]);
-            }
-        } catch (Exception $e) {
+public static function eliminarAPI()
+{
+    try {
+        $sist_id = $_POST['sist_id'];
+        $sistemas = Sistema::find($sist_id);
+        $sistemas->sist_situacion = '2'; // Cambiar a la situación deseada para eliminar
+        $resultado = $sistemas->actualizar();
+
+        if ($resultado['resultado'] == 1) {
             echo json_encode([
-                'detalle' => $e->getMessage(),
+                'mensaje' => 'Dato eliminado correctamente',
+                'codigo' => 1
+            ]);
+        } else {
+            echo json_encode([
                 'mensaje' => 'Ocurrió un error',
                 'codigo' => 0
             ]);
         }
+    } catch (Exception $e) {
+        echo json_encode([
+            'detalle' => $e->getMessage(),
+            'mensaje' => 'Ocurrió un error',
+            'codigo' => 0
+        ]);
     }
+}
 }
 
 ?>

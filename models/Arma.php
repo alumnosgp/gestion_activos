@@ -4,18 +4,25 @@ namespace Model;
 class Arma extends ActiveRecord
 {
     protected static $tabla = 'armas';
-    protected static $columnasDB = ['arma_desc', 'arma_situacion'];
-    protected static $idTabla = 'arma_id';
+    protected static $columnasDB = ['arm_desc', 'arm_situacion'];
+    protected static $idTabla = 'arm_id';
 
-    public $arma_id ;
-    public $arma_desc;
-    public $arma_situacion;
+    public $arm_id;
+    public $arm_desc;
+    public $arm_situacion;
 
     public function __construct($args = []){
-        $this->arma_id  = $args['arma_id'] ?? null;
-        $this->arma_desc = $args['arma_desc'] ?? '';
-        $this->arma_situacion = $args['arma_situacion'] ?? '1';
+        $this->arm_id  = $args['arm_id'] ?? null;
+        $this->arm_desc = $args['arm_desc'] ?? '';
+        $this->arm_situacion = $args['arm_situacion'] ?? '1';
        
+    }
+    public function armaNombre(){
+        $sql = "SELECT arm_id, arm_desc 
+        FROM armas
+        WHERE arm_situacion = 1 
+        ORDER BY arm_desc";
+        return $this->fetchArray($sql);
     }
 }
 ?>
