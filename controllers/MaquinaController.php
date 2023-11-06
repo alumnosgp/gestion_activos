@@ -4,25 +4,34 @@ namespace Controllers;
 
 use Exception;
 use Model\Maquina;
+use Model\Oficina;
+use Model\Persona;
 use Model\Antiviru;
-use Model\Sistema;
 use Model\Office;
+use Model\Sistema;
 use MVC\Router;
 
 class MaquinaController{
     public static function index(Router $router){
+        $oficina = new Oficina();
+        $oficinas = $oficina->oficinaNombre(); 
+        $persona = new Persona();
+        $personas = $persona->personaDatos(); 
+        $sistema = new Sistema();
+        $sistemas = $sistema->sistemaNombre(); 
         $antiviru = new Antiviru();
         $antivirus = $antiviru->antivirusNombre(); 
         $office = new Office();
-        $offices = $office->officeNombre(); 
-        $sistema = new Sistema();
-        $sistemas = $sistema->sistemaNombre(); 
-        $router->render('maquinas/index', ['antivirus' => $antivirus, 'offices' => $offices, 'sistemas' => $sistemas,]);
+        $offices = $office->OfficeNombre(); 
+        $router->render('maquinas/index', ['oficinas' => $oficinas, 'personas' => $personas, 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
     }
+
+
+
     public static function guardarApi(){
         try {
-            $maquinas = new Maquina($_POST);
-            $resultado = $maquinas->crear();
+            $sitemas = new Maquina($_POST);
+            $resultado = $sitemas->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -46,20 +55,17 @@ class MaquinaController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM maquinas where maq_situacion = 1 ";
-        if (isset($_GET['maq_nombre']) && $_GET['maq_nombre'] != '') {
-            $maq_nombre = $_GET['maq_nombre'];
-            $sql .= " and maq_nombre like '%$maq_nombre%' ";
+        $sist_nombre = $_GET['sist_nombre'];
+
+        $sql = "SELECT * FROM sistema_operativo where sist_situacion = 1 ";
+        if ($sist_nombre != '') {
+            $sql .= " and sist_nombre like '%$sist_nombre%' ";
         }
         try {
 
-            $maquinas = Maquina::fetchArray($sql);
+            $sistemas = Maquina::fetchArray($sql);
 
-            echo json_encode([
-                'mensaje' => $maquinas,
-                'codigo' => 1
-            ]);
-
+            echo json_encode($sistemas);
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -72,13 +78,13 @@ class MaquinaController{
     public static function modificarAPI()
     {
         try {
-            $maquinas = new Maquina($_POST);           
+            $sitemas = new Maquina($_POST);           
            
-            $resultado = $maquinas->actualizar();
+            $resultado = $sitemas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
-                    'mensaje' => 'Dato modificado correctamente',
+                    'mensaje' => 'Pago modificado correctamente',
                     'codigo' => 1
                 ]);
             } else {
@@ -99,14 +105,14 @@ class MaquinaController{
     public static function eliminarAPI()
     {
         try {
-            $maq_id = $_POST['maq_id'];
-            $maquinas = Maquina::find($maq_id);
-            $maquinas->maq_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $maquinas->actualizar();
+            $sist_id = $_POST['sist_id'];
+            $sitemas = Maquina::find($sist_id);
+            $sitemas->sist_situacion = '2'; // Cambiar a la situación deseada para eliminar
+            $resultado = $sitemas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
-                    'mensaje' => 'Dato eliminado correctamente',
+                    'mensaje' => 'Maquina eliminada correctamente',
                     'codigo' => 1
                 ]);
             } else {
@@ -121,6 +127,29 @@ class MaquinaController{
                 'mensaje' => 'Ocurrió un error',
                 'codigo' => 0
             ]);
+        }
+    }
+
+    public static function buscarNombresAPI()
+    {
+        $nombre = $_GET['per_id'] ?? '';
+
+        $sql = "SELECT  per_catalogo, per_grado, per_puesto
+        FROM personas 
+        where per_id = $nombre";
+
+        try {
+            $nombre = Persona::fetchArray($sql);
+
+            // Establece el tipo de contenido de la respuesta a JSON
+            header('Content-Type: application/json');
+
+            // Convierte el array a JSON 
+            echo json_encode($nombre);
+            return;
+        } catch (Exception $e) {
+            // En caso de error, envía una respuesta vacía
+            echo json_encode([]);
         }
     }
 }

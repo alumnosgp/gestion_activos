@@ -1,24 +1,24 @@
-<h1 class="text-center mt-5">REGISTRO DE OFICINAS</h1>
+<h1 class="text-center mt-5">GESTION DE PLAZAS</h1>
 <div class="row justify-content-center my-4">
-    <form class="col-lg-8 border bg-light p-3" id="formularioOficinas">
-        <input type="number" name="ofic_id" id="ofic_id" class="form-control" hidden>
+    <form class="col-lg-8 border bg-light p-3" id="formularioPlazas">
+        <input type="hidden" name="pla_id" id="pla_id" class="form-control">
         <div class="row mb-3">
             <div class="col">
-                <label for="ofic_nombre">NOMBRE DE LA OFICINA</label>
-                <input type="text" name="ofic_nombre" id="ofic_nombre" class="form-control">
+                <label for="pla_nombre">INGRESE PUESTO</label>
+                <input type="text" name="pla_nombre" id="pla_nombre" class="form-control">
             </div>
-        </div>      
+        </div>
         <div class="row mb-3">
             <div class="col">
-                <label for="ofic_organizacion">ORGANIZACION</label>
-                <select name="ofic_organizacion" id="ofic_organizacion" class="form-control">
+                <label for="pla_oficina">OFICINA</label>
+                <select name="pla_oficina" id="pla_oficina" class="form-control">
                     <option value="">Selecione organizacion...</option>
-                    <?php foreach ($organizaciones as $organizacion): ?>
-                    <option value="<?= $organizacion['org_id'] ?>"><?=$organizacion['org_nombre'] ?></option>
+                    <?php foreach ($oficinas as $oficina): ?>
+                    <option value="<?= $oficina['ofic_id'] ?>"><?=$oficina['ofic_nombre'] ?></option>
                     <?php endforeach?>
                 </select>
             </div>
-        </div>      
+        </div>        
         <div class="row">
             <div class="col">
                 <button type="submit" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
@@ -34,9 +34,9 @@
 </div>
 <div class="row justify-content-center">
     <div class="col table-responsive">
-        <table id="tablaOficinas" class="table table-bordered table-hover">
+        <table id="tablaPlazas" class="table table-bordered table-hover">
         </table>
     </div>
 </div>
 
-<script src="<?= asset('./build/js/oficinas/index.js') ?>"></script>
+<script src="<?= asset('./build/js/plazas/index.js') ?>"></script>

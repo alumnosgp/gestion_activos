@@ -4,12 +4,11 @@ import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-const formulario = document.getElementById('formularioGrados')
+const formulario = document.getElementById('formularioMaquinas')
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
-const grado_descrip = document.getElementById('grado_descr').value;
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
@@ -17,7 +16,7 @@ btnCancelar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 
 let contador = 1;
-const datatable = new Datatable('#tablaGrados', {
+const datatable = new Datatable('#tablaMaquinas', {
     language: lenguaje,
     data: null,
     columns: [
@@ -27,19 +26,19 @@ const datatable = new Datatable('#tablaGrados', {
 
         },
         {
-            title: 'GRADOS',
-            data: 'grado_descr'
+            title: 'ANTIVIRUS',
+            data: 'ant_nombre'
         },
         {
             title: 'MODIFICAR',
-            data: 'grado_id',
+            data: 'ant_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-grado='${row.grado_descr}'>Modificar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-antiviru='${row.ant_nombre}'>Modificar</button>`
         },
         {
             title: 'ELIMINAR',
-            data: 'grado_id',
+            data: 'ant_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
@@ -49,7 +48,7 @@ const datatable = new Datatable('#tablaGrados', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/grados/buscar?grado_descr=${grado_descrip}`;
+    const url = `/gestion_activos/API/maquinas/buscar`;
     const config = {
         method: 'GET'
     }
@@ -57,10 +56,10 @@ const buscar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         datatable.clear().draw()
-        // console.log(data)
-        if (data.codigo == 1) {
+        console.log(data)
+        if (data) {
             contador = 1;
-            datatable.rows.add(data.mensaje).draw();
+            datatable.rows.add(data).draw();
         } else {
             Toast.fire({
                 title: 'No se encontraron registros',
@@ -75,7 +74,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['grado_id'])) {
+    if (!validarFormulario(formulario, ['ant_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -84,8 +83,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('grado_id');
-    const url = '/gestion_activos/API/grados/guardar';
+    body.delete('ant_id');
+    const url = '/gestion_activos/API/maquinas/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -97,12 +96,13 @@ const guardar = async (evento) => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        const { codigo, mensaje, detalle } = data;
+        const { id, mensaje, detalle } = data;
         let icon = 'info';
-        switch (codigo) {
+        switch (id) {
             case 1:
                 formulario.reset();
-                icon = 'success';
+                icon = 'success', 
+                        'mensaje';
                 buscar();
                 break;
 
@@ -131,8 +131,8 @@ const eliminar = async (e) => {
     // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('grado_id', id)
-        const url = '/gestion_activos/API/grados/eliminar';
+        body.append('ant_id', id)
+        const url = '/gestion_activos/API/maquinas/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -144,9 +144,11 @@ const eliminar = async (e) => {
             const data = await respuesta.json();
             // console.log(data);
             // return;
-            const { codigo, mensaje, detalle } = data;
+
+
+            const { id, mensaje, detalle } = data;
             let icon = 'info'
-            switch (codigo) {
+            switch (id) {
                 case 1:
                     // formulario.reset();
                     icon = 'success'
@@ -176,13 +178,18 @@ const eliminar = async (e) => {
 }
 
 const modificar = async () => {
-    if (!validarFormulario(formulario,['grado_id'])) {
+    if (!validarFormulario(formulario,['ant_id'])) {
         alert('Debe llenar todos los campos');
         return
     }
     
+
     const body = new FormData(formulario)
-    const url = '/gestion_activos/API/grados/modificar';
+    for (var pair of body.entries()) {
+        console.log(pair[0]+ ', ' + pair[1]); 
+    }
+
+    const url = '/gestion_activos/API/maquinas/modificar';
     const config = {
         method: 'POST',
         body
@@ -191,14 +198,14 @@ const modificar = async () => {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
         console.log(data)
-        const { codigo, mensaje, detalle } = data;
+        const { id, mensaje, detalle } = data;
         let icon = 'info'
-        switch (codigo) {
+        switch (id) {
             case 1:
                 formulario.reset();
                 icon = 'success'
-                cancelarAccion();
                 buscar();
+                cancelarAccion();
                 break;
             case 0:
                 icon = 'error'
@@ -222,31 +229,32 @@ const modificar = async () => {
 const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
-    const grado = button.dataset.grado;
+    const antiviru = button.dataset.antiviru;
 
     const dataset = {
         id,
-        grado
+        antiviru
     };
 
     colocarDatos(dataset);
     const body = new FormData(formulario);
-    body.append('grado_id', id);
-    body.append('grado_descr', grado);
+    body.append('ant_id', id);
+    body.append('ant_nombre', antiviru);
 };
 
 const colocarDatos = (dataset) => {
-    formulario.grado_descr.value = dataset.grado
-    formulario.grado_id.value = dataset.id
+    formulario.ant_nombre.value = dataset.antiviru
+    formulario.ant_id.value = dataset.id
 
-    btnModificar.disabled = false;
-    btnModificar.parentElement.style.display = '';
 
-    btnCancelar.disabled = false;
-    btnCancelar.parentElement.style.display = '';
-
-    btnGuardar.disabled = true;
-    btnGuardar.parentElement.style.display = 'none';
+    btnGuardar.disabled = true
+    btnGuardar.parentElement.style.display = 'none'
+    btnBuscar.disabled = true
+    btnBuscar.parentElement.style.display = 'none'
+    btnModificar.disabled = false
+    btnModificar.parentElement.style.display = ''
+    btnCancelar.disabled = false
+    btnCancelar.parentElement.style.display = ''
 };
 
 const cancelarAccion = () => {
@@ -261,6 +269,7 @@ const cancelarAccion = () => {
 
 buscar();
 formulario.addEventListener('submit', guardar)
+btnBuscar.addEventListener('click', buscar)
 datatable.on('click', '.btn-warning', traeDatos)
 datatable.on('click', '.btn-danger', eliminar)
 btnCancelar.addEventListener('click', cancelarAccion)

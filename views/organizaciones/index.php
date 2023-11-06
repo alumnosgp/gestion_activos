@@ -1,13 +1,12 @@
-<h1 class="text-center mt-5">GESTION DE PUESTOS</h1>
+<h1 class="text-center mt-5">REGISTRO DE ORGANIZACIONES</h1>
 <div class="row justify-content-center my-4">
-    <form class="col-lg-8 border bg-light p-3" id="formularioPuestos">
-        <input type="hidden" name="puesto_id" id="puesto_id" class="form-control">
+    <form class="col-lg-8 border bg-light p-3" id="formularioOrganizaciones">
+        <input type="number" name="org_id" id="org_id" class="form-control" hidden>
         <div class="row mb-3">
             <div class="col">
-                <label for="pue_nombre">INGRESE PUESTO</label>
-                <input type="text" name="pue_nombre" id="pue_nombre" class="form-control">
-            </div>
-        </div>      
+                <label for="org_nombre">NOMBRE DE ORGANIZACION</label>
+                <input type="text" name="org_nombre" id="org_nombre" class="form-control">
+            </div>    
         <div class="row">
             <div class="col">
                 <button type="submit" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
@@ -23,9 +22,9 @@
 </div>
 <div class="row justify-content-center">
     <div class="col table-responsive">
-        <table id="tablaPuestos" class="table table-bordered table-hover">
+        <table id="tablaOrganizaciones" class="table table-bordered table-hover">
         </table>
     </div>
 </div>
 
-<script src="<?= asset('./build/js/puestos/index.js') ?>"></script>
+<script src="<?= asset('./build/js/organizaciones/index.js') ?>"></script>

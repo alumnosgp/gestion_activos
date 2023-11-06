@@ -3,34 +3,29 @@
 namespace Controllers;
 
 use Exception;
-use Model\Antiviru;
-use Model\Arma;
+use Model\Personalta;
 use Model\Grado;
-use Model\Maquina;
-use Model\Office;
-use Model\Oficina;
-use Model\Persona;
+use Model\Arma;
 use Model\Puesto;
-use Model\Sistema;
+use Model\Oficina;
 use MVC\Router;
 
-class InventarioController{
+class PersonaController{
     public static function index(Router $router){
         $oficina = new Oficina();
         $oficinas = $oficina->oficinaNombre(); 
-        $persona = new Persona();
-        $personas = $persona->personaDatos(); 
-        $maquina = new Maquina();
-        $maquinas = $maquina->maquinaSistema(); 
-        $router->render('inventarios/index', ['oficinas' => $oficinas,'maquinas' => $maquinas, 'personas' => $personas,]);
+        $grado = new Grado();
+        $grados = $grado->gradoNombre(); 
+        $arma = new Arma();
+        $armas= $arma->armaNombre(); 
+        $puesto = new Puesto();
+        $puestos = $puesto->puestoNombre(); 
+        $router->render('personas/index', ['grados' => $grados, 'armas' => $armas, 'puestos' => $puestos, 'oficinas' => $oficinas,]);
     }
-
-
-
     public static function guardarApi(){
         try {
-            $sitemas = new Inventario($_POST);
-            $resultado = $sitemas->crear();
+            $persona = new Personalta($_POST);
+            $resultado = $persona->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -53,18 +48,27 @@ class InventarioController{
     }
 
     public static function buscarAPI()
-    {
-        $sist_nombre = $_GET['sist_nombre'];
-
-        $sql = "SELECT * FROM sistema_operativo where sist_situacion = 1 ";
-        if ($sist_nombre != '') {
-            $sql .= " and sist_nombre like '%$sist_nombre%' ";
+    {   
+        $sql = "SELECT * FROM personas 
+        inner join armas on arm_id = per_arma
+        inner join grados on grado_id = per_grado
+        inner join oficinas on ofic_id = per_oficina
+        inner join puestos on puesto_id = per_puesto
+        WHERE per_situacion = 1";
+        
+        if (isset($_GET['per_nombre']) && $_GET['per_nombre'] != '') {
+            $per_nombre = $_GET['per_nombre'];
+            $sql .= " and per_nombre like '%$per_nombre%' ";
         }
         try {
 
-            $sistemas = Inventario::fetchArray($sql);
+            $persona = Personalta::fetchArray($sql);
 
-            echo json_encode($sistemas);
+            echo json_encode([
+                'mensaje' => $persona,
+                'codigo' => 1
+            ]);
+
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
@@ -77,13 +81,13 @@ class InventarioController{
     public static function modificarAPI()
     {
         try {
-            $sitemas = new Inventario($_POST);           
+            $persona = new Personalta($_POST);           
            
-            $resultado = $sitemas->actualizar();
+            $resultado = $persona->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
-                    'mensaje' => 'Pago modificado correctamente',
+                    'mensaje' => 'Dato modificado correctamente',
                     'codigo' => 1
                 ]);
             } else {
@@ -104,14 +108,14 @@ class InventarioController{
     public static function eliminarAPI()
     {
         try {
-            $sist_id = $_POST['sist_id'];
-            $sitemas = Inventario::find($sist_id);
-            $sitemas->sist_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $sitemas->actualizar();
+            $per_id = $_POST['per_id'];
+            $persona = Personalta::find($per_id);
+            $persona->per_situacion = '2';
+            $resultado = $persona->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
-                    'mensaje' => 'Inventario eliminada correctamente',
+                    'mensaje' => 'Dato eliminado correctamente',
                     'codigo' => 1
                 ]);
             } else {

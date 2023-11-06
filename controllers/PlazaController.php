@@ -3,17 +3,21 @@
 namespace Controllers;
 
 use Exception;
-use Model\Puesto;
+use Model\Plaza;
+use Model\Oficina;
 use MVC\Router;
 
-class PuestoController{
+class PlazaController{
     public static function index(Router $router){
-            $router->render('puestos/index');
+            $oficina = new Oficina($_POST);
+            $oficinas = $oficina->oficinaNombre();
+            $router->render('plazas/index', ['oficinas' => $oficinas,]);
     }
+
     public static function guardarApi(){
         try {
-            $puestos = new Puesto($_POST);
-            $resultado = $puestos->crear();
+            $plazas = new Plaza($_POST);
+            $resultado = $plazas->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -37,17 +41,19 @@ class PuestoController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM puestos where pue_situacion = 1 ";
-        if (isset($_GET['pue_nombre']) && $_GET['pue_nombre'] != '') {
-            $pue_nombre = $_GET['pue_nombre'];
-            $sql .= " and pue_nombre like '%$pue_nombre%' ";
+        $sql = "SELECT * FROM plazas
+        inner join oficinas on ofic_id = pla_oficina
+        where pla_situacion = 1 ";
+        if (isset($_GET['pla_nombre']) && $_GET['pla_nombre'] != '') {
+            $pla_nombre = $_GET['pla_nombre'];
+            $sql .= " and pla_nombre like '%$pla_nombre%' ";
         }
         try {
 
-            $puestos = Puesto::fetchArray($sql);
+            $plazas = Plaza::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $puestos,
+                'mensaje' => $plazas,
                 'codigo' => 1
             ]);
 
@@ -63,9 +69,9 @@ class PuestoController{
     public static function modificarAPI()
     {
         try {
-            $puestos = new Puesto($_POST);           
+            $plazas = new Plaza($_POST);           
            
-            $resultado = $puestos->actualizar();
+            $resultado = $plazas->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -91,10 +97,10 @@ class PuestoController{
 public static function eliminarAPI()
 {
     try {
-        $puesto_id = $_POST['puesto_id'];
-        $puestos = Puesto::find($puesto_id);
-        $puestos->pue_situacion = '0'; // Cambiar a la situación deseada al eliminar (en este caso, '0')
-        $resultado = $puestos->actualizar();
+        $pla_id = $_POST['pla_id'];
+        $plazas = Plaza::find($pla_id);
+        $plazas->pla_situacion = '0'; // Cambiar a la situación deseada al eliminar (en este caso, '0')
+        $resultado = $plazas->actualizar();
 
         if ($resultado['resultado'] == 1) {
             echo json_encode([

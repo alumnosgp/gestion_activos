@@ -4,12 +4,12 @@ import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-const formulario = document.getElementById('formularioPuestos')
+const formulario = document.getElementById('formularioPlazas')
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
-const puesto_descrip = document.getElementById('pue_nombre').value;
+const plaza_descrip = document.getElementById('pla_nombre').value;
 
 btnModificar.disabled = true
 btnModificar.parentElement.style.display = 'none'
@@ -17,7 +17,7 @@ btnCancelar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 
 let contador = 1;
-const datatable = new Datatable('#tablaPuestos', {
+const datatable = new Datatable('#tablaPlazas', {
     language: lenguaje,
     data: null,
     columns: [
@@ -27,19 +27,23 @@ const datatable = new Datatable('#tablaPuestos', {
 
         },
         {
-            title: 'PUESTOS',
-            data: 'pue_nombre'
+            title: 'PUESTO',
+            data: 'pla_nombre'
+        },
+        {
+            title: 'OFICINA',
+            data: 'ofic_nombre'
         },
         {
             title: 'MODIFICAR',
-            data: 'puesto_id',
+            data: 'pla_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-puesto='${row.pue_nombre}'>Modificar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.pla_nombre}' data-oficina='${row.pla_oficina}'>Modificar</button>`
         },
         {
             title: 'ELIMINAR',
-            data: 'puesto_id',
+            data: 'pla_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
@@ -49,7 +53,7 @@ const datatable = new Datatable('#tablaPuestos', {
 })
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/puestos/buscar?pue_nombre=${puesto_descrip}`;
+    const url = `/gestion_activos/API/plazas/buscar?pla_nombre=${plaza_descrip}`;
     const config = {
         method: 'GET'
     }
@@ -75,7 +79,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['puesto_id'])) {
+    if (!validarFormulario(formulario, ['pla_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -84,8 +88,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('puesto_id');
-    const url = '/gestion_activos/API/puestos/guardar';
+    body.delete('pla_id');
+    const url = '/gestion_activos/API/plazas/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -131,8 +135,8 @@ const eliminar = async (e) => {
     // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
-        body.append('puesto_id', id)
-        const url = '/gestion_activos/API/puestos/eliminar';
+        body.append('pla_id', id)
+        const url = '/gestion_activos/API/plazas/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -176,13 +180,13 @@ const eliminar = async (e) => {
 }
 
 const modificar = async () => {
-    if (!validarFormulario(formulario,['puesto_id'])) {
+    if (!validarFormulario(formulario,['pla_id'])) {
         alert('Debe llenar todos los campos');
         return
     }
     
     const body = new FormData(formulario)
-    const url = '/gestion_activos/API/puestos/modificar';
+    const url = '/gestion_activos/API/plazas/modificar';
     const config = {
         method: 'POST',
         body
@@ -222,22 +226,26 @@ const modificar = async () => {
 const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
-    const puesto = button.dataset.puesto;
+    const nombre = button.dataset.nombre;
+    const oficina = button.dataset.oficina;
 
     const dataset = {
         id,
-        puesto
+        nombre,
+        oficina
     };
 
     colocarDatos(dataset);
     const body = new FormData(formulario);
-    body.append('puesto_id', id);
-    body.append('pue_nombre', puesto);
+    body.append('pla_id', id);
+    body.append('pla_nombre', nombre);
+    body.append('pla_oficina', oficina);
 };
 
 const colocarDatos = (dataset) => {
-    formulario.pue_nombre.value = dataset.puesto
-    formulario.puesto_id.value = dataset.id
+    formulario.pla_nombre.value = dataset.nombre
+    formulario.pla_oficina.value = dataset.oficina
+    formulario.pla_id.value = dataset.id
 
     btnModificar.disabled = false;
     btnModificar.parentElement.style.display = '';
@@ -250,11 +258,11 @@ const colocarDatos = (dataset) => {
 };
 
 const cancelarAccion = () => {
-    btnGuardar.disabled = true
+    btnGuardar.disabled = false
     btnGuardar.parentElement.style.display = ''
-    btnModificar.disabled = false
+    btnModificar.disabled = true
     btnModificar.parentElement.style.display = 'none'
-    btnCancelar.disabled = false
+    btnCancelar.disabled = true
     btnCancelar.parentElement.style.display = 'none'
 
 };

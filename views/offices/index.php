@@ -4,7 +4,7 @@
         <input type="number" name="off_id" id="off_id" class="form-control" hidden>
         <div class="row mb-3">
             <div class="col">
-                <label for="off_nombre">Offices</label>
+                <label for="off_nombre">INGRESE OFFICES</label>
                 <input type="text" name="off_nombre" id="off_nombre" class="form-control">
             </div>
         </div>      
@@ -15,9 +15,6 @@
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning btn-block w-100">Modificar</button>
             </div>
-            <!-- <div class="col">
-                <button type="button" id="btnBuscar" class="btn btn-info btn-block">Buscar</button>
-            </div> -->
             <div class="col">
                 <button type="button" id="btnCancelar" class="btn btn-danger btn-block w-100">Cancelar</button>
             </div>

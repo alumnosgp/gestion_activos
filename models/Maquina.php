@@ -4,10 +4,11 @@ namespace Model;
 class Maquina extends ActiveRecord
 {
     protected static $tabla = 'maquina';
-    protected static $columnasDB = ['maq_tipo', 'maq_nombre', 'maq_mac', 'maq_ram_capacidad','maq_tipo_disco_duro','maq_disco_capacidad','maq_procesador_capacidad','maq_oficina','maq_lic_so','maq_office', 'maq_lic_office', 'maq_antivirus','maq_lic_antv','maq_uso','maq_situacion'];
+    protected static $columnasDB = ['maq_tipo', 'maq_persona_id', 'maq_nombre', 'maq_mac', 'maq_ram_capacidad','maq_tipo_disco_duro','maq_disco_capacidad','maq_procesador_capacidad','maq_oficina','maq_lic_so','maq_office', 'maq_lic_office', 'maq_antivirus','maq_lic_antv','maq_uso','maq_situacion'];
     protected static $idTabla = 'maq_id';
 
-    public $maq_id ;
+    public $maq_id;
+    public $maq_persona_id;
     public $maq_tipo;
     public $maq_nombre;
     public $maq_mac;
@@ -27,6 +28,7 @@ class Maquina extends ActiveRecord
 
     public function __construct($args = []){
         $this->maq_id  = $args['maq_id'] ?? null;
+        $this->maq_persona_id = $args['maq_persona_id'] ?? '';
         $this->maq_tipo = $args['maq_tipo'] ?? '';
         $this->maq_nombre = $args['maq_nombre'] ?? '';
         $this->maq_mac = $args['maq_mac'] ?? '';
@@ -45,12 +47,12 @@ class Maquina extends ActiveRecord
         $this->maq_situacion = $args['maq_situacion'] ?? '1';
        
     }
-    public function maquinaSistema(){
-        $sql = "SELECT maq_id, maq_sistema_op
-        FROM maquina
-        WHERE maq_situacion = 1";
-        return $this->fetchArray($sql);
-    }
+    // public function maquinaSistema(){
+    //     $sql = "SELECT maq_id, maq_sistema_op
+    //     FROM maquina
+    //     WHERE maq_situacion = 1";
+    //     return $this->fetchArray($sql);
+    // }
 }
 
 ?>

@@ -4,11 +4,14 @@ namespace Controllers;
 
 use Exception;
 use Model\Oficina;
+use Model\Organizacion;
 use MVC\Router;
 
 class OficinaController{
     public static function index(Router $router){ 
-        $router->render('oficinas/index');
+        $organizacion = new Organizacion();
+        $organizaciones = $organizacion->organizacionNombre(); 
+        $router->render('oficinas/index', ['organizaciones' => $organizaciones,]);
     }
     public static function guardarApi(){
         try {
@@ -37,7 +40,9 @@ class OficinaController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM oficinas where ofic_situacion = 1 ";
+        $sql = "SELECT * FROM oficinas 
+        inner join organizaciones on org_id = ofic_organizacion
+        where ofic_situacion = 1 ";
         if (isset($_GET['ofic_nombre']) && $_GET['ofic_nombre'] != '') {
             $ofic_nombre = $_GET['ofic_nombre'];
             $sql .= " and ofic_nombre like '%$ofic_nombre%' ";

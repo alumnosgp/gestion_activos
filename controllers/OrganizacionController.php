@@ -3,26 +3,17 @@
 namespace Controllers;
 
 use Exception;
-use Model\Persona;
-use Model\Grado;
-use Model\Arma;
-use Model\Puesto;
+use Model\Organizacion;
 use MVC\Router;
 
-class PersonaController{
-    public static function index(Router $router){
-        $grado = new Grado();
-        $grados = $grado->gradoNombre(); 
-        $arma = new Arma();
-        $armas= $arma->armaNombre(); 
-        $puesto = new Puesto();
-        $puestos = $puesto->puestoNombre(); 
-        $router->render('personas/index', ['grados' => $grados, 'armas' => $armas, 'puestos' => $puestos,]);
+class OrganizacionController{
+    public static function index(Router $router){ 
+        $router->render('organizaciones/index');
     }
     public static function guardarApi(){
         try {
-            $personas = new Persona($_POST);
-            $resultado = $personas->crear();
+            $organizaciones = new Organizacion($_POST);
+            $resultado = $organizaciones->crear();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -46,17 +37,17 @@ class PersonaController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM personas where ant_situacion = 1 ";
-        if (isset($_GET['ant_nombre']) && $_GET['ant_nombre'] != '') {
-            $ant_nombre = $_GET['ant_nombre'];
-            $sql .= " and ant_nombre like '%$ant_nombre%' ";
+        $sql = "SELECT * FROM organizaciones where org_situacion = 1 ";
+        if (isset($_GET['org_nombre']) && $_GET['org_nombre'] != '') {
+            $org_nombre = $_GET['org_nombre'];
+            $sql .= " and org_nombre like '%$org_nombre%' ";
         }
         try {
 
-            $personas = Persona::fetchArray($sql);
+            $organizaciones = Organizacion::fetchArray($sql);
 
             echo json_encode([
-                'mensaje' => $personas,
+                'mensaje' => $organizaciones,
                 'codigo' => 1
             ]);
 
@@ -72,9 +63,9 @@ class PersonaController{
     public static function modificarAPI()
     {
         try {
-            $personas = new Persona($_POST);           
+            $organizaciones = new Organizacion($_POST);           
            
-            $resultado = $personas->actualizar();
+            $resultado = $organizaciones->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
@@ -99,10 +90,10 @@ class PersonaController{
     public static function eliminarAPI()
     {
         try {
-            $ant_id = $_POST['ant_id'];
-            $personas = Persona::find($ant_id);
-            $personas->ant_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $personas->actualizar();
+            $org_id = $_POST['org_id'];
+            $organizaciones = Organizacion::find($org_id);
+            $organizaciones->org_situacion = '2'; // Cambiar a la situación deseada para eliminar
+            $resultado = $organizaciones->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

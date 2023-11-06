@@ -250,11 +250,11 @@ const colocarDatos = (dataset) => {
 };
 
 const cancelarAccion = () => {
-    btnGuardar.disabled = true
+    btnGuardar.disabled = false
     btnGuardar.parentElement.style.display = ''
-    btnModificar.disabled = false
+    btnModificar.disabled = true
     btnModificar.parentElement.style.display = 'none'
-    btnCancelar.disabled = false
+    btnCancelar.disabled = true
     btnCancelar.parentElement.style.display = 'none'
 
 };

@@ -31,19 +31,15 @@ const datatable = new Datatable('#tablaOficinas', {
             data: 'ofic_nombre'
         },
         {
-            title: 'NUMERO DE TELEFONO',
-            data: 'ofic_telefono'
-        },
-        {
-            title: 'DIRECCION DE LA OFICINA',
-            data: 'ofic_direccion'
+            title: 'ORGANIZACIONES',
+            data: 'org_nombre'
         },
         {
             title: 'MODIFICAR',
             data: 'ofic_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-oficina='${row.ofic_nombre}' data-telefono='${row.ofic_telefono}' data-direccion='${row.ofic_direccion}'>Modificar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-oficina='${row.ofic_nombre}' data-organizacion='${row.ofic_organizacion}'>Modificar</button>`
         },
         {
             title: 'ELIMINAR',
@@ -238,28 +234,24 @@ const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
     const oficina = button.dataset.oficina;
-    const telefono = button.dataset.telefono;
-    const direccion = button.dataset.direccion;
+    const organizacion = button.dataset.organizacion
 
     const dataset = {
         id,
         oficina,
-        telefono,
-        direccion
+        organizacion
     };
 
     colocarDatos(dataset);
     const body = new FormData(formulario);
     body.append('ofic_id', id);
     body.append('ofic_nombre', oficina);
-    body.append('ofic_telefono', telefono);
-    body.append('ofic_direccion', direccion);
+    body.append('ofic_organizacion', organizacion);
 };
 
 const colocarDatos = (dataset) => {
     formulario.ofic_nombre.value = dataset.oficina
-    formulario.ofic_telefono.value = dataset.telefono
-    formulario.ofic_direccion.value = dataset.direccion
+    formulario.ofic_organizacion.value = dataset.organizacion
     formulario.ofic_id.value = dataset.id
 
     btnModificar.disabled = false;
@@ -274,11 +266,11 @@ const colocarDatos = (dataset) => {
 };
 
 const cancelarAccion = () => {
-    btnGuardar.disabled = true
+    btnGuardar.disabled = false
     btnGuardar.parentElement.style.display = ''
-    btnModificar.disabled = false
+    btnModificar.disabled = true
     btnModificar.parentElement.style.display = 'none'
-    btnCancelar.disabled = false
+    btnCancelar.disabled = true
     btnCancelar.parentElement.style.display = 'none'
 
 };
