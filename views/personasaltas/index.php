@@ -48,36 +48,20 @@
         </div>   
         <div class="row mb-3">
             <div class="col">
-                <label for="per_condicion">CONDICION</label>
-                <select name="per_condicion" id="per_condicion" class="form-control">
-                    <option value="de alta">De Alta</option>
-                    <option value="contratado">Contratacion</option>
-                </select>
-            </div>
-            <div class="col">
-                <label for="per_oficina">OFICINA</label>
-                <select name="per_oficina" id="per_oficina" class="form-control">
+                <label for="per_plaza">PUESTOS/CARGO</label>
+                <select name="per_plaza" id="per_plaza" class="form-control">
                     <option value="">Selecione puesto...</option>
-                    <?php foreach ($oficinas as $oficina): ?>
-                    <option value="<?= $oficina['ofic_id'] ?>"><?=$oficina['ofic_nombre'] ?></option>
-                    <?php endforeach?>
-                </select>
-            </div>
-            <div class="col">
-                <label for="per_puesto">PUESTOS/CARGO</label>
-                <select name="per_puesto" id="per_puesto" class="form-control">
-                    <option value="">Selecione puesto...</option>
-                    <?php foreach ($puestos as $puesto): ?>
-                    <option value="<?= $puesto['pla_id'] ?>"><?=$puesto['pla_nombre'] ?></option>
+                    <?php foreach ($plazas as $plaza): ?>
+                    <option value="<?= $plaza['pla_id'] ?>"><?=$plaza['pla_nombre'] ?></option>
                     <?php endforeach?>
                 </select>
             </div>
         </div>     
+        <div class="col">
+            <label for="per_telefono">NUMERO DE TELEFONO</label>
+            <input type="text" name="per_telefono" id="per_telefono" class="form-control" placeholder="Ejemplo: +502 222 2222">
+        </div>
         <div class="row mb-3">
-            <div class="col">
-                <label for="per_telefono">NUMERO DE TELEFONO</label>
-                <input type="text" name="per_telefono" id="per_telefono" class="form-control" placeholder="Ejemplo: +502 222 2222">
-            </div>
             <div class="col">
                 <label for="per_email">CORREO ELECTRONICO</label>
                 <input type="text" name="per_email" id="per_email" class="form-control" placeholder="Ejemplo: ejemplo@email">

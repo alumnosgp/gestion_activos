@@ -36,7 +36,10 @@
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/maquinas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INVENTARIO</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS</a>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasaltas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS DE ALTA</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasplanillas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS PLANILLA</a>
                             </li>            
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/oficinas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>OFICINAS</a>

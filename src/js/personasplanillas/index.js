@@ -4,11 +4,11 @@ import Datatable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-const formulario = document.getElementById('formularioPersonasaltas');
-const btnBuscar = document.getElementById('btnBuscar');
+const formulario = document.getElementById('formularioPersonasplanillas');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnCancelar = document.getElementById('btnCancelar');
+const plaId = document.getElementById('pla_id');
 // const perso_nombre = document.getElementById('per_nombre');
 
 btnModificar.disabled = true;
@@ -17,69 +17,75 @@ btnCancelar.disabled = true;
 btnCancelar.parentElement.style.display = 'none';
 
 let contador = 1;
-const datatable = new Datatable('#tablaPersonasaltas', {
+const datatable = new Datatable('#tablaPersonasplanillas', {
     language: lenguaje,
     data: null,
     columns: [
         {
             title: 'NO',
-            render: () => contador++
+            render: function (data, type, row, meta) {
+                return contador++;
+            }
         },
         {
             title: 'CATALOGO',
-            data: 'per_catalogo'
+            data: 'pcivil_catalogo'
+        },
+        {
+            title: 'DPI',
+            data: 'pcivil_dpi'
         },
         {
             title: 'NOMBRE',
             data: null,
             render: function (data, type, row, meta) {
-                // Combina los valores de las columnas en una sola columna
-                return row.per_nombre1 + ' ' + row.per_nombre2  + ' ' + row.per_apellido1 + ' ' + row.per_apellido2;
+                return row.pcivil_nombre1 + ' ' + row.pcivil_nombre2 + ' ' + row.pcivil_apellido1 + ' ' + row.pcivil_apellido2;
             }
         },
         {
             title: 'GRADO',
-            data: 'grado_descr'
+            data: 'pcivil_gradi'
         },
         {
-            title: 'ARMA',
-            data: 'arm_desc'
-        },
-        {
-            title: 'PUESTO',
+            title: 'PLAZA',
             data: 'pla_nombre'
         },
         {
             title: 'TELEFONO',
-            data: 'per_telefono'
+            data: 'pcivil_telefono'
         },
         {
             title: 'EMAIL',
-            data: 'per_email'
+            data: 'pcivil_emal'
         },
         {
             title: 'DIRECCION',
-            data: 'per_direccion'
+            data: 'pcivil_direccion'
         },
         {
             title: 'MODIFICAR',
-            data: 'per_id',
+            data: 'pcivil_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-warning" data-id='${data}' data-nombre1='${row.per_nombre1}' data-nombre2='${row.per_nombre2}' data-apellido1='${row.per_apellido1}' data-apellido2='${row.per_apellido2}' data-catalogo='${row.per_catalogo}' data-grado='${row.per_grado}' data-arma='${row.per_arma}' data-puesto='${row.per_plaza}' data-telefono='${row.per_telefono}' data-email='${row.per_email}' data-direccion='${row.per_direccion}'>Modificar</button>`
+            render: function (data, type, row, meta) {
+                return `<button class="btn btn-warning" data-id='${data}' data-nombre1='${row.pcivil_nombre1}' data-nombre2='${row.pcivil_nombre2}' data-apellido1='${row.pcivil_apellido1}' data-apellido2='${row.pcivil_apellido2}' data-catalogo='${row.pcivil_catalogo}' data-dpi='${row.pcivil_dpi}' data-grado='${row.pcivil_gradi}' data-plaza='${row.pcivil_plaza}' data-telefono='${row.pcivil_telefono}' data-email='${row.pcivil_emal}' data-direccion='${row.pcivil_direccion}'>Modificar</button>`;
+            }
         },
         {
             title: 'ELIMINAR',
-            data: 'per_id',
+            data: 'pcivil_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
+            render: function (data, type, row, meta) {
+                return `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`;
+            }
         },
-    ]
+    ],
+
 });
 
 const buscar = async () => {
-    const url = `/gestion_activos/API/personasaltas/buscar`;
+    const url = `/gestion_activos/API/personasplanillas/buscar`;
     const config = {
         method: 'GET'
     };
@@ -103,7 +109,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['per_id'])) {
+    if (!validarFormulario(formulario, ['pcivil_id'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'
@@ -112,8 +118,8 @@ const guardar = async (evento) => {
     }
 
     const body = new FormData(formulario);
-    body.delete('per_id');
-    const url = '/gestion_activos/API/personasaltas/guardar';
+    body.delete('pcivil_id');
+    const url = '/gestion_activos/API/personasplanillas/guardar';
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
@@ -160,11 +166,12 @@ const traeDatos = (e) => {
     const apellido2 = button.dataset.apellido2;
     const catalogo = button.dataset.catalogo;
     const grado = button.dataset.grado;
-    const arma = button.dataset.arma;
-    const puesto = button.dataset.puesto;
+    const dpi = button.dataset.dpi;
+    const plaza = button.dataset.plaza;
     const telefono = button.dataset.telefono;
     const email = button.dataset.email;
     const direccion = button.dataset.direccion;
+
 
     const dataset = {
         id,
@@ -174,8 +181,8 @@ const traeDatos = (e) => {
         apellido2,
         catalogo,
         grado,
-        arma,
-        puesto,
+        dpi,
+        plaza,
         telefono,
         email,
         direccion
@@ -185,18 +192,19 @@ const traeDatos = (e) => {
 };
 
 const colocarDatos = (dataset) => {
-    formulario.per_nombre1.value = dataset.nombre1;
-    formulario.per_nombre2.value = dataset.nombre2;
-    formulario.per_apellido1.value = dataset.apellido1;
-    formulario.per_apellido2.value = dataset.apellido2;
-    formulario.per_catalogo.value = dataset.catalogo;
-    formulario.per_grado.value = dataset.grado;
-    formulario.per_arma.value = dataset.arma;
-    formulario.per_plaza.value = dataset.puesto;
-    formulario.per_telefono.value = dataset.telefono;
-    formulario.per_email.value = dataset.email;
-    formulario.per_direccion.value = dataset.direccion;
-    formulario.per_id.value = dataset.id;
+    formulario.pcivil_nombre1.value = dataset.nombre1;
+    formulario.pcivil_nombre2.value = dataset.nombre2;
+    formulario.pcivil_apellido1.value = dataset.apellido1;
+    formulario.pcivil_apellido2.value = dataset.apellido2;
+    formulario.pcivil_catalogo.value = dataset.catalogo;
+    formulario.pcivil_gradi.value = dataset.grado;
+    formulario.pcivil_dpi.value = dataset.dpi;
+    formulario.pcivil_plaza.value = dataset.plaza;
+    formulario.pcivil_telefono.value = dataset.telefono;
+    formulario.pcivil_emal.value = dataset.email;
+    formulario.pcivil_direccion.value = dataset.direccion;
+    formulario.pcivil_id.value = dataset.id;
+
 
     btnModificar.disabled = false;
     btnModificar.parentElement.style.display = '';
@@ -212,8 +220,8 @@ const eliminar = async (e) => {
 
     if (await confirmacion('warning', '¿Desea eliminar este registro?')) {
         const body = new FormData();
-        body.append('per_id', id);
-        const url = '/gestion_activos/API/personasaltas/eliminar';
+        body.append('pcivil_id', id);
+        const url = '/gestion_activos/API/personasplanillas/eliminar';
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
         const config = {
@@ -248,13 +256,13 @@ const eliminar = async (e) => {
 };
 
 const modificar = async () => {
-    if (!validarFormulario(formulario, ['per_id'])) {
+    if (!validarFormulario(formulario, ['pcivil_id'])) {
         alert('Debe llenar todos los campos');
         return;
     }
 
     const body = new FormData(formulario);
-    const url = '/gestion_activos/API/personasaltas/modificar';
+    const url = '/gestion_activos/API/personasplanillas/modificar';
     const config = {
         method: 'POST',
         body

@@ -3,25 +3,19 @@
 namespace Controllers;
 
 use Exception;
-use Model\Personalta;
-use Model\Grado;
-use Model\Arma;
+use Model\Personaplanilla;
 use Model\Plaza;
 use MVC\Router;
 
-class PersonaltaController{
+class PersonaplanillaController{
     public static function index(Router $router){
-        $grado = new Grado();
-        $grados = $grado->gradoNombre(); 
-        $arma = new Arma();
-        $armas= $arma->armaNombre(); 
         $plaza = new Plaza();
         $plazas = $plaza->plazaNombre(); 
-        $router->render('personasaltas/index', ['grados' => $grados, 'armas' => $armas, 'plazas' => $plazas,]);
+        $router->render('personasplanillas/index', ['plazas' => $plazas,]);
     }
     public static function guardarApi(){
         try {
-            $persona = new Personalta($_POST);
+            $persona = new Personaplanilla($_POST);
             $resultado = $persona->crear();
 
             if ($resultado['resultado'] == 1) {
@@ -46,19 +40,17 @@ class PersonaltaController{
 
     public static function buscarAPI()
     {   
-        $sql = "SELECT * FROM persona_dealta
-        inner join armas on arm_id = per_arma
-        inner join grados on grado_id = per_grado
-        inner join plazas on pla_id = per_plaza
-        WHERE per_situacion = 1";
+        $sql = "SELECT * FROM persona_planilla
+        inner join plazas on pla_id = pcivil_plaza
+        WHERE pcivil_situacion = 1";
         
-        if (isset($_GET['per_nombre1']) && $_GET['per_nombre1'] != '') {
-            $per_nombre1 = $_GET['per_nombre1'];
-            $sql .= " and per_nombre1 like '%$per_nombre1%' ";
+        if (isset($_GET['pcivil_nombre1']) && $_GET['pcivil_nombre1'] != '') {
+            $pcivil_nombre1 = $_GET['pcivil_nombre1'];
+            $sql .= " and pcivil_nombre1 like '%$pcivil_nombre1%' ";
         }
         try {
 
-            $persona = Personalta::fetchArray($sql);
+            $persona = Personaplanilla::fetchArray($sql);
 
             echo json_encode([
                 'mensaje' => $persona,
@@ -77,7 +69,7 @@ class PersonaltaController{
     public static function modificarAPI()
     {
         try {
-            $persona = new Personalta($_POST);           
+            $persona = new Personaplanilla($_POST);           
            
             $resultado = $persona->actualizar();
 
@@ -104,9 +96,9 @@ class PersonaltaController{
     public static function eliminarAPI()
     {
         try {
-            $per_id = $_POST['per_id'];
-            $persona = Personalta::find($per_id);
-            $persona->per_situacion = '2';
+            $pcivil_id = $_POST['pcivil_id'];
+            $persona = Personaplanilla::find($pcivil_id);
+            $persona->pcivil_situacion = '2';
             $resultado = $persona->actualizar();
 
             if ($resultado['resultado'] == 1) {

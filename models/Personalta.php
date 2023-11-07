@@ -4,7 +4,7 @@ namespace Model;
 class Personalta extends ActiveRecord
 {
     protected static $tabla = 'persona_dealta';
-    protected static $columnasDB = ['per_catalogo', 'per_nombre1', 'per_nombre2', 'per_apellido1', 'per_apellido2', 'per_arma','per_grado','per_pplaza', 'per_telefono', 'per_direccion','per_email','per_situacion'];
+    protected static $columnasDB = ['per_catalogo', 'per_nombre1', 'per_nombre2', 'per_apellido1', 'per_apellido2', 'per_arma','per_grado','per_plaza', 'per_telefono', 'per_direccion','per_email','per_situacion'];
     protected static $idTabla = 'per_id';
 
     public $per_id ;
@@ -16,7 +16,6 @@ class Personalta extends ActiveRecord
     public $per_arma;
     public $per_grado;
     public $per_plaza;
-    public $per_condicion;
     public $per_telefono;
     public $per_direccion;
     public $per_email;
@@ -32,7 +31,6 @@ class Personalta extends ActiveRecord
         $this->per_arma = $args['per_arma'] ?? '';
         $this->per_grado = $args['per_grado'] ?? '';
         $this->per_plaza = $args['per_plaza'] ?? '';
-        $this->per_condicion = $args['per_condicion'] ?? '';
         $this->per_telefono = $args['per_telefono'] ?? '';
         $this->per_direccion = $args['per_direccion'] ?? '';
         $this->per_email = $args['per_email'] ?? '';
