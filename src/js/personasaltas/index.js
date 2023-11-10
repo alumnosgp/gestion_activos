@@ -103,7 +103,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['per_id'])) {
+    if (!validarFormulario(formulario, ['per_id', 'per_nombre2', 'per_apellido2'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'

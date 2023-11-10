@@ -26,6 +26,9 @@ $router->get('/API/maquinas/buscar', [MaquinaController::class, 'buscarApi']);
 $router->post('/API/maquinas/guardar', [MaquinaController::class, 'guardarApi']);
 $router->post('/API/maquinas/modificar', [MaquinaController::class, 'modificarApi']);
 $router->post('/API/maquinas/eliminar', [MaquinaController::class, 'eliminarApi']);
+$router->get('/API/maquinas/buscarNombres', [MaquinaController::class, 'buscarNombresApi']);
+$router->get('/API/maquinas/buscarPlanillero', [MaquinaController::class, 'buscarPlanilleroAPI']);
+
 
 //sistemas
 $router->get('/sistemas', [SistemaController::class, 'index']);
