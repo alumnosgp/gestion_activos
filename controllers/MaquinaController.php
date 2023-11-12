@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Exception;
 use Model\Maquina;
-use Model\Oficina;
 use Model\Personalta;
 use Model\Personaplanilla;
 use Model\Antiviru;
@@ -12,22 +11,27 @@ use Model\Office;
 use Model\Sistema;
 use MVC\Router;
 
-class MaquinaController{
-    public static function index(Router $router){
+class MaquinaController
+{
+    public static function index(Router $router)
+    {
+        $persona = new Personalta();
+        $personas = $persona->personaPlaza();
         $sistema = new Sistema();
-        $sistemas = $sistema->sistemaNombre(); 
+        $sistemas = $sistema->sistemaNombre();
         $antiviru = new Antiviru();
-        $antivirus = $antiviru->antivirusNombre(); 
+        $antivirus = $antiviru->antivirusNombre();
         $office = new Office();
-        $offices = $office->OfficeNombre(); 
-        $router->render('maquinas/index', [ 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
+        $offices = $office->OfficeNombre();
+        $router->render('maquinas/index', ['personas' => $personas, 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
     }
 
 
 
-    public static function guardarApi(){
+    public static function guardarApi()
+    {
         try {
-           
+
             $maquinas = new Maquina($_POST);
             $resultado = $maquinas->crear();
 
@@ -52,32 +56,39 @@ class MaquinaController{
     }
 
     public static function buscarAPI()
-    {
-        $maq_nombre = $_GET['maq_nombre'];
+{
+    $maq_nombre = isset($_GET['maq_nombre']) ? $_GET['maq_nombre'] : '';
 
-        $sql = "SELECT * FROM maquina where maq_situacion = 1 ";
-        if ($maq_nombre != '') {
-            $sql .= " and maq_nombre like '%$maq_nombre%' ";
-        }
-        try {
+    // Consulta SQL para buscar máquinas
+    $sql = "SELECT * FROM maquina WHERE maq_situacion = 1 ";
 
-            $sistemas = Maquina::fetchArray($sql);
-
-            echo json_encode($sistemas);
-        } catch (Exception $e) {
-            echo json_encode([
-                'detalle' => $e->getMessage(),
-                'mensaje' => 'Ocurrió un error',
-                'codigo' => 0
-            ]);
-        }
+    // Agregar condición de búsqueda por nombre si se proporciona
+    if (!empty($maq_nombre)) {
+        $sql .= " AND maq_nombre LIKE '%$maq_nombre%' ";
     }
+
+    try {
+        // Obtener las máquinas de la base de datos
+        $maquinas = Maquina::fetchArray($sql);
+
+        // Devolver los resultados en formato JSON
+        echo json_encode($maquinas);
+    } catch (Exception $e) {
+        // Manejar errores y devolver una respuesta JSON
+        echo json_encode([
+            'detalle' => $e->getMessage(),
+            'mensaje' => 'Ocurrió un error',
+            'codigo' => 0
+        ]);
+    }
+}
+
 
     public static function modificarAPI()
     {
         try {
-            $maquinas = new Maquina($_POST);           
-           
+            $maquinas = new Maquina($_POST);
+
             $resultado = $maquinas->actualizar();
 
             if ($resultado['resultado'] == 1) {
@@ -135,6 +146,7 @@ class MaquinaController{
         $sql = "SELECT  per_catalogo, 
         grados.grado_descr AS per_grado,
         plazas.pla_nombre AS per_plaza,
+        plazas.pla_id AS plaza_id,
         per_nombre1 ||' '|| per_nombre2 ||' '|| per_apellido1 ||' '|| per_apellido2 AS per_nombre
             FROM persona_dealta
             JOIN grados ON persona_dealta.per_grado = grados.grado_id
@@ -143,15 +155,10 @@ class MaquinaController{
 
         try {
             $catalogo = Personalta::fetchArray($sql);
-
-            // Establece el tipo de contenido de la respuesta a JSON
             header('Content-Type: application/json');
-
-            // Convierte el array a JSON 
             echo json_encode($catalogo);
             return;
         } catch (Exception $e) {
-            // En caso de error, envía una respuesta vacía
             echo json_encode([]);
         }
     }
@@ -168,15 +175,10 @@ class MaquinaController{
 
         try {
             $catalogoplanilla = Personaplanilla::fetchArray($sql);
-
-            // Establece el tipo de contenido de la respuesta a JSON
             header('Content-Type: application/json');
-
-            // Convierte el array a JSON 
             echo json_encode($catalogoplanilla);
             return;
         } catch (Exception $e) {
-            // En caso de error, envía una respuesta vacía
             echo json_encode([]);
         }
     }

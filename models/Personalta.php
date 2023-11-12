@@ -37,8 +37,8 @@ class Personalta extends ActiveRecord
         $this->per_situacion = $args['per_situacion'] ?? '1';
        
     }
-    public function personaDatos(){
-        $sql = "SELECT per_id, per_catalogo, per_grado, per_nombre1 || ' ' || per_nombre2 || ' ' || per_apellido1 || ' ' || per_apellido2 AS personaNombre, per_plaza
+    public function personaPlaza(){
+        $sql = "SELECT per_id, per_plaza
         FROM persona_dealta
         WHERE per_situacion = 1";
         return $this->fetchArray($sql);

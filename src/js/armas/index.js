@@ -128,7 +128,6 @@ const eliminar = async (e) => {
     const button = e.target;
     const id = button.dataset.id;
     console.log(id)
-    // console.log(id);
     if (await confirmacion('warning', 'Desea elminar este registro?')) {
         const body = new FormData()
         body.append('arm_id', id)
@@ -261,6 +260,7 @@ const cancelarAccion = () => {
 
 buscar();
 formulario.addEventListener('submit', guardar)
+btnBuscar.addEventListener('click', buscar)
 datatable.on('click', '.btn-warning', traeDatos)
 datatable.on('click', '.btn-danger', eliminar)
 btnCancelar.addEventListener('click', cancelarAccion)

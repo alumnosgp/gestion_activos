@@ -4,7 +4,9 @@ namespace Model;
 class Maquina extends ActiveRecord
 {
     protected static $tabla = 'maquina';
-    protected static $columnasDB = ['maq_tipo', 'maq_nombre', 'maq_mac', 'maq_ram_capacidad', 'maq_tipo_disco_duro', 'maq_disco_capacidad', 'maq_plaza', 'maq_per_alta', 'maq_per_planilla', 'maq_procesador_capacidad', 'maq_lic_so', 'maq_office', 'maq_lic_office', 'maq_antivirus', 'maq_lic_antv', 'maq_uso', 'maq_situacion', 'maq_sistema_op'];
+    protected static $columnasDB = ['maq_tipo', 'maq_nombre', 'maq_mac', 'maq_ram_capacidad', 'maq_tipo_disco_duro', 
+    'maq_disco_capacidad', 'maq_plaza', 'maq_per_alta', 'maq_per_planilla', 'maq_procesador_capacidad', 'maq_lic_so', 
+    'maq_office', 'maq_lic_office', 'maq_antivirus', 'maq_lic_antv', 'maq_uso', 'maq_situacion', 'maq_sistema_op'];
     protected static $idTabla = 'maq_id';
 
     public $maq_id;
