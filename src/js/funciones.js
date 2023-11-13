@@ -1,4 +1,7 @@
 import Swal from 'sweetalert2';
+
+
+
 export const validarFormulario = (formulario, excepciones = [] ) => {
     const elements = formulario.querySelectorAll("input, select, textarea");
     let validarFormulario = []
@@ -29,3 +32,19 @@ export const Toast = Swal.mixin({
     }
 })
 
+
+
+export const confirmacion = async (icon = 'warning', text = '¿Esta seguro que desea realizar esta acción?', confirmButtonText = 'Si') => {
+    const alerta = Swal.fire({
+        title : 'Confirmación',
+        icon,
+        text,
+        showCancelButton : true,
+        confirmButtonColor : '#3085d6',
+        cancelButtonColor : '#d33',
+        confirmButtonText,
+        cancelButtonText: 'Cancelar'
+    })
+    const resultado = (await alerta).isConfirmed
+    return resultado;
+}
