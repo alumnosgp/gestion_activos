@@ -13,7 +13,7 @@ class LoginController
         if ($_SESSION['auth_user'] == "") {
             $router->render('login/index', []);
         } else {
-            $router->render('menu/index', []);
+            $router->render('sistemas/index', []);
         }
     }
 
