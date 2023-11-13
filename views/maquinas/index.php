@@ -15,7 +15,6 @@
         </div>
         <hr />
         <h3 class="text-center mt-5">RESPONSABLE DEL EQUIPO DE COMPUTO</h3>
-
         <div class="row mb-3">
             <div class="col">
                 <label>TIPO DE MAQUINA</label>
@@ -79,8 +78,6 @@
             </div>
 
         </div>
-        <!-- <input type="input" name="maq_plaza" id="maq_plaza" class="form-control" hidden> -->
-
         <div class="mb-3">
             <label for="maq_uso" class="form-label">JUSTIFIQUE USO DEL EQUIPO</label>
             <textarea class="form-control" name="maq_uso" id="maq_uso" rows="3"
@@ -197,9 +194,6 @@
             <div class="col">
                 <button type="button" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
             </div>
-            <!-- <div class="col">
-                <button type="button" id="btnBuscar" class="btn btn-success w-100">Buscar</button>
-            </div> -->
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
             </div>
