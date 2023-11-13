@@ -49,7 +49,10 @@ const datatable = new Datatable("#tablaMaquinas", {
     },
     {
       title: "PLAZA",
-      data: "maq_plaza",
+      data: null,
+      render: function (data, type, row, meta) {
+      return row.maq_plaza;
+      }
     },
     {
       title: "CATALOGO DEL ENCARGADO",

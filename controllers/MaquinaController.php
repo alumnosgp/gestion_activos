@@ -60,7 +60,9 @@ class MaquinaController
     $maq_nombre = isset($_GET['maq_nombre']) ? $_GET['maq_nombre'] : '';
 
     // Consulta SQL para buscar máquinas
-    $sql = "SELECT * FROM maquina WHERE maq_situacion = 1 ";
+    $sql = "SELECT * FROM maquina 
+    INNER JOIN ON
+    WHERE maq_situacion = 1 ";
 
     // Agregar condición de búsqueda por nombre si se proporciona
     if (!empty($maq_nombre)) {
