@@ -57,4 +57,6 @@ class LoginController
             ]);
         }
     }
+
+    /////////////////aqui se termina de crear el login////////////////
 }
