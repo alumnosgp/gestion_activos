@@ -1,4 +1,8 @@
-import { validarFormulario, Toast } from "../funciones";
+import { Dropdown } from "bootstrap";
+import Swal from "sweetalert2";
+import Datatable from "datatables.net-bs5";
+import { lenguaje } from "../lenguaje";
+import { validarFormulario, Toast, confirmacion } from "../funciones";
 
 const formLogin = document.querySelector('form');
 
@@ -27,7 +31,9 @@ const login = async e => {
         const url = "/gestion_activos/API/login"; 
 
         const body = new FormData(formLogin);
-
+        // for(var pair of body.entries()){
+        //     console.log(|${pair[0]}|${ pair[1]}|);
+        // }
         const headers = new Headers();
         headers.append("X-Requested-With", "fetch");
 
@@ -39,7 +45,7 @@ const login = async e => {
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-
+        console.log(data)
         const {codigo, mensaje, redireccion} = data;
         let icon = 'info';
         if(codigo == 1){
