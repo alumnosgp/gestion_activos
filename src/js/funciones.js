@@ -33,6 +33,7 @@ export const Toast = Swal.mixin({
 })
 
 
+
 export const confirmacion = async (icon = 'warning', text = '¿Esta seguro que desea realizar esta acción?', confirmButtonText = 'Si') => {
     const alerta = Swal.fire({
         title : 'Confirmación',

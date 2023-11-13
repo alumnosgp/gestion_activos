@@ -6,9 +6,28 @@
     <script src="build/js/app.js"></script>
     <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
-    <title>DemoApp</title>
+
+    <title>LOGIN</title>
+    <!-- <style>
+        body {
+            background-image: url('C:\docker\gestion_activos\CIBERDEFENSA.png'); /* Cambia 'background-image.jpg' a la imagen de fondo que desees */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container-fluid {
+            background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style> -->
 </head>
-<body>
+<body class="bg-image bg-opcity-50">   
 <nav class="navbar navbar-expand-lg navbar-dark  bg-dark">
         
         <div class="container-fluid">
@@ -86,14 +105,10 @@
         
         <?php echo $contenido; ?>
     </div>
-    <div class="container-fluid " >
-        <div class="row justify-content-center text-center">
-            <div class="col-12">
-                <p style="font-size:xx-small; font-weight: bold;">
-                        Comando de Informática y Tecnología, <?= date('Y') ?> &copy;
-                </p>
-            </div>
-        </div>
+
     </div>
+
+
+
 </body>
 </html>
