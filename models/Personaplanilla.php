@@ -39,8 +39,8 @@ class Personaplanilla extends ActiveRecord
         $this->pcivil_situacion = $args['pcivil_situacion'] ?? '1';
        
     }
-    public function personaPlanilla(){
-        $sql = "SELECT pcivil_id, pcivil_catalogo, pcivil_nombre1 || ' ' || pcivil_nombre2 || ' ' || pcivil_apellido1 || ' ' || pcivil_apellido2 AS personaPlanillaNombre, pcivil_plaza
+    public function planillaPlaza(){
+        $sql = "SELECT pcivil_id, pcivil_plaza
         FROM persona_planilla
         WHERE pcivil_situacion = 1";
         return $this->fetchArray($sql);
