@@ -15,6 +15,7 @@ class LoginController
             $router->render('login/index', []);
         } else {
             $router->render('maquinas/index', []);
+       
         }
     }
 
@@ -61,4 +62,6 @@ class LoginController
             ]);
         }
     }
+
+
 }
