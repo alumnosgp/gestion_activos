@@ -17,13 +17,15 @@ class MaquinaController
     {
         $persona = new Personalta();
         $personas = $persona->personaPlaza();
+        $planilla = new personaplanilla();
+        $planillas = $planilla->planillaPlaza();
         $sistema = new Sistema();
         $sistemas = $sistema->sistemaNombre();
         $antiviru = new Antiviru();
         $antivirus = $antiviru->antivirusNombre();
         $office = new Office();
         $offices = $office->OfficeNombre();
-        $router->render('maquinas/index', ['personas' => $personas, 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
+        $router->render('maquinas/index', ['planillas' => $planillas, 'personas' => $personas, 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
     }
 
 
@@ -60,7 +62,31 @@ class MaquinaController
     $maq_nombre = isset($_GET['maq_nombre']) ? $_GET['maq_nombre'] : '';
 
     // Consulta SQL para buscar máquinas
-    $sql = "SELECT * FROM maquina WHERE maq_situacion = 1 ";
+    $sql = "SELECT  maquina.*,
+
+    plazas.pla_nombre AS maq_plaza,
+    sistema_operativo.sist_nombre AS maq_sistema_op,
+    office.off_nombre AS maq_office,
+    antivirus.ant_nombre AS maq_antivirus,
+    alta.per_nombre1 || ' ' || alta.per_nombre2 || ' ' || alta.per_apellido1 || ' ' || alta.per_apellido2 AS maq_per_alta,
+    planilla.pcivil_nombre1 || ' ' || planilla.pcivil_nombre2 || ' ' || planilla.pcivil_apellido1 || ' ' || planilla.pcivil_apellido2 AS maq_per_planilla
+FROM 
+    maquina 
+FULL JOIN 
+    plazas ON maquina.maq_plaza = plazas.pla_id
+FULL JOIN 
+    sistema_operativo ON maquina.maq_sistema_op = sistema_operativo.sist_id
+FULL JOIN 
+    office ON maquina.maq_office = office.off_id
+FULL JOIN 
+    antivirus ON maquina.maq_antivirus = antivirus.ant_id
+FULL JOIN 
+    persona_dealta alta ON maquina.maq_per_alta = alta.per_catalogo
+FULL JOIN 
+    persona_planilla planilla ON maquina.maq_per_planilla = planilla.pcivil_catalogo
+
+    WHERE 
+        maquina.maq_situacion >= 1";
 
     // Agregar condición de búsqueda por nombre si se proporciona
     if (!empty($maq_nombre)) {
@@ -166,10 +192,12 @@ class MaquinaController
     {
         $catalogoplanilla = $_GET['maq_per_planilla'] ?? '';
 
-        $sql = "SELECT  pcivil_catalogo, pcivil_gradi,
+        $sql = "SELECT  pcivil_catalogo, 
+        grados.grado_descr AS pcivil_gradi,
         plazas.pla_nombre AS pcivil_plaza,
         pcivil_nombre1 ||' '|| pcivil_nombre2 ||' '|| pcivil_apellido1 ||' '|| pcivil_apellido2 AS pcivil_nombre
             FROM persona_planilla
+            JOIN grados ON persona_planilla.pcivil_gradi = grados.grado_id
             JOIN plazas ON persona_planilla.pcivil_plaza = plazas.pla_id
         where pcivil_catalogo = $catalogoplanilla";
 

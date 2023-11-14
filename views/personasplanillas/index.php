@@ -33,12 +33,13 @@
             </div>
         </div>   
         <div class="row mb-3">
-        <div class="col">
+            <div class="col">
                 <label for="pcivil_gradi">GRADO</label>
                 <select name="pcivil_gradi" id="pcivil_gradi" class="form-control">
                     <option value="">Selecione grado...</option>
-                    <option value="ESPECIALISTA">Especialista</option>
-                    <option value="SOLDADO DE 2DA.">Soldado de 2da.</option>
+                    <?php foreach ($grados as $grado): ?>
+                    <option value="<?= $grado['grado_id'] ?>"><?=$grado['grado_descr'] ?></option>
+                    <?php endforeach?>
                 </select>
             </div>
             <div class="col">

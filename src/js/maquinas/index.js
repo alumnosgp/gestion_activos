@@ -49,16 +49,35 @@ const datatable = new Datatable("#tablaMaquinas", {
     },
     {
       title: "PLAZA",
-      data: "maq_plaza",
-    },
-    {
-      title: "CATALOGO DEL ENCARGADO",
       data: null,
       render: function (data, type, row, meta) {
-        // Combina los valores de las columnas en una sola columna
-        return row.maq_per_alta + ' ' + row.maq_per_planilla;
-      } 
+      return row.maq_plaza;
+      }
     },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO (ALTA)",
+    //   data: "maq_per_alta",
+    // },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO (PLANILLA)",
+    //   data: "maq_per_planilla",
+    // },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO",
+    //   data: null,
+    //   render: function (data, type, row, meta) {
+    //     // Combina los valores de las columnas en una sola columna
+    //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
+    //   } 
+    // },
+  { 
+    title: "CATALOGO DEL ENCARGADO",
+    data: null,
+    render: function (data, type, row, meta) {
+      // Combina los valores de las columnas en una sola columna
+      return row.maq_per_planilla + ' ' + row.maq_per_alta;
+    } 
+  },
     {
       title: "RAM",
       data: "maq_ram_capacidad",
@@ -110,10 +129,6 @@ const datatable = new Datatable("#tablaMaquinas", {
   ],
 });
 
-
-
-
-//evento para seleccional el tipo de persona registrar sea DE ALTA O PLANILLERO
 formulario.tipoPersonal.addEventListener("change", function (e) {
   if (e.target.value === "DE ALTA") {
     (divPersonalAlta.style.display = "block"),
@@ -135,7 +150,7 @@ const buscar = async () => {
   try {
       const respuesta = await fetch(url, config);
       const data = await respuesta.json();
-      console.log(data); // Verifica si los datos se imprimen correctamente en la consola
+      console.log(data);
       datatable.clear().draw();
       if (data) {
           contador = 1;
@@ -319,15 +334,13 @@ const buscarNombres = async () => {
       console.log(data);
       if (data && data.length > 0) {
         const entregaNombre = data[0].per_nombre;
-        per_nombre.value = entregaNombre;
+        formulario.per_nombre.value = entregaNombre;
         const entregaGrado = data[0].per_grado;
-        per_grado.value = entregaGrado;
+        formulario.per_grado.value = entregaGrado;
         const entregaPlaza = data[0].per_plaza;
-        per_plaza.value = entregaPlaza;
-        const pla_id = data[0].plaza_id;
-        maq_plazas.value = pla_id;
+        formulario.per_plaza.value = entregaPlaza;
       } else {
-        per_nombre.value = "";
+        formulario.per_nombre.value = "";
         Toast.fire({
           icon: "info",
           title: "Ingrese un catálogo válido.",
@@ -349,6 +362,7 @@ const buscarNombres = async () => {
   typingTimeout = setTimeout(fetchData, 2500);
 };
 
+
 const buscarPlanillero = async () => {
   let pcivil_catalogo = formulario.maq_per_planilla.value;
   clearTimeout(typingTimeout);
@@ -368,7 +382,7 @@ const buscarPlanillero = async () => {
         pcivil_gradi.value = entregaGradoPlani;
         const entregaPlazaPlani = data[0].pcivil_plaza;
         pcivil_plaza.value = entregaPlazaPlani;
-        // formulario.maq_per_planilla.value  = data[0].pcivil_catalogo
+        
       } else {
         pcivil_nombre.value = "";
         Toast.fire({
