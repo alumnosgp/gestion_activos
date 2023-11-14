@@ -1,4 +1,4 @@
-<h1 class="text-center">EMPLEADOS POR TURNO</h1>
+<h1 class="text-center">INVENTARIOS DE ACTIVOS REGISTRADOS</h1>
 <div class="row justify-content-center mb-5">
     <form class="col-lg-8 border bg-light p-3" id="formularioTurno">
         <div class="row mb-3">

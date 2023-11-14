@@ -5,13 +5,19 @@ namespace Controllers;
 use Exception;
 use Model\Personaplanilla;
 use Model\Plaza;
+use Model\Grado;
 use MVC\Router;
 
 class PersonaplanillaController{
     public static function index(Router $router){
+        $grado = new Grado();
+        $grados = $grado->gradoNombre(); 
         $plaza = new Plaza();
         $plazas = $plaza->plazaNombre(); 
-        $router->render('personasplanillas/index', ['plazas' => $plazas,]);
+        $router->render('personasplanillas/index', [
+            'grados' => $grados,
+            'plazas' => $plazas,
+        ]);
     }
     public static function guardarApi(){
         try {
@@ -100,6 +106,11 @@ class PersonaplanillaController{
             $persona = Personaplanilla::find($pcivil_id);
             $persona->pcivil_situacion = '2';
             $resultado = $persona->actualizar();
+
+            // ini_set('display_errors', 1);
+            // ini_set('display_startup_errors', 1);
+            // error_reporting(E_ALL);
+
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
