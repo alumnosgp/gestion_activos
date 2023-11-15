@@ -48,7 +48,7 @@
   
                     <div class="nav-item dropdown " >
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Dropdown</a>
+                            <i class="bi bi-gear me-2"></i>INVENTARIOS DE ACTIVOS</a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
@@ -86,6 +86,47 @@
                             </li>            
                         </ul>
                     </div> 
+                    <div class="nav-item dropdown " >
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-gear me-2"></i>GESTION DE INCIDENTES</a>
+                        <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
+                            <!-- <h6 class="dropdown-header">Información</h6> -->
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/maquinas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INCIDENTES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasaltas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS DE ALTA</a>
+                            </li>            
+                            <!-- <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasplanillas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS PLANILLA</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/oficinas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>OFICINAS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/organizaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ORGANIZACIONES</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/grados"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GRADOS</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/armas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ARMAS</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/plazas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>PLAZAS</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/sistemas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>SISTEMAS OPERATIVOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/offices"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>OFFICES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/antivirus"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ANTIVIRUS</a>
+                            </li>             -->
+                        </ul>
+                    </div> 
+                    
 
                 </ul> 
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">

@@ -71,7 +71,7 @@ const datatable = new Datatable("#tablaMaquinas", {
     //   } 
     // },
   { 
-    title: "CATALOGO DEL ENCARGADO",
+    title: "NOMBRE DEL ENCARGADO",
     data: null,
     render: function (data, type, row, meta) {
       // Combina los valores de las columnas en una sola columna

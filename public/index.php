@@ -15,6 +15,7 @@ use Controllers\OficinaController;
 use Controllers\MaquinaController;
 use Controllers\SistemaController;
 use Controllers\AntiviruController;
+use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
@@ -106,6 +107,12 @@ $router->post('/API/organizaciones/guardar', [OrganizacionController::class, 'gu
 $router->post('/API/organizaciones/modificar', [OrganizacionController::class, 'modificarApi']);
 $router->post('/API/organizaciones/eliminar', [OrganizacionController::class, 'eliminarApi']);
 
+
+
+
+//////////////////////////////GESTION DE INCIDENTES/////////////////////////
+
+$router->get('/incidentes', [IncidenteController::class, 'index']);
 
 
 $router->comprobarRutas();
