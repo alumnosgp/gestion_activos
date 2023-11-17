@@ -70,8 +70,9 @@ const datatable = new Datatable("#tablaMaquinas", {
     //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
     //   } 
     // },
-  { 
-    title: "CATALOGO DEL ENCARGADO",
+  
+    title: "NOMBRE DEL ENCARGADO",
+
     data: null,
     render: function (data, type, row, meta) {
       // Combina los valores de las columnas en una sola columna
@@ -116,7 +117,7 @@ const datatable = new Datatable("#tablaMaquinas", {
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) =>
-        `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso=''${row.maq_uso}''>Modificar</button>`,
+        `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
     },
     {
       title: "ELIMINAR",
@@ -126,6 +127,17 @@ const datatable = new Datatable("#tablaMaquinas", {
       render: (data, type, row, meta) =>
         `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`,
     },
+    /* AQUI SE MUESTRA EN EL DATA TEBLE LA INFROMACION DE IMPRESION DE INVENTARIO */
+    {
+      title: "FACTURA",
+      data: "maq_id",
+      searchable: false,
+      orderable: false,
+      render: (data, type, row, meta) => 
+      `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir Factura</button>`
+      
+  },
+  /* AQUI TERMINA LA INFROMACION DE IMPRESION DE INVENTARIO */
   ],
 });
 
@@ -176,8 +188,10 @@ const guardar = async (evento) => {
       return;
     }
     const tipoPersonal = formulario.tipoPersonal.value;
+    console.log(tipoPersonal)
     if (tipoPersonal === "per_plaza" || tipoPersonal === "pcivil_plaza") {
       formulario.maq_plaza.value = formulario.per_plaza.value || formulario.pcivil_plaza.value;
+      console.log(formulario.maq_plaza.value)
     }
   const body = new FormData(formulario);
   body.delete('maq_id');
@@ -339,6 +353,8 @@ const buscarNombres = async () => {
         formulario.per_grado.value = entregaGrado;
         const entregaPlaza = data[0].per_plaza;
         formulario.per_plaza.value = entregaPlaza;
+        formulario.maq_plaza.value= data[0].plaza_id;
+
       } else {
         formulario.per_nombre.value = "";
         Toast.fire({
@@ -380,8 +396,10 @@ const buscarPlanillero = async () => {
         pcivil_nombre.value = entregaNombrePlani;
         const entregaGradoPlani = data[0].pcivil_gradi;
         pcivil_gradi.value = entregaGradoPlani;
-        const entregaPlazaPlani = data[0].pcivil_plaza;
+        const entregaPlazaPlani = data[0].pcivil_plaza;        
         pcivil_plaza.value = entregaPlazaPlani;
+        formulario.maq_plaza.value= data[0].plaza_id;
+
         
       } else {
         pcivil_nombre.value = "";
@@ -491,6 +509,45 @@ const cancelarAccion = () => {
   btnCancelar.disabled = true;
   btnCancelar.parentElement.style.display = "none";
 };
+
+/** AQUI EMPIEZA LA ACCION DE IMPRIMER EL INVENTARIO */
+
+const imprimirInventario = async (e) => {
+  const button = e.target;
+  const id = button.dataset.id;
+  if (await confirmacion("warning", "¿Desea imprimir este Inventario?")) {
+    const url = `/gestion_activos/pdf?maq_id=${id}`;
+    const headers = new Headers();
+    headers.append("X-Requested-With", "fetch");
+    const config = {
+      method: "GET",
+      headers,
+    };
+    try {
+      const respuesta = await fetch(url, config);
+      if (respuesta.ok) {
+        const blob = await respuesta.blob();
+
+        if (blob) {
+          const urlBlob = window.URL.createObjectURL(blob);
+          window.open(urlBlob, "_blank");
+        } else {
+          console.error("No se pudo obtener el PDF.");
+        }
+      } else {
+        console.error("Error al generar el PDF.");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+
+// Suponiendo que aquí es donde se asigna el evento
+datatable.on("click", ".btn-success", imprimirInventario);
+
+
+/* AQUI TERMINA  LA ACCION DE IMPRIMER EL INVENTARIO*/
 
 buscar();
 btnGuardar.addEventListener("click", guardar);

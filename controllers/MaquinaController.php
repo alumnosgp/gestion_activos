@@ -195,7 +195,8 @@ FULL JOIN
         $sql = "SELECT  pcivil_catalogo, 
         grados.grado_descr AS pcivil_gradi,
         plazas.pla_nombre AS pcivil_plaza,
-        pcivil_nombre1 ||' '|| pcivil_nombre2 ||' '|| pcivil_apellido1 ||' '|| pcivil_apellido2 AS pcivil_nombre
+        pcivil_nombre1 ||' '|| pcivil_nombre2 ||' '|| pcivil_apellido1 ||' '|| pcivil_apellido2 AS pcivil_nombre,
+        plazas.pla_id as plaza_id
             FROM persona_planilla
             JOIN grados ON persona_planilla.pcivil_gradi = grados.grado_id
             JOIN plazas ON persona_planilla.pcivil_plaza = plazas.pla_id
