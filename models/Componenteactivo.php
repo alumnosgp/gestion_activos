@@ -17,12 +17,11 @@ class Componenteactivo extends ActiveRecord
         $this->comp_act_situacion = $args['comp_act_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT comp_act_id, comp_act_nombre 
-    //     FROM armas
-    //     WHERE comp_act_situacion = 1 
-    //     ORDER BY comp_act_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function componenteNombre(){
+        $sql = "SELECT comp_act_id, comp_act_nombre 
+        FROM componente_activo
+        WHERE comp_act_situacion = 1";
+        return $this->fetchArray($sql);
+    }
 }
 ?>

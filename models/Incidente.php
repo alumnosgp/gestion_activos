@@ -7,7 +7,7 @@ class Incidente extends ActiveRecord
     protected static $columnasDB = ['inc_fecha', 'inc_no_incidente', 'inc_no_identificacion', 'inc_catalogo_irt', 'inc_email_irt', 'inc_tel_irt', 'inc_catalogo_rep', 'inc_email_rep', 'inc_tel_rep', 'inc_direccion_rep', 'inc_situacion'];
     protected static $idTabla = 'inc_id';
 
-    public $inc_id ;
+    public $inc_id;
     public $inc_fecha;
     public $inc_no_incidente;
     public $inc_no_identificacion;
@@ -35,10 +35,6 @@ class Incidente extends ActiveRecord
         $this->inc_situacion = $args['inc_situacion'] ?? '1';
        
     }
-    // public function oficinaNombre(){
-    //     $sql = "SELECT inc_id, inc_fecha FROM oficinas WHERE inc_situacion = 1";
-    //     return $this->fetchArray($sql);
-    // }
 }
 
 ?>

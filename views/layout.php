@@ -92,10 +92,10 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/maquinas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INCIDENTES</a>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/incidentes"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INCIDENTES</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasaltas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS DE ALTA</a>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasaltas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>DESCRIPCION DE INCIDENTES</a>
                             </li>            
                             <!-- <li>
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/personasplanillas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS PLANILLA</a>

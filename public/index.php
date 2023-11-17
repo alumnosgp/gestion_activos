@@ -113,6 +113,12 @@ $router->post('/API/organizaciones/eliminar', [OrganizacionController::class, 'e
 //////////////////////////////GESTION DE INCIDENTES/////////////////////////
 
 $router->get('/incidentes', [IncidenteController::class, 'index']);
+$router->get('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
+$router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
+
+
 
 
 $router->comprobarRutas();

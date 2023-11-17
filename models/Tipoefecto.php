@@ -17,12 +17,12 @@ class Tipoefecto extends ActiveRecord
         $this->tip_situacion = $args['tip_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT tip_id, tip_descrip 
-    //     FROM armas
-    //     WHERE tip_situacion = 1 
-    //     ORDER BY tip_descrip";
-    //     return $this->fetchArray($sql);
-    // }
+    public function efectoNombre(){
+        $sql = "SELECT tip_id, tip_descrip 
+        FROM tipo_efect_adv
+        WHERE tip_situacion = 1 
+        ORDER BY tip_descrip";
+        return $this->fetchArray($sql);
+    }
 }
 ?>
