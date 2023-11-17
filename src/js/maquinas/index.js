@@ -70,8 +70,9 @@ const datatable = new Datatable("#tablaMaquinas", {
     //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
     //   } 
     // },
-  { 
+  
     title: "NOMBRE DEL ENCARGADO",
+
     data: null,
     render: function (data, type, row, meta) {
       // Combina los valores de las columnas en una sola columna
@@ -353,6 +354,7 @@ const buscarNombres = async () => {
         const entregaPlaza = data[0].per_plaza;
         formulario.per_plaza.value = entregaPlaza;
         formulario.maq_plaza.value= data[0].plaza_id;
+
       } else {
         formulario.per_nombre.value = "";
         Toast.fire({
@@ -397,6 +399,7 @@ const buscarPlanillero = async () => {
         const entregaPlazaPlani = data[0].pcivil_plaza;        
         pcivil_plaza.value = entregaPlazaPlani;
         formulario.maq_plaza.value= data[0].plaza_id;
+
         
       } else {
         pcivil_nombre.value = "";
