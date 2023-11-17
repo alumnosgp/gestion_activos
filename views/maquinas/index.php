@@ -26,7 +26,7 @@
             </div>
             <div class="col">
                 <label>TIPO DE PERSONAL</label>
-                <select name="" id="tipoPersonal" class="form-control">
+                <select name="tipoPersonal" id="tipoPersonal" class="form-control">
                     <option value=" " selected>seleccione persona...</option>
                     <option value="DE ALTA">DE ALTA</option>
                     <option value="CONTRATADO/A">CONTRATADO/A</option>
@@ -203,6 +203,7 @@
         </div>
     </form>
 </div>
+<h1>Registro de las Maquinass</h1>
 <div class="row justify-content-center">
     <div class="col table-responsive">
         <table id="tablaMaquinas" class="table table-bordered table-hover">
