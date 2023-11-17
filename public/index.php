@@ -19,6 +19,7 @@ use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
+use Controllers\ReporteController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -106,6 +107,14 @@ $router->get('/API/organizaciones/buscar', [OrganizacionController::class, 'busc
 $router->post('/API/organizaciones/guardar', [OrganizacionController::class, 'guardarApi']);
 $router->post('/API/organizaciones/modificar', [OrganizacionController::class, 'modificarApi']);
 $router->post('/API/organizaciones/eliminar', [OrganizacionController::class, 'eliminarApi']);
+
+
+//reporteria
+
+$router->get('/', [AppController::class,'index']);
+$router->get('/pdf', [ReporteController::class,'pdf']);
+$router->get('/getMaquina', [ReporteController::class,'pdf']);
+// $router->get('/API/reporte/generar', [ReporteController::class, 'pdf']);
 
 
 

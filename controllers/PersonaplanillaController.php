@@ -107,6 +107,11 @@ class PersonaplanillaController{
             $persona->pcivil_situacion = '2';
             $resultado = $persona->actualizar();
 
+            // ini_set('display_errors', 1);
+            // ini_set('display_startup_errors', 1);
+            // error_reporting(E_ALL);
+
+
             if ($resultado['resultado'] == 1) {
                 echo json_encode([
                     'mensaje' => 'Dato eliminado correctamente',

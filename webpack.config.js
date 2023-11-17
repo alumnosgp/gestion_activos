@@ -20,6 +20,7 @@ module.exports = {
     'js/personasaltas/index' : './src/js/personasaltas/index.js',
     'js/organizaciones/index' : './src/js/organizaciones/index.js',
     'js/personasplanillas/index' : './src/js/personasplanillas/index.js',
+    'js/reporte/index' : './src/js/reporte/index.js',
   },
   output: {
     filename: '[name].js',
