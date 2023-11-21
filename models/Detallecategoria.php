@@ -23,12 +23,5 @@ class Detallecategoria extends ActiveRecord
         $this->det_categ_situacion = $args['det_categ_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT det_categ_id, det_categ_id_incidente 
-    //     FROM armas
-    //     WHERE det_categ_situacion = 1 
-    //     ORDER BY det_categ_id_incidente";
-    //     return $this->fetchArray($sql);
-    // }
 }
 ?>

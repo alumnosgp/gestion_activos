@@ -18,9 +18,7 @@ class Categoriaincidente extends ActiveRecord
        
     }
     public function categoriaNombre(){
-        $sql = "SELECT cat_inc_decrip  
-        FROM categoria_incidente
-        WHERE cat_inc_situacion = 1";
+        $sql = "SELECT cat_inc_id, cat_inc_decrip FROM categoria_incidente WHERE cat_inc_situacion = 1";
         return $this->fetchArray($sql);
     }
 }
