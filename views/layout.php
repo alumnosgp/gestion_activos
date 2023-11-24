@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
 
-    <title>LOGIN</title>
+    <title>GESTION ACTIVOS</title>
     <!-- <style>
         body {
             background-image: url('C:\docker\gestion_activos\CIBERDEFENSA.png'); /* Cambia 'background-image.jpg' a la imagen de fondo que desees */
