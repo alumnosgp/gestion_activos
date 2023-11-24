@@ -1,71 +1,189 @@
-<div>
-
-    <div class="container-fluid">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
-            aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="/ejemplo/">
-            <img src="<?= asset('./images/cit.png') ?>" width="35px'" alt="cit">
-            INICIO
-        </a>
-        <div class="collapse navbar-collapse" id="navbarToggler">
-
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0;">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/ejemplo/"><i
-                            class="bi bi-house-fill me-2"></i>Inicio</a>
-                </li>
-
-                <div class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-gear me-2"></i>Dropdown
-                    </a>
-                    <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
-                        <!-- <h6 class="dropdown-header">Información</h6> -->
-                        <li>
-                            <a class="dropdown-item nav-link text-white " href="/login_prueba2/alumnos"><i
-                                    class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Alumno</a>
-                            <a class="dropdown-item nav-link text-white " href="/login_prueba2/materias"><i
-                                    class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Materia</a>
-                            <a class="dropdown-item nav-link text-white " href="/login_prueba2/calificaciones"><i
-                                    class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
-                            <a class="dropdown-item nav-link text-white " href="/login_prueba2/reportes"><i
-                                    class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>reporte_alumnos</a>
-                        </li>
-
-
-
-                    </ul>
+<style>
+        img {
+            border: 2px solid #ccc;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .container-main {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            margin: 60px auto 0;
+        }
+        .row.buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .card.device {
+            cursor: pointer;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 5px 75px;
+            margin: 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card.device:hover {
+            background-color: #007BFF;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: scale(1.05);
+        }
+        .card.inventario {
+            background-color: #3498db;
+        }
+        .card.incidente {
+            background-color: #27ae60;
+        }
+        .card.sistema_operativo {
+            background-color: #e74c3c;
+        }
+        .card.planilleros {
+            background-color: #f39c12;
+        }
+        .border {
+            border: 15px solid #dcdcdc;
+            border-radius: 5px;
+            box-shadow: 0 50px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+        }
+        h1 {
+            background-color: #343a40;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        .table-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 100px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 10px;
+            background-color: #fff;
+        }
+        .table-container h1 {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: top;
+            width: 50%;
+        }
+        table td strong {
+            display: block;
+            font-weight: bold;
+        }
+        .btn-device {
+            margin-bottom: 30px;
+        }
+        .btn-device {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            border: 10px solid #ccc;
+            box-shadow: 0 30px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 15px;
+            transition: background-color 0.3s;
+        }
+        .btn-device:hover {
+            background-color: #f0f0f0;
+        }
+        #contenedor .container-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+        #contenedor .btn-device {
+            width: 100%;
+            margin: 25px;
+        }
+        #contenedor .container-main {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        #contenedor .btn-device {
+            flex: 0 1 calc(25% - 10px);
+            margin: 5px;
+        }
+        #subir {
+            border: 3px solid #8BA3C9;
+            border-radius: 8px;
+            width: 80px;
+            height: 60px;
+            background-color: #336699;
+            color: #ffffff;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            position: absolute;
+            bottom: 20px;
+            right: 10px;
+        }
+        #subir:hover {
+            background-color: #001F3F;
+        }
+    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<div id="contenedor">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-11 border bg-light p-5">
+                    <div class="container p-4 shadow-lg">
+                        <div class="row">
+                            <div class="col-md-3">
+                            <a href="/gestion_activos/maquinas">
+                                <button class="btn btn-primary btn-device card device inventario" id="btn-inventario">
+                                    <i class="fas fa-list-alt fa-3x"></i>
+                                    <p>Registro de Inventarios</p>
+                                </button>
+                            </a>
+                            </div>
+                            <div class="col-md-3">
+                            <a href="/gestion_activos/incidentes">
+                                <button class="btn btn-success btn-device card device incidente" id="btn-incidente">
+                                    <i class="fas fa-exclamation-triangle fa-3x"></i>
+                                    <p>Registro de Incidentes</p>
+                                </button>
+                            </a>
+                            </div>
+                            <div class="col-md-3">
+                            <a href="/gestion_activos/sistemas">
+                                <button class="btn btn-danger btn-device card device sistema_operativo" id="btn-sistema_operativo">
+                                    <i class="fas fa-desktop fa-3x"></i>
+                                    <p>Sistemas Operativos</p>
+                                </button>
+                            </a>
+                            </div>
+                            <div class="col-md-3">
+                            <a href="/gestion_activos/personasplanillas">
+                                <button class="btn btn-warning btn-device card device planilleros" id="btn-planilleros">
+                                    <i class="fas fa-users fa-3x"></i>
+                                    <p>Registro de Planilleros</p>
+                                </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-            </ul>
-            <form>
-                <div class="col-lg-1 d-grid mb-lg-0 mb-2">
-                    <!-- Ruta relativa desde el archivo donde se incluye menu.php -->
-                    <button class="btn btn-danger" type="submit" id="closeSession" name="closeSession"><i
-                            class="bi bi-arrow-bar-left"></i>CERRAR SESIÓN</button>
-                </div>
-            </form>
-
-
-        </div>
-    </div>
-    <div class="progress fixed-bottom" style="height: 6px;">
-        <div class="progress-bar progress-bar-animated bg-danger" id="bar" role="progressbar" aria-valuemin="0"
-            aria-valuemax="100"></div>
-</div>
-     
-    <div class="container-fluid ">
-        <div class="row justify-content-center text-center">
-            <div class="col-12">
-                <p style="font-size:xx-small; font-weight: bold;">
-                    Comando de Informática y Tecnología,
-                    <?= date('Y') ?> &copy;
-                </p>
             </div>
         </div>
-    </div>
-</div>
+
 <script src="<?= asset('./build/js/menu/index.js') ?>"></script>

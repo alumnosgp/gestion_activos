@@ -248,7 +248,7 @@ const eliminar = async (e) => {
 };
 
 const modificar = async () => {
-    if (!validarFormulario(formulario, ['per_id'])) {
+    if (!validarFormulario(formulario, ['per_id', 'per_nombre2', 'per_apellido2'])) {
         alert('Debe llenar todos los campos');
         return;
     }

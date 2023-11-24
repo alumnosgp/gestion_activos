@@ -15,6 +15,7 @@ use Controllers\OficinaController;
 use Controllers\MaquinaController;
 use Controllers\SistemaController;
 use Controllers\AntiviruController;
+use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
@@ -114,6 +115,19 @@ $router->get('/', [AppController::class,'index']);
 $router->get('/pdf', [ReporteController::class,'pdf']);
 $router->get('/getMaquina', [ReporteController::class,'pdf']);
 // $router->get('/API/reporte/generar', [ReporteController::class, 'pdf']);
+
+
+
+
+//////////////////////////////GESTION DE INCIDENTES/////////////////////////
+///Incidentes///
+$router->get('/incidentes', [IncidenteController::class, 'index']);
+$router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
+$router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
+$router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
+
 
 
 
