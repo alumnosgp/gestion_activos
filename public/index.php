@@ -20,6 +20,7 @@ use Controllers\PersonaltaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
 use Controllers\ReporteController;
+use Controllers\EstadisticaController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -116,6 +117,12 @@ $router->get('/pdf', [ReporteController::class,'pdf']);
 $router->get('/getMaquina', [ReporteController::class,'pdf']);
 // $router->get('/API/reporte/generar', [ReporteController::class, 'pdf']);
 
+//estadisticas
+$router->get('/estadisticas', [EstadisticaController::class, 'index']);
+$router->get('/API/estadisticas/buscarDatosEstadistica', [EstadisticaController::class, 'buscarDatosEstadistica']);
+$router->get('/API/estadisticas/buscarDatosEstadisticaSoftware', [EstadisticaController::class, 'buscarDatosSoftware']);
+$router->get('/API/estadisticas/buscarDatosEstadisticaAntivirus', [EstadisticaController::class, 'buscarDatosAntivirus']);
+$router->get('/API/estadisticas/buscarDatosEstadisticaMaquinas', [EstadisticaController::class, 'buscarDatosMaquinas']);
 
 
 
