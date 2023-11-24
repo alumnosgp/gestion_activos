@@ -85,6 +85,72 @@ class IncidenteController
     }
 
 
+
+
+
+    public static function buscarApi(){
+        $sql_data = "SELECT  
+        i.inc_fecha AS inc_fecha, 
+        i.inc_no_incidente, 
+        i.inc_catalogo_irt, 
+        p1.per_nombre1 || ' ' || p1.per_nombre2 || ' ' || p1.per_apellido1 || ' ' || p1.per_apellido2 AS per_nombre_irt,
+        g1.grado_descr AS per_grado_irt,
+        pla1.pla_nombre AS per_plaza_irt,
+        i.inc_email_irt, 
+        i.inc_tel_irt,
+        i.inc_catalogo_rep,
+        g_rep1.grado_descr AS per_grado_rep,
+        pla_rep1.pla_nombre AS per_plaza_rep,
+        i.inc_direccion_rep,
+        i.inc_tel_rep,
+        i.inc_email_rep,
+        per_rep1.per_nombre1 || ' ' || per_rep1.per_nombre2 || ' ' || per_rep1.per_apellido1 || ' ' || per_rep1.per_apellido2 AS per_nombre_rep,
+        d.det_inc_fec_ocurre,
+        d.det_inc_fec_descubre,
+        d.det_inc_fec_informa,
+        desc_que,
+        desc_como,
+        desc_porque,
+        desc_vista,
+        desc_impacto_adv,
+        desc_vulnerabilidad,
+        det_categ.det_categ_descripcion,
+        cat_inc.cat_inc_decrip AS det_categoria, -- Modificado para mostrar el nombre de la categoría como det_categoria
+        det_categ.det_categ_observacion
+    FROM 
+        incidente i
+        LEFT JOIN persona_dealta p1 ON i.inc_catalogo_irt = p1.per_catalogo
+        LEFT JOIN grados g1 ON p1.per_grado = g1.grado_id
+        LEFT JOIN plazas pla1 ON p1.per_plaza = pla1.pla_id
+        LEFT JOIN persona_dealta per_rep1 ON i.inc_catalogo_rep = per_rep1.per_catalogo
+        LEFT JOIN grados g_rep1 ON per_rep1.per_grado = g_rep1.grado_id
+        LEFT JOIN plazas pla_rep1 ON per_rep1.per_plaza = pla_rep1.pla_id
+        LEFT JOIN detalle_inc d ON i.inc_id = d.det_inc_id_incidente
+        LEFT JOIN descripcion_inc ON i.inc_id = desc_incidente_id
+        LEFT JOIN detalle_categ_inc det_categ ON i.inc_id = det_categ.det_categ_id_incidente
+        LEFT JOIN categoria_incidente cat_inc ON det_categ.det_categoria = cat_inc.cat_inc_id
+    WHERE 
+        i.inc_situacion = 1
+    ORDER BY
+        i.inc_fecha DESC";
+        
+       
+        try {
+
+            $inc_data = Incidente::fetchArray($sql_data);
+
+            echo json_encode($inc_data);
+
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+        }
+    }
+    
+
     public static function buscarDatosPorCatalogoIrtAPI()
     {
         // Obtener el valor de la variable desde la URL

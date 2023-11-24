@@ -122,6 +122,7 @@ $router->get('/getMaquina', [ReporteController::class,'pdf']);
 //////////////////////////////GESTION DE INCIDENTES/////////////////////////
 ///Incidentes///
 $router->get('/incidentes', [IncidenteController::class, 'index']);
+$router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
 $router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
 $router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
