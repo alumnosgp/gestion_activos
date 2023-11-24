@@ -108,7 +108,8 @@ FULL JOIN
     persona_planilla planilla ON maquina.maq_per_planilla = planilla.pcivil_catalogo
 
     WHERE 
-        maquina.maq_situacion >= 1";
+        maquina.maq_situacion >= 1
+    ORDER BY maq_id DESC";
 
     // Agregar condición de búsqueda por nombre si se proporciona
     if (!empty($maq_nombre)) {
