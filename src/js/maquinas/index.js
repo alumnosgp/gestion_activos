@@ -57,6 +57,15 @@ const datatable = new Datatable("#tablaMaquinas", {
       }
     },
 
+
+    {
+      title: "NOMBRE DEL ENCARGADO",
+      data: null,
+      render: function (data, type, row, meta) {
+        return row.maq_per_planilla + ' ' + row.maq_per_alta;
+      } 
+    },
+
     // {
     //   title: "CATALOGO DEL ENCARGADO (ALTA)",
     //   data: "maq_per_alta",
@@ -82,6 +91,7 @@ const datatable = new Datatable("#tablaMaquinas", {
     } 
   },
 
+
     {
       title: "NOMBRE DEL ENCARGADO",
       data: null,
@@ -89,6 +99,7 @@ const datatable = new Datatable("#tablaMaquinas", {
         return row.maq_per_planilla + ' ' + row.maq_per_alta;
       } 
     },
+
 
     {
       title: "RAM",
