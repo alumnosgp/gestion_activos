@@ -44,7 +44,6 @@ const datatable = new Datatable("#tablaMaquinas", {
     {
       title: "MAC",
       data: "maq_mac",
-      
     },
     {
       title: "TIPO",
@@ -54,34 +53,16 @@ const datatable = new Datatable("#tablaMaquinas", {
       title: "PLAZA",
       data: null,
       render: function (data, type, row, meta) {
-      return row.maq_plaza;
+        return row.maq_plaza;
       }
     },
-    // {
-    //   title: "CATALOGO DEL ENCARGADO (ALTA)",
-    //   data: "maq_per_alta",
-    // },
-    // {
-    //   title: "CATALOGO DEL ENCARGADO (PLANILLA)",
-    //   data: "maq_per_planilla",
-    // },
-    // {
-    //   title: "CATALOGO DEL ENCARGADO",
-    //   data: null,
-    //   render: function (data, type, row, meta) {
-    //     // Combina los valores de las columnas en una sola columna
-    //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
-    //   } 
-    // },
-  
-    title: "NOMBRE DEL ENCARGADO",
-
-    data: null,
-    render: function (data, type, row, meta) {
-      // Combina los valores de las columnas en una sola columna
-      return row.maq_per_planilla + ' ' + row.maq_per_alta;
-    } 
-  },
+    {
+      title: "NOMBRE DEL ENCARGADO",
+      data: null,
+      render: function (data, type, row, meta) {
+        return row.maq_per_planilla + ' ' + row.maq_per_alta;
+      } 
+    },
     {
       title: "RAM",
       data: "maq_ram_capacidad",
@@ -90,7 +71,6 @@ const datatable = new Datatable("#tablaMaquinas", {
       title: "DISCO DURO",
       data: null,
       render: function (data, type, row, meta) {
-        // Combina los valores de las columnas en una sola columna
         return row.maq_disco_capacidad + ' ' + row.maq_tipo_disco_duro;
       }
     },
@@ -115,22 +95,13 @@ const datatable = new Datatable("#tablaMaquinas", {
       data: "maq_uso",
     },
     {
-
-      
-        title: "MODIFICAR",
-        data: "maq_id",
-        searchable: false,
-        orderable: false,
-        render: (data, type, row, meta) =>
-          `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
-      },
-    //   title: "MODIFICAR",
-    //   data: "maq_id",
-    //   searchable: false,
-    //   orderable: false,
-    //   render: (data, type, row, meta) =>
-    //     `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
-    // },
+      title: "MODIFICAR",
+      data: "maq_id",
+      searchable: false,
+      orderable: false,
+      render: (data, type, row, meta) =>
+        `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
+    },
     {
       title: "ELIMINAR",
       data: "maq_id",
@@ -139,19 +110,17 @@ const datatable = new Datatable("#tablaMaquinas", {
       render: (data, type, row, meta) =>
         `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`,
     },
-    /* AQUI SE MUESTRA EN EL DATA TEBLE LA INFROMACION DE IMPRESION DE INVENTARIO */
     {
       title: "Inventario",
       data: "maq_id",
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) => 
-      `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
-      
-  },
-  /* AQUI TERMINA LA INFROMACION DE IMPRESION DE INVENTARIO */
+        `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+    },
   ],
 });
+
 
 formulario.tipoPersonal.addEventListener("change", function (e) {
   if (e.target.value === "DE ALTA") {
