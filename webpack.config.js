@@ -16,6 +16,7 @@ module.exports = {
     'js/sistemas/index' : './src/js/sistemas/index.js',
     'js/maquinas/index' : './src/js/maquinas/index.js',
     'js/antivirus/index' : './src/js/antivirus/index.js',
+    'js/incidentes/index' : './src/js/incidentes/index.js',
     'js/personasaltas/index' : './src/js/personasaltas/index.js',
     'js/organizaciones/index' : './src/js/organizaciones/index.js',
     'js/personasplanillas/index' : './src/js/personasplanillas/index.js',

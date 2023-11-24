@@ -63,6 +63,31 @@ const datatable = new Datatable("#tablaMaquinas", {
         return row.maq_per_planilla + ' ' + row.maq_per_alta;
       } 
     },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO (ALTA)",
+    //   data: "maq_per_alta",
+    // },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO (PLANILLA)",
+    //   data: "maq_per_planilla",
+    // },
+    // {
+    //   title: "CATALOGO DEL ENCARGADO",
+    //   data: null,
+    //   render: function (data, type, row, meta) {
+    //     // Combina los valores de las columnas en una sola columna
+    //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
+    //   } 
+    // },
+  { 
+    title: "NOMBRE DEL ENCARGADO",
+    data: null,
+    render: function (data, type, row, meta) {
+      // Combina los valores de las columnas en una sola columna
+      return row.maq_per_planilla + ' ' + row.maq_per_alta;
+    } 
+  },
+
     {
       title: "RAM",
       data: "maq_ram_capacidad",

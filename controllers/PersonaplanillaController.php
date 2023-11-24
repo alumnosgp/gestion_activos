@@ -48,6 +48,7 @@ class PersonaplanillaController{
     {   
         $sql = "SELECT * FROM persona_planilla
         inner join plazas on pla_id = pcivil_plaza
+        inner join grados on grado_id = pcivil_gradi
         WHERE pcivil_situacion = 1";
         
         if (isset($_GET['pcivil_nombre1']) && $_GET['pcivil_nombre1'] != '') {

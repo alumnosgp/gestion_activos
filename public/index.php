@@ -15,6 +15,7 @@ use Controllers\OficinaController;
 use Controllers\MaquinaController;
 use Controllers\SistemaController;
 use Controllers\AntiviruController;
+use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
@@ -122,6 +123,19 @@ $router->get('/API/estadisticas/buscarDatosEstadistica', [EstadisticaController:
 $router->get('/API/estadisticas/buscarDatosEstadisticaSoftware', [EstadisticaController::class, 'buscarDatosSoftware']);
 $router->get('/API/estadisticas/buscarDatosEstadisticaAntivirus', [EstadisticaController::class, 'buscarDatosAntivirus']);
 $router->get('/API/estadisticas/buscarDatosEstadisticaMaquinas', [EstadisticaController::class, 'buscarDatosMaquinas']);
+
+
+
+//////////////////////////////GESTION DE INCIDENTES/////////////////////////
+///Incidentes///
+$router->get('/incidentes', [IncidenteController::class, 'index']);
+$router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
+$router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
+$router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
+
+
 
 
 $router->comprobarRutas();
