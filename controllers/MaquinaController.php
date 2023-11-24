@@ -28,23 +28,42 @@ class MaquinaController
         $router->render('maquinas/index', ['planillas' => $planillas, 'personas' => $personas, 'sistemas' => $sistemas, 'antivirus' => $antivirus, 'offices' => $offices,]);
     }
 
-
-
     public static function guardarApi()
     {
         try {
-
+            // Crear una instancia de Maquina con los datos del formulario
             $maquinas = new Maquina($_POST);
-            $resultado = $maquinas->crear();
-
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Registro guardado correctamente',
-                    'codigo' => 1
-                ]);
+    
+            // Validar la dirección MAC
+            if (isset($_POST['maq_mac'])) {
+                $direccionMAC = $_POST['maq_mac'];
+    
+                if (filter_var($direccionMAC, FILTER_VALIDATE_MAC)) {
+                    // La dirección MAC es válida, procede con la lógica para guardar
+                    $resultado = $maquinas->crear();
+    
+                    if ($resultado['resultado'] == 1) {
+                        echo json_encode([
+                            'mensaje' => 'Registro guardado correctamente',
+                            'codigo' => 1
+                        ]);
+                    } else {
+                        echo json_encode([
+                            'mensaje' => 'Ocurrió un error',
+                            'codigo' => 0
+                        ]);
+                    }
+                } else {
+                    // La dirección MAC no es válida
+                    echo json_encode([
+                        'mensaje' => 'La dirección MAC no es válida',
+                        'codigo' => 0
+                    ]);
+                }
             } else {
+                // No se proporcionó ninguna dirección MAC
                 echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
+                    'mensaje' => 'No se proporcionó ninguna dirección MAC',
                     'codigo' => 0
                 ]);
             }
@@ -56,6 +75,9 @@ class MaquinaController
             ]);
         }
     }
+    
+
+    
 
     public static function buscarAPI()
 {
@@ -86,7 +108,8 @@ FULL JOIN
     persona_planilla planilla ON maquina.maq_per_planilla = planilla.pcivil_catalogo
 
     WHERE 
-        maquina.maq_situacion >= 1";
+        maquina.maq_situacion >= 1
+    ORDER BY maq_id DESC";
 
     // Agregar condición de búsqueda por nombre si se proporciona
     if (!empty($maq_nombre)) {
@@ -110,60 +133,60 @@ FULL JOIN
 }
 
 
-    public static function modificarAPI()
-    {
-        try {
-            $maquinas = new Maquina($_POST);
+public static function modificarAPI()
+{
+    try {
+        $maquinas = new Maquina($_POST);
+        $resultado = $maquinas->actualizar();
 
-            $resultado = $maquinas->actualizar();
-
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Pago modificado correctamente',
-                    'codigo' => 1
-                ]);
-            } else {
-                echo json_encode([
-                    'mensaje' => 'Ocurrió un error db',
-                    'codigo' => 0,
-                ]);
-            }
-        } catch (Exception $e) {
+        if ($resultado['resultado'] == 1) {
             echo json_encode([
-                'detalle' => $e->getMessage(),
-                'mensaje' => 'Ocurrió un error excepcion',
+                'mensaje' => 'Máquina modificada correctamente',
+                'codigo' => 1
+            ]);
+        } else {
+            echo json_encode([
+                'mensaje' => 'Ocurrió un error al intentar modificar la máquina',
+                'codigo' => 0,
+            ]);
+        }
+    } catch (Exception $e) {
+        echo json_encode([
+            'detalle' => $e->getMessage(),
+            'mensaje' => 'Ocurrió un error durante la modificación de la máquina',
+            'codigo' => 0
+        ]);
+    }
+}
+
+public static function eliminarAPI()
+{
+    try {
+        $maq_id = $_POST['maq_id'];
+        $maquina = Maquina::find($maq_id);
+        $maquina->maq_situacion = '1'; // Cambiar a la situación deseada para eliminar o inhabilitar
+        $resultado = $maquina->actualizar();
+
+        if ($resultado['resultado'] == 1) {
+            echo json_encode([
+                'mensaje' => 'Máquina eliminada correctamente',
+                'codigo' => 1
+            ]);
+        } else {
+            echo json_encode([
+                'mensaje' => 'Ocurrió un error al intentar eliminar la máquina',
                 'codigo' => 0
             ]);
         }
+    } catch (Exception $e) {
+        echo json_encode([
+            'detalle' => $e->getMessage(),
+            'mensaje' => 'Ocurrió un error al intentar eliminar la máquina',
+            'codigo' => 0
+        ]);
     }
+}
 
-    public static function eliminarAPI()
-    {
-        try {
-            $maq_id = $_POST['maq_id'];
-            $maquinas = Maquina::find($maq_id);
-            $maquinas->maq_situacion = '2'; // Cambiar a la situación deseada para eliminar
-            $resultado = $maquinas->actualizar();
-
-            if ($resultado['resultado'] == 1) {
-                echo json_encode([
-                    'mensaje' => 'Maquina eliminada correctamente',
-                    'codigo' => 1
-                ]);
-            } else {
-                echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
-                    'codigo' => 0
-                ]);
-            }
-        } catch (Exception $e) {
-            echo json_encode([
-                'detalle' => $e->getMessage(),
-                'mensaje' => 'Ocurrió un error',
-                'codigo' => 0
-            ]);
-        }
-    }
 
     public static function buscarNombresAPI()
     {

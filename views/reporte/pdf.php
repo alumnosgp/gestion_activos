@@ -23,7 +23,7 @@
                 width: 100%;
                 font-size: 14px;
                 border-collapse: collapse;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
 
             .invoice th,
@@ -34,7 +34,7 @@
             }
 
             .invoice th {
-                background-color: #8fcfbf;
+                background-color: #f2f2f2;
                 font-weight: bold;
                 color: #333;
             }
@@ -50,7 +50,7 @@
 
             /* Estilos para la fila de descripción del equipo Y color azul entre las lineas  */
             .description-row {
-                background-color: #0da3de;
+                background-color: #f2f2f2;
                 font-weight: bold;
                 color: #343a40;
             }
@@ -73,7 +73,7 @@
             .invoice-header,
             .company-info {
                 text-align: center;
-                margin-bottom: 10px;
+                margin-bottom: 05px;
                 /* Puedes ajustar el margen según sea necesario */
             }
 
@@ -82,17 +82,61 @@
                 /* Elimina los márgenes de los párrafos */
             }
         }
+
+        /* Estilos para el pie de firma */
+        .signature-section {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        /* .signature-recibi-entregue {
+            float: left;
+            width: 30%; /* Ancho fijo para mantenerlos en la misma línea y espaciados */
+        /* Añade un poco de espacio entre las firmas */
+
+        /* .signature-entregue {
+            float: right;
+            /* Esto empujará 'ENTREGUÉ' a la derecha */
+        /* width: 30%; */
+        /* Ancho igual al de los otros bloques de firma para alineación */
+        .signature-line {
+            border-top: 2px solid #000;
+            margin: 50px;
+            width: 80%;
+            /* Ancho en porcentaje para mantenerlo dentro del div correspondiente */
+        }
+
+        .signature-name {
+            font-size: 0.7em;
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        .firma {
+            font-size: 0.9em;
+            text-align: center;
+            margin-top: 5px;
+            margin-bottom: 50px;
+            font-weight: bold;
+            /* Hacerlo negrita */
+            color: #333;
+        }
+
+        .signature-responsable {
+            display: block;
+            margin: 100px auto;
+            width: 60%;
+            /* Ancho igual al de los otros bloques de firma para alineación */
+            color: #333;
+        }
     </style>
-
-
     <div style="text-align:center;">
         <img src="./images/ciber.jpg" alt="Descripción de la imagen" style="width: 100px; height: auto;">
     </div>
-
-
     <!-- Información de los Inventarios -->
     <div class="company-info">
-        <h1>EJÉRCITO DE GUATEMALA</h1>
+        <!-- <h1 class="company-name">EJÉRCITO DE GUATEMALA</h1> -->
         <p class="company-name">Comando de Informatica y Tecnología</p>
         <p class="company-address">12 Ave. Zona - 13, Ciudad de Guatemala, Código Postal 12345</p>
         <p>Teléfono: (123) 456-7890</p>
@@ -102,15 +146,15 @@
     <table class="invoice">
         <thead>
             <tr>
-                <th colspan="2" text-align="center">
+                <th colspan="2" style="text-align: center;">
                     <h2>INVENTARIOS DE ACTIVOS</h2>
                 </th>
             </tr>
         </thead>
         <tbody>
             <tr class="description-row">
-                <td>ID:</td>
-                <td><?= $maquina['maq_id'] ?></td>
+                <!-- <td>ID:</td>
+                <td><?= $maquina['maq_id'] ?></td> -->
             </tr>
             <tr class="description-row">
                 <td>Tipo:</td>
@@ -179,6 +223,19 @@
             <!-- ... Continuar con el resto de los datos ... -->
         </tbody>
     </table>
+    
+
+
+    <!-- Div para contener los tres pies de firma -->
+    <div>
+        <div class="signature-responsable">
+            <p class="firma">RESPONSABLE</p>
+            <div class="signature-line"></div>     
+            <div class="signature-name"><?= $maquina['maq_per_alta'] ?><?= $maquina['maq_per_planilla'] ?></div>
+        </div>                        
+    </div>
+
+
 </body>
 
 </html>
