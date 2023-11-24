@@ -25,6 +25,8 @@ btnModificar.parentElement.style.display = "none";
 btnCancelar.disabled = true;
 btnCancelar.parentElement.style.display = "none";
 
+
+
 let typingTimeout;
 let contador = 1;
 const datatable = new Datatable("#tablaMaquinas", {
@@ -42,6 +44,7 @@ const datatable = new Datatable("#tablaMaquinas", {
     {
       title: "MAC",
       data: "maq_mac",
+      
     },
     {
       title: "TIPO",
@@ -111,13 +114,22 @@ const datatable = new Datatable("#tablaMaquinas", {
       data: "maq_uso",
     },
     {
-      title: "MODIFICAR",
-      data: "maq_id",
-      searchable: false,
-      orderable: false,
-      render: (data, type, row, meta) =>
-        `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
-    },
+
+      
+        title: "MODIFICAR",
+        data: "maq_id",
+        searchable: false,
+        orderable: false,
+        render: (data, type, row, meta) =>
+          `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
+      },
+    //   title: "MODIFICAR",
+    //   data: "maq_id",
+    //   searchable: false,
+    //   orderable: false,
+    //   render: (data, type, row, meta) =>
+    //     `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
+    // },
     {
       title: "ELIMINAR",
       data: "maq_id",
@@ -128,12 +140,12 @@ const datatable = new Datatable("#tablaMaquinas", {
     },
     /* AQUI SE MUESTRA EN EL DATA TEBLE LA INFROMACION DE IMPRESION DE INVENTARIO */
     {
-      title: "FACTURA",
+      title: "Inventario",
       data: "maq_id",
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) => 
-      `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir Factura</button>`
+      `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
       
   },
   /* AQUI TERMINA LA INFROMACION DE IMPRESION DE INVENTARIO */
