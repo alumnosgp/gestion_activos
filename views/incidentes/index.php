@@ -423,6 +423,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button> -->
 
                 </form>
             </div>
@@ -571,6 +572,8 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarDescrip" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
+
                 </form>
             </div>
         </div>
@@ -617,6 +620,8 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarCategoria" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
+
                 </form>
             </div>
         </div>
@@ -798,8 +803,12 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col">
-                            <label for="res_otro2">Otras entidades</label>
+                            <label for="res_otro2">Otras entidades internas</label>
                             <textarea type="text" name="res_otro2" id="res_otro2" class="form-control"></textarea>
+                        </div>
+                        <div class="col">
+                            <label for="res_otro3">Otras entidades externas</label>
+                            <textarea type="text" name="res_otro3" id="res_otro3" class="form-control"></textarea>
                         </div>
                     </div>
             

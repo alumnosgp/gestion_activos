@@ -400,6 +400,61 @@ try {
             return;
         }
     }
+
+
+    public static function modificarDescrip()
+    {
+        try {
+            $incIrt = new Incidente($_POST);           
+           
+            $resultado = $incIrt->actualizar();
+
+            if ($resultado['resultado'] == 1) {
+                echo json_encode([
+                    'mensaje' => 'Dato modificado correctamente',
+                    'codigo' => 1
+                ]);
+            } else {
+                echo json_encode([
+                    'mensaje' => 'Ocurrió un error db',
+                    'codigo' => 0,
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error excepcion',
+                'codigo' => 0
+            ]);
+        }
+    }
+
+    public static function modificarCategoria()
+    {
+        try {
+            $incIrt = new Incidente($_POST);           
+           
+            $resultado = $incIrt->actualizar();
+
+            if ($resultado['resultado'] == 1) {
+                echo json_encode([
+                    'mensaje' => 'Dato modificado correctamente',
+                    'codigo' => 1
+                ]);
+            } else {
+                echo json_encode([
+                    'mensaje' => 'Ocurrió un error db',
+                    'codigo' => 0,
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error excepcion',
+                'codigo' => 0
+            ]);
+        }
+    }
 }
 
 ?>

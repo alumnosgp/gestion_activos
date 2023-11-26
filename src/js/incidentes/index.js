@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const btnGuardar = document.getElementById("btnGuardar");
   const modalGuardar = document.getElementById("modalGuardar");
+  const btnModificarDescrip = document.getElementById('btnModificarDescrip');
+  const btnModificarCategoria = document.getElementById('btnModificarCategoria');
   const btnSiguiente = document.getElementById("btnSiguiente");
   const btnRegresar = document.getElementById("btnRegresar");
 
@@ -225,10 +227,18 @@ document.addEventListener("DOMContentLoaded", function () {
         data: "Resolucion",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-success" 
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-warning" 
         id="btnVerAccion" data-id5='${data}' data-bs-toggle="modal" data-bs-target="#Resolucion">
         Ver
         </button>`,
+      },
+      {
+        title: "Inventario",
+        data: "maq_id",
+        searchable: false,
+        orderable: false,
+        render: (data, type, row, meta) => 
+          `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
       },
     ],
   });
@@ -535,6 +545,10 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+
+
+  ///////////////////////IRT///////////////////////////////////////////////////////////
+
   const traeDatos = (e) => {
     const button = e.target;
     const id = button.dataset.id;
@@ -670,6 +684,51 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+  /////////////////////////////////////////////////descripcion/////////////////////////
+
+  const modificarDescrip = async () => {
+    // if (!validarFormulario(formulario,['inc_id'])) {
+    //     alert('Debe llenar todos los campos');
+    //     return
+    // }
+    
+    const body = new FormData(modalDescrip)
+    const url = '/gestion_activos/API/incidentes/modificarDescrip';
+    const config = {
+        method: 'POST',
+        body
+    }
+    try {
+        const respuesta = await fetch(url, config)
+        const data = await respuesta.json();
+        console.log(data)
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
+        switch (codigo) {
+            case 1:
+                formulario.reset();
+                icon = 'success'
+                buscar();
+                break;
+            case 0:
+                icon = 'error'
+                console.log(detalle)
+                break;
+
+            default:
+                break;
+        }
+
+        Toast.fire({
+            icon,
+            text: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   const traeDatos3 = (e) => {
     const button = e.target;
     const id3 = button.dataset.id3;
@@ -716,6 +775,52 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+
+
+   /////////////////////////////////////////////////categoria/////////////////////////
+
+   const modificarCategoria = async () => {
+    // if (!validarFormulario(formulario,['inc_id'])) {
+    //     alert('Debe llenar todos los campos');
+    //     return
+    // }
+    
+    const body = new FormData(modalCategoria)
+    const url = '/gestion_activos/API/incidentes/modificarCategoria';
+    const config = {
+        method: 'POST',
+        body
+    }
+    try {
+        const respuesta = await fetch(url, config)
+        const data = await respuesta.json();
+        console.log(data)
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
+        switch (codigo) {
+            case 1:
+                formulario.reset();
+                icon = 'success'
+                buscar();
+                break;
+            case 0:
+                icon = 'error'
+                console.log(detalle)
+                break;
+
+            default:
+                break;
+        }
+
+        Toast.fire({
+            icon,
+            text: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
   const traeDatos4 = (e) => {
     const button = e.target;
     const id4 = button.dataset.id4;
@@ -788,4 +893,7 @@ document.addEventListener("DOMContentLoaded", function () {
   datatable.on('click', '#btnVerDescrip', traeDatos3);
   datatable.on('click', '#btnVerCateg', traeDatos4);
   modalGuardar.addEventListener("click", guardarModal);
+  btnModificarDescrip.addEventListener("click", modificarDescrip);
+  btnModificarCategoria.addEventListener("click", modificarCategoria);
+
 });
