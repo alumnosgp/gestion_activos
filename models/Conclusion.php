@@ -17,12 +17,12 @@ class Conclusion extends ActiveRecord
         $this->conclu_situacion = $args['conclu_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT conclu_id, conclu_nombre 
-    //     FROM armas
-    //     WHERE conclu_situacion = 1 
-    //     ORDER BY conclu_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function conclusionNombre(){
+        $sql = "SELECT conclu_id, conclu_nombre 
+        FROM conclusiones
+        WHERE conclu_situacion = 1 
+        ORDER BY conclu_nombre";
+        return $this->fetchArray($sql);
+    }
 }
 ?>

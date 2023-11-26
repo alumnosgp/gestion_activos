@@ -21,6 +21,8 @@ module.exports = {
     'js/organizaciones/index' : './src/js/organizaciones/index.js',
     'js/personasplanillas/index' : './src/js/personasplanillas/index.js',
     'js/reporte/index' : './src/js/reporte/index.js',
+
+
     'js/estadisticas/index' : './src/js/estadisticas/index.js',
   },
   output: {

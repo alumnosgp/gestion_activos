@@ -17,12 +17,12 @@ class Institucionesint extends ActiveRecord
         $this->ins_int_situacion = $args['ins_int_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT ins_int_id, ins_int_nombre 
-    //     FROM armas
-    //     WHERE ins_int_situacion = 1 
-    //     ORDER BY ins_int_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function instInt(){
+        $sql = "SELECT ins_int_id, ins_int_nombre 
+        FROM inst_internas
+        WHERE ins_int_situacion = 1 
+        ORDER BY ins_int_nombre";
+        return $this->fetchArray($sql);
+    }
 }
 ?>

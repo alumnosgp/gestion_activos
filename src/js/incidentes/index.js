@@ -1,5 +1,5 @@
 import Datatable from "datatables.net-bs5";
-import { Dropdown, Modal } from "bootstrap";
+import { Dropdown, Modal} from "bootstrap";
 import Swal from "sweetalert2";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
@@ -16,18 +16,24 @@ document.addEventListener("DOMContentLoaded", function () {
   const formularioInc = document.getElementById("formularioIncidentes");
   const inc_catalogo_irt = document.getElementById("inc_catalogo_irt");
   const inc_catalogo_rep = document.getElementById("inc_catalogo_rep");
+  const res_catalogo = document.getElementById("res_catalogo");
   const inc_no_incidente = document.getElementById("inc_no_incidente");
   const formulario = document.getElementById("formTotal");
   const incFecha = document.getElementById("inc_fecha");
+  const modalFecha = document.getElementById("res_fec_inic_inv");
   // const btnVerIrt = document.getElementById("btnVerIrt");
   const modalIrt = document.getElementById("modalIrt");
   const modalRep = document.getElementById("modalRep");
   const modalFechas = document.getElementById("modalFechas");
   const modalDescrip = document.getElementById("modalDescrip");
   const modalCategoria = document.getElementById("modalCategoria");
+  const modalResolucion = document.getElementById("modalResolucion");
 
 
   const btnGuardar = document.getElementById("btnGuardar");
+  const modalGuardar = document.getElementById("modalGuardar");
+  const btnModificarDescrip = document.getElementById('btnModificarDescrip');
+  const btnModificarCategoria = document.getElementById('btnModificarCategoria');
   const btnSiguiente = document.getElementById("btnSiguiente");
   const btnRegresar = document.getElementById("btnRegresar");
 
@@ -109,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     formulario.det_categ_id_incidente.value=codigo_incidente
     formulario.det_comp_act_inc_id.value=codigo_incidente
     formulario.det_efec_id_incidente.value=codigo_incidente
+    // formulario.res_inc_incidente_id.value=codigo_incidente
 
     if (posicionFormulario < formularios.length - 1) {
       posicionFormulario++;
@@ -134,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const minutos = ("0" + fechaHoraActual.getMinutes()).slice(-2);
     const formatoFechaHora = `${anio}-${mes}-${dia} ${horas}:${minutos}`;
     incFecha.value = formatoFechaHora;
+    modalFecha.value = formatoFechaHora;
   };
 
   // Llama a la función después de haberla declarado
@@ -159,61 +167,78 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       {
         title: "IRT",
-        data: "inc_id",
+        data: "Irt",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-primary" id="btnVerIrt" data-id='${data}' data-nombre='${row.per_nombre_irt}' data-grado='${row.per_grado_irt}' data-catalogo='${row.inc_catalogo_irt}' data-telefono='${row.inc_tel_irt}' data-puesto='${row.per_plaza_irt}' data-email='${row.inc_email_irt}' data-bs-toggle="modal" data-bs-target="#Irt">Ver</button>`,
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-primary" id="btnVerIrt" 
+        data-id='${data}' data-nombre='${row.per_nombre_irt}' data-grado='${row.per_grado_irt}' 
+        data-catalogo='${row.inc_catalogo_irt}' data-telefono='${row.inc_tel_irt}' data-puesto='${row.per_plaza_irt}' 
+        data-email='${row.inc_email_irt}' data-bs-toggle="modal" data-bs-target="#Irt">Ver</button>`,
       },
       {
         title: "REPORTO",
-        data: "inc_id",
+        data: "Rep",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-secondary" id="btnVerRep" data-id1='${data}' data-nombre1='${row.per_nombre_rep}' data-grado1='${row.per_grado_rep}' data-catalogo1='${row.inc_catalogo_rep}' data-telefono1='${row.inc_tel_rep}' data-puesto1='${row.per_plaza_rep}' data-email1='${row.inc_email_rep}' data-direccion1='${row.inc_direccion_rep}' data-bs-toggle="modal" data-bs-target="#Rep">Ver</button>`,
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-secondary" id="btnVerRep" 
+        data-id1='${data}' data-nombre1='${row.per_nombre_rep}' data-grado1='${row.per_grado_rep}' 
+        data-catalogo1='${row.inc_catalogo_rep}' data-telefono1='${row.inc_tel_rep}' data-puesto1='${row.per_plaza_rep}' 
+        data-email1='${row.inc_email_rep}' data-direccion1='${row.inc_direccion_rep}' data-bs-toggle="modal" data-bs-target="#Rep">Ver</button>`,
       },
       {
         title: "FECHAS",
-        data: "inc_id",
+        data: "Fechas",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-info" id="btmVerFecha" data-id2='${data}' data-fechaocu='${row.det_inc_fec_ocurre}' data-fechadescu='${row.det_inc_fec_descubre}' data-fechainf='${row.det_inc_fec_informa}' data-bs-toggle="modal" data-bs-target="#Fechas">Ver</button>`,
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-info" id="btmVerFecha" 
+        data-id2='${data}' data-fechaocu='${row.det_inc_fec_ocurre}' data-fechadescu='${row.det_inc_fec_descubre}' 
+        data-fechainf='${row.det_inc_fec_informa}' data-bs-toggle="modal" data-bs-target="#Fechas">Ver</button>`,
       },
       {
         title: "DESCRIP",
-        data: "inc_id",
+        data: "Descrip",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-dark" id="btnVerDescrip" data-id3='${data}' data-que='${row.desc_que}' data-como='${row.desc_como}' data-porque='${row.desc_porque}' data-vista='${row.desc_vista}' data-impacto='${row.desc_impacto_adv}' data-vulnerabilidad='${row.desc_vulnerabilidad}' data-bs-toggle="modal" data-bs-target="#Descrip">Ver</button>`,
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-dark" id="btnVerDescrip" data-id3='${data}' 
+        data-que='${row.desc_que}' data-como='${row.desc_como}' data-porque='${row.desc_porque}' data-vista='${row.desc_vista}' 
+        data-impacto='${row.desc_impacto_adv}' data-vulnerabilidad='${row.desc_vulnerabilidad}' data-bs-toggle="modal" data-bs-target="#Descrip">Ver</button>`,
       },
       {
         title: "CATEGORIA",
-        data: "inc_id",
+        data: "Categoria",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-light" id="btnVerCateg" data-id4='${data}' data-descateg='${row.det_categ_descripcion}' data-detCateg='${row.det_categoria}' data-categOb='${row.det_categ_observacion}' data-bs-toggle="modal" data-bs-target="#Categoria">Ver categoria</button>`,
-      },
-      // {
-      //   title: "DURACION",
-      //   data: "inc_id",
-      //   searchable: false,
-      //   orderable: false,
-      //   render: (data, type, row, meta) => `<button class="btn btn-warning" id="verDuracion" data-id='${data}' data-bs-toggle="modal" data-bs-target="#">Ver</button>`,
-      // },
-  
+        render: (data, type, row, meta) => 
+        `<button type="button" class="btn btn-light" id="btnVerCateg" data-id4='${data}' 
+        data-descateg='${row.det_categ_descripcion}' data-detCateg='${row.det_categoria}' 
+        data-categOb='${row.det_categ_observacion}' data-bs-toggle="modal" data-bs-target="#Categoria">
+        Ver categoria
+        </button>`,
+      },  
       {
         title: "ESTADO",
-        data: "grado_id",
+        data: null,
+        render: () => "<span style='color: red;'>EN PROCESO</span>",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button class="btn btn-warning" id="verEstado" data-id='${data}' data-bs-toggle="modal" data-bs-target="#">Ver estado</button>`,
       },
-     
       {
         title: "ACCION",
-        data: "grado_id",
+        data: "Resolucion",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button class="btn btn-success" id="verAccion" data-id='${data}' data-bs-toggle="modal" data-bs-target="#">Ver</button>`,
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-warning" 
+        id="btnVerAccion" data-id5='${data}' data-bs-toggle="modal" data-bs-target="#Resolucion">
+        Ver
+        </button>`,
+      },
+      {
+        title: "Inventario",
+        data: "maq_id",
+        searchable: false,
+        orderable: false,
+        render: (data, type, row, meta) => 
+          `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
       },
     ],
   });
@@ -241,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     } catch (error) {
-        console.log(error);
+        console.log('Error en la llamada a la API:', error);
     }
   }
 
@@ -250,24 +275,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function que guardar que omite que se llenen ciertos campos de no contar con ellos
   const guardar = async (evento) => {
     evento.preventDefault();
-    // if (
-      // !validarFormulario(formulario, [
-      //   "inc_id", "inc_no_identificacion", "desc_id", "desc_incidente_id",
-      //   "desc_que", "desc_como", "desc_porque", "desc_vista", "desc_impacto_adv",
-      //   "desc_vulnerabilidad", "det_inc_id", "det_inc_id_incidente", "det_inc_fec_ocurre",
-      //   "det_inc_fec_descubre", "det_inc_fec_informa", "det_inc_estatus", "det_categ_id",
-      //   "det_categ_id_incidente", "det_categ_descripcion", "det_categoria", "det_categ_observacion",
-      //   "det_comp_act_id", "det_comp_act_inc_id", "det_comp_act_componente_id", "det_comp_act_descripcion",
-      //   "det_efct_id", "det_efec_id_incidente", "det_efct_tipo", "det_efct_valor", "det_efct_impacto",
-      //   "det_efct_costo", "det_efct_observacion",
-    
-    // ) {
-    //   Toast.fire({
-    //     icon: "info",
-    //     text: "Debe llenar todos los datos",
-    //   });
-    //   return;
-    // }
+    if (!validarFormulario(formulario, [
+        "inc_id", "inc_no_identificacion", "desc_id", "desc_incidente_id",
+        "desc_que", "desc_como", "desc_porque", "desc_vista", "desc_impacto_adv",
+        "desc_vulnerabilidad", "det_inc_id", "det_inc_id_incidente", "det_inc_fec_ocurre",
+        "det_inc_fec_descubre", "det_inc_fec_informa", "det_inc_estatus", "det_categ_id",
+        "det_categ_id_incidente", "det_categ_descripcion", "det_categoria", "det_categ_observacion",
+        "det_comp_act_id", "det_comp_act_inc_id", "det_comp_act_componente_id", "det_comp_act_descripcion",
+        "det_efct_id", "det_efec_id_incidente", "det_efct_tipo", "det_efct_valor", "det_efct_impacto",
+        "det_efct_costo", "det_efct_observacion"])) 
+      {
+      Toast.fire({
+        icon: "info",
+        text: "Debe llenar todos los datos",
+      });
+      return;
+    }
 
     const body = new FormData(formulario);
     body.delete("inc_id");
@@ -293,7 +316,63 @@ document.addEventListener("DOMContentLoaded", function () {
         case 1:
           formulario.reset();
           icon = "success";
-          // buscar();
+          buscar();
+          break;
+
+        case 0:
+          icon = "error";
+          console.log(detalle);
+          break;
+
+        default:
+          break;
+      }
+      Toast.fire({
+        icon,
+        text: mensaje,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  /////////////////////////////////////////////////GUARDAR DEL MODAL//////////////////////////////////////////
+  const guardarModal = async (evento) => {
+    evento.preventDefault();
+    if (!validarFormulario(modalResolucion, ["res_inc_id"])) 
+      {
+      Toast.fire({
+        icon: "info",
+        text: "Debe llenar todos los datos",
+      });
+      return;
+    }
+
+    const body = new FormData(modalResolucion);
+    body.delete("res_inc_id");
+    for (var pair of body.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+    const url = "/gestion_activos/API/incidentes/guardarModal";
+
+    const headers = new Headers();
+    headers.append("X-Requested-With", "fetch");
+    const config = {
+      method: "POST",
+      body,
+    };
+
+    try {
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      console.log(data);
+      const { codigo, mensaje, detalle } = data;
+      let icon = "info";
+      switch (codigo) {
+        case 1:
+          formulario.reset();
+          icon = "success";
+          buscar();
           break;
 
         case 0:
@@ -404,6 +483,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+
+/////////////////////////////buscar catalogo del investigador//////////////
+  const buscarCatalogoInv = async () => {
+    let res_catalogo = document.getElementById("res_catalogo").value;
+    const url = `/gestion_activos/API/incidentes/buscarCatalogoInv?res_catalogo=${res_catalogo}`;
+    const config = {
+      method: "GET",
+    };
+    try {
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      console.log(data);
+      if (data && data.length > 0) {
+        const entregaNombreInv = data[0].per_nombre_invs;
+        document.getElementById("per_nombre_invs").value = entregaNombreInv;
+        const entregaGradoInv = data[0].per_grado_invs;
+        document.getElementById("per_grado_invs").value = entregaGradoInv;
+      } else {
+        document.getElementById("per_nombre_invs").value = "";
+        Toast.fire({
+          icon: "info",
+          title: "Ingrese un catálogo válido.",
+        });
+        document.getElementById("per_nombre_invs").value = "";
+        document.getElementById("per_grado_invs").value = "";
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.fire({
+        icon: "error",
+        title: "Ocurrió un error al buscar los datos.",
+      });
+    }
+  };
+
   //aqui la funcion que busca el numero del incidente y lo agrega en el campo designado
 
   const buscarNoInc = async () => {
@@ -429,6 +544,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+
+
+
+  ///////////////////////IRT///////////////////////////////////////////////////////////
 
   const traeDatos = (e) => {
     const button = e.target;
@@ -565,6 +684,51 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+  /////////////////////////////////////////////////descripcion/////////////////////////
+
+  const modificarDescrip = async () => {
+    // if (!validarFormulario(formulario,['inc_id'])) {
+    //     alert('Debe llenar todos los campos');
+    //     return
+    // }
+    
+    const body = new FormData(modalDescrip)
+    const url = '/gestion_activos/API/incidentes/modificarDescrip';
+    const config = {
+        method: 'POST',
+        body
+    }
+    try {
+        const respuesta = await fetch(url, config)
+        const data = await respuesta.json();
+        console.log(data)
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
+        switch (codigo) {
+            case 1:
+                formulario.reset();
+                icon = 'success'
+                buscar();
+                break;
+            case 0:
+                icon = 'error'
+                console.log(detalle)
+                break;
+
+            default:
+                break;
+        }
+
+        Toast.fire({
+            icon,
+            text: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
   const traeDatos3 = (e) => {
     const button = e.target;
     const id3 = button.dataset.id3;
@@ -611,6 +775,52 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+
+
+   /////////////////////////////////////////////////categoria/////////////////////////
+
+   const modificarCategoria = async () => {
+    // if (!validarFormulario(formulario,['inc_id'])) {
+    //     alert('Debe llenar todos los campos');
+    //     return
+    // }
+    
+    const body = new FormData(modalCategoria)
+    const url = '/gestion_activos/API/incidentes/modificarCategoria';
+    const config = {
+        method: 'POST',
+        body
+    }
+    try {
+        const respuesta = await fetch(url, config)
+        const data = await respuesta.json();
+        console.log(data)
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
+        switch (codigo) {
+            case 1:
+                formulario.reset();
+                icon = 'success'
+                buscar();
+                break;
+            case 0:
+                icon = 'error'
+                console.log(detalle)
+                break;
+
+            default:
+                break;
+        }
+
+        Toast.fire({
+            icon,
+            text: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
   const traeDatos4 = (e) => {
     const button = e.target;
     const id4 = button.dataset.id4;
@@ -643,6 +853,24 @@ document.addEventListener("DOMContentLoaded", function () {
     modalCategoria.det_categ_observacion.value = dataset.categOb;
     modalCategoria.inc_id.value = dataset.id4;
   };
+  const traeDatos5 = (e) => {
+    const button = e.target;
+    const id5 = button.dataset.id5;
+
+    const dataset = {
+      id4
+    };
+  
+    colocarDatos5(dataset);
+    const body = new FormData(modalResolucion);
+    body.append("res_inc_id", id5);
+       
+  };
+  // console.log(colocarDatos);
+
+  const colocarDatos5 = (dataset) => {
+    modalResolucion.res_inc_id.value = dataset.id4;
+  };
   
 
   buscarNoInc();
@@ -655,13 +883,17 @@ document.addEventListener("DOMContentLoaded", function () {
   // datatable.on('click', '#verIrt', abrirModal)
   inc_catalogo_irt.addEventListener("change", buscarDatosPorCatalogoIrt);
   inc_catalogo_rep.addEventListener("change", buscarDatosPorCatalogoRep);
+  res_catalogo.addEventListener("change", buscarCatalogoInv);
   btnRegresar.addEventListener("click", retrocederFormulario);
   btnSiguiente.addEventListener("click", avanzarFormulario);
   btnGuardar.addEventListener("click", guardar);
-  // btnVerIrt.addEventListener("click", traeDatos);
   datatable.on('click', '#btnVerIrt', traeDatos);
   datatable.on('click', '#btnVerRep', traeDatos1);
   datatable.on('click', '#btmVerFecha', traeDatos2);
   datatable.on('click', '#btnVerDescrip', traeDatos3);
   datatable.on('click', '#btnVerCateg', traeDatos4);
+  modalGuardar.addEventListener("click", guardarModal);
+  btnModificarDescrip.addEventListener("click", modificarDescrip);
+  btnModificarCategoria.addEventListener("click", modificarCategoria);
+
 });

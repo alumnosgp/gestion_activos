@@ -17,12 +17,12 @@ class Motivo extends ActiveRecord
         $this->mot_situacion = $args['mot_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT mot_id, mot_nombre 
-    //     FROM armas
-    //     WHERE mot_situacion = 1 
-    //     ORDER BY mot_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function motivoTipo(){
+        $sql = "SELECT mot_id, mot_nombre 
+        FROM motivos
+        WHERE mot_situacion = 1 
+        ORDER BY mot_nombre";
+        return $this->fetchArray($sql);
+    }
 }
 ?>

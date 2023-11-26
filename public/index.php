@@ -17,6 +17,7 @@ use Controllers\SistemaController;
 use Controllers\AntiviruController;
 use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
+// use Controllers\PerpetradorController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
 use Controllers\ReporteController;
@@ -131,10 +132,20 @@ $router->get('/API/estadisticas/buscarDatosEstadisticaMaquinas', [EstadisticaCon
 $router->get('/incidentes', [IncidenteController::class, 'index']);
 $router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
 $router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
+$router->post('/API/incidentes/guardarModal', [IncidenteController::class, 'guardarModal']);
+$router->post('/API/incidentes/modificarDescrip', [IncidenteController::class, 'modificarDescrip']);
+$router->post('/API/incidentes/modificarCategoria', [IncidenteController::class, 'modificarCategoria']);
 $router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
+$router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, 'buscarCatalogoInv']);
 
+
+///Soluciones///
+// $router->get('/soluciones', [PerpetradorController::class, 'index']);
+// // $router->get('/API/incidentes/buscar', [PerpetradorController::class, 'buscarApi']);
+// // $router->post('/API/incidentes/guardar', [PerpetradorController::class, 'guardarApi']);
+// // $router->get('/API/incidentes/buscarNoInc', [PerpetradorController::class, 'buscarApi1']);
 
 
 

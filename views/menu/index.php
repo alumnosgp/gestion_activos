@@ -148,6 +148,7 @@
                 <div class="col-lg-11 border bg-light p-5">
                     <div class="container p-4 shadow-lg">
                         <div class="row">
+                            <h1>GESTION DE ACTIVOS DE CIBERSEGURIDAD</h1>
                             <div class="col-md-3">
                             <a href="/gestion_activos/maquinas">
                                 <button class="btn btn-primary btn-device card device inventario" id="btn-inventario">

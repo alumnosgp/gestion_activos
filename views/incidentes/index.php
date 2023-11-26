@@ -423,6 +423,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button> -->
 
                 </form>
             </div>
@@ -571,6 +572,8 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarDescrip" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
+
                 </form>
             </div>
         </div>
@@ -617,11 +620,218 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarCategoria" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
+
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!--////////////////////////////////////////////MODAL DE RESOLUCION///////////////////////////////////////////////////////////////-->
+
+<div class="modal fade" id="Resolucion" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalModificarRolLabel">RESOLUCION DE INCIDENTE</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="col" id="modalResolucion">
+                    <input type="number" name="res_inc_id" id="res_inc_id" class="form-control" hidden>
+                    <h4 class="modal-title" id="">INICIO DE LA INVESTIGACION DEL INCIDENTE</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_fec_inic_inv">FECHA Y HORA DE INICIO</label>
+                            <input type="date-local" name="res_fec_inic_inv" id="res_fec_inic_inv" class="form-control" readonly>
+                        </div>
+                        <div class="col">
+                            <label for="res_inc_incidente_id">NO. DE INCIDENTE</label>
+                            <input type="text" name="res_inc_incidente_id" id="res_inc_incidente_id" class="form-control">
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="modal-title" id="">INVESTIGADOR DEL INCIDENTE</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_catalogo">CATALOGO</label>
+                            <input type="text" name="res_catalogo" id="res_catalogo" class="form-control"
+                                placeholder="Ingrese catalogo">
+                        </div>
+                        <div class="col">
+                            <label for="per_grado_invs">GRADO DEL INVESTIGADOR</label>
+                            <input type="text" name="per_grado_invs" id="per_grado_invs" class="form-control"
+                                placeholder="grado" readonly>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="per_nombre_invs">NOMBRE DEL INVESTIGADOR</label>
+                            <input type="text" name="per_nombre_invs" id="per_nombre_invs" class="form-control"
+                                placeholder="nombre" readonly>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="modal-title" id="">FINALIZACION DE LA INVESTIGACION</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_fec_fin_inc">FECHA Y HORA INICIO DEL IMPACTO</label>
+                            <input type="datetime-local" name="res_fec_fin_inc" id="res_fec_fin_inc"
+                                class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="res_fec_fin_imp">FECHA Y HORA FIN DEL IMPACTO</label>
+                            <input type="datetime-local" name="res_fec_fin_imp" id="res_fec_fin_imp"
+                                class="form-control">
+                        </div>
+                        <div class="col">
+                            <label for="res_fec_fin_inv">FECHA Y HORA DE FINALIZACION</label>
+                            <input type="datetime-local" name="res_fec_fin_inv" id="res_fec_fin_inv"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_referencia">OBSERVACIONES</label>
+                            <textarea type="text" name="res_referencia" id="res_referencia" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="modal-title" id="">PERPETRADOR INVOLUCRADO</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_perpetrador_id">Tipo de perpetrador</label>
+                            <select name="res_perpetrador_id" id="res_perpetrador_id" class="form-control">
+                                <option value="">Selecione perpetrador...</option>
+                                <?php foreach ($perpetradores as $perpetrador): ?>
+                                    <option value="<?= $perpetrador['perp_id'] ?>">
+                                        <?= $perpetrador['perp_nombre'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="res_motivo_id">Motivos del perpetrador</label>
+                            <select name="res_motivo_id" id="res_motivo_id" class="form-control">
+                                <option value="">Selecione motivo...</option>
+                                <?php foreach ($motivos as $motivo): ?>
+                                    <option value="<?= $motivo['mot_id'] ?>">
+                                        <?= $motivo['mot_nombre'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_desc_perpertrador">Descripcion del perpetrador</label>
+                            <textarea type="text" name="res_desc_perpertrador" id="res_desc_perpertrador" class="form-control"></textarea>
+                        </div>
+                        <div class="col">
+                            <label for="res_otro">Otros</label>
+                            <textarea type="text" name="res_otro" id="res_otro" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <h4 class="modal-title" id="">ACCIONES TOMADAS</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_acc_tomadas">Accionenes tomadas para resolver el incidente</label>
+                            <textarea type="text" name="res_acc_tomadas" id="res_acc_tomadas" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_acc_planificadas">Accionenes planificadas para resolver el incidente</label>
+                            <textarea type="text" name="res_acc_planificadas" id="res_acc_planificadas" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_acc_sobresa">Accionenes sobresalientes</label>
+                            <textarea type="text" name="res_acc_sobresa" id="res_acc_sobresa" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <h4 class="modal-title" id="">CONCLUSIONES</h4>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p>Indique si considera que el incidente se concluye como Bajo, Medio,
+                                Alto o Critico e incluya una breve justificacion de el porque.</p>
+                            <select name="res_conclu_id" id="res_conclu_id" class="form-control">
+                                <option value="">Selecione...</option>
+                                <?php foreach ($concluciones as $conclusion): ?>
+                                    <option value="<?= $conclusion['conclu_id'] ?>">
+                                        <?= $conclusion['conclu_nombre'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_justificacion">Justifique la Conclusion</label>
+                            <textarea type="text" name="res_justificacion" id="res_justificacion" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                        <div class="col">
+                            <h4 class="modal-title" id="">Entidades internas notificadas</h4>
+                            <select name="res_inst_interna_id" id="res_inst_interna_id" class="form-control">
+                                <option value="">Selecione...</option>
+                                <?php foreach ($internas as $interna): ?>
+                                    <option value="<?= $interna['ins_int_id'] ?>">
+                                        <?= $interna['ins_int_nombre'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <h4 class="modal-title" id="">Entidades externas notificadas</h4>
+                            <select name="res_inst_externa_id" id="res_inst_externa_id" class="form-control">
+                                <option value="">Selecione...</option>
+                                <?php foreach ($externas as $externa): ?>
+                                    <option value="<?= $externa['ins_ext_id'] ?>">
+                                        <?= $externa['ins_ext_nombre'] ?>
+                                    </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="res_otro2">Otras entidades internas</label>
+                            <textarea type="text" name="res_otro2" id="res_otro2" class="form-control"></textarea>
+                        </div>
+                        <div class="col">
+                            <label for="res_otro3">Otras entidades externas</label>
+                            <textarea type="text" name="res_otro3" id="res_otro3" class="form-control"></textarea>
+                        </div>
+                    </div>
+            
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" id="modalGuardar" class="btn btn-primary">Guardar</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--////////////////////////////////////////////DATATABLE///////////////////////////////////////////////////////////////-->
 <div class="row justify-content-center">

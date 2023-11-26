@@ -17,12 +17,12 @@ class Perpetrador extends ActiveRecord
         $this->perp_situacion = $args['perp_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT perp_id, perp_nombre 
-    //     FROM armas
-    //     WHERE perp_situacion = 1 
-    //     ORDER BY perp_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function perpetradorTipo(){
+        $sql = "SELECT perp_id, perp_nombre 
+        FROM perpetradores
+        WHERE perp_situacion = 1 
+        ORDER BY perp_nombre";
+        return $this->fetchArray($sql);
+    }
 }
 ?>
