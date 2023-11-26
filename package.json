@@ -33,7 +33,9 @@
     "fullcalendar": "^5.11.3",
     "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
+
     "modal.js": "^1.1.7",
+
     "pdf-lib": "^1.17.1",
     "sweetalert2": "^11.4.38"
   }
