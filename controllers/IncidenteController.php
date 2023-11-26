@@ -9,13 +9,19 @@ use Model\Detallecomponenteact;
 use Model\Detallefecto;
 use Model\Detalleinc;
 use Model\Incidente;
+use Model\Institucionesext;
+use Model\Institucionesint;
 use Model\Personaplanilla;
+use Model\Resolucioninc;
 use Model\Categoriaincidente;
 use Model\Componenteactivo;
 use Model\Valorefecto;
 use Model\Personalta;
 use Model\Impactoefecto;
 use Model\Tipoefecto;
+use Model\Perpetrador;
+use Model\Motivo;
+use Model\Conclusion;
 use MVC\Router;
 
 class IncidenteController
@@ -32,7 +38,17 @@ class IncidenteController
         $componentes = $componente->componenteNombre();
         $categoria = new Categoriaincidente();
         $categorias = $categoria->categoriaNombre();
-        $router->render('incidentes/index', ['categorias' => $categorias, 'valores' => $valores, 'componentes' => $componentes, 'impactos' => $impactos, 'efectos' => $efectos]);
+        $perpetrador = new Perpetrador();
+        $perpetradores = $perpetrador->perpetradorTipo();
+        $conclusion = new Conclusion();
+        $concluciones = $conclusion->conclusionNombre();
+        $motivo = new Motivo();
+        $motivos = $motivo->motivoTipo();
+        $externa = new Institucionesext();
+        $externas = $externa->instExt();
+        $interna = new Institucionesint();
+        $internas = $interna->instInt();
+        $router->render('incidentes/index', ['externas' => $externas, 'internas' => $internas,  'perpetradores' => $perpetradores, 'concluciones' => $concluciones, 'motivos' => $motivos, 'categorias' => $categorias, 'valores' => $valores, 'componentes' => $componentes, 'impactos' => $impactos, 'efectos' => $efectos]);
     }
     public static function guardarApi()
     {
@@ -65,6 +81,54 @@ class IncidenteController
             $resultado6 = $detefectos->crear();
 
             if ($resultado['resultado'] == 1) {
+                echo json_encode([
+                    'mensaje' => 'Registro guardado correctamente',
+                    'codigo' => 1
+                ]);
+            } else {
+                echo json_encode([
+                    'mensaje' => 'Ocurrió un error',
+                    'codigo' => 0
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+        }
+    }
+    public static function guardarModal()
+    {
+        try {
+            //Formatear las fechas en el formato YYYY-MM-DD HH:MM
+            $fechainicioInc = date('Y-m-d H:i', strtotime($_POST['res_fec_fin_inc']));
+            $fechafinInc = date('Y-m-d H:i', strtotime($_POST['res_fec_fin_imp']));
+            $fechafinInv = date('Y-m-d H:i', strtotime($_POST['res_fec_fin_inv']));
+
+            $_POST['res_fec_fin_inc'] = $fechainicioInc;
+            $_POST['res_fec_fin_imp'] = $fechafinInc;
+            $_POST['res_fec_fin_inv'] = $fechafinInv;
+
+            $resoluciones = new Resolucioninc($_POST);
+            $resultado7 = $resoluciones->crear();
+
+            $perpetradores = new Perpetrador($_POST);
+            $resultado8 = $perpetradores->crear();
+
+            $motivos = new Motivo($_POST);
+            $resultado9 = $motivos->crear();
+
+
+            // $detalleinc = new Detalleinc($_POST);
+            // $resultado3 = $detalleinc->crear();
+
+            $conclusiones = new Conclusion($_POST);
+            $resultado10 = $conclusiones->crear();
+
+
+            if ($resultado7['resultado'] == 1) {
                 echo json_encode([
                     'mensaje' => 'Registro guardado correctamente',
                     'codigo' => 1
@@ -207,8 +271,8 @@ class IncidenteController
             return;
         }
     }
-
-
+    
+    
     public static function buscarDatosPorCatalogoRepAPI()
     {
         // Verificar si se proporcionó el parámetro en la URL
@@ -247,8 +311,8 @@ class IncidenteController
     JOIN plazas ON persona_planilla.pcivil_plaza = plazas.pla_id
     WHERE pcivil_catalogo = $inc_catalogo_rep";
 
-        try {
-            // Ejecutar la consulta para la primera tabla y obtener los resultados
+try {
+    // Ejecutar la consulta para la primera tabla y obtener los resultados
             $datos_dealta_rep = Personalta::fetchArray($sql_dealta_rep);
 
             // Si la primera consulta no devuelve resultados, ejecutar la segunda consulta
@@ -269,23 +333,71 @@ class IncidenteController
             return;
         }
     }
-
+    
     public static function buscarAPI1()
     {
         $sql = "SELECT NVL(MAX(inc_id), 0) + 1 AS inc_no_incidente FROM incidente";
-
+        
         try {
-
+            
             $incidente = Incidente::fetchArray($sql);
-
+            
             echo json_encode($incidente);
-
+            
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
                 'mensaje' => 'Ocurrió un error',
                 'codigo' => 0
             ]);
+        }
+    }
+    
+    public static function buscarCatalogoInv()
+    {
+        // Obtener el valor de la variable desde la URL
+        $res_catalogo = $_GET['res_catalogo'];
+    
+        // Construir las consultas SQL para ambas tablas
+        $sql_dealta = "SELECT per_catalogo AS res_catalogo, 
+    grados.grado_descr AS per_grado_invs,
+    per_nombre1 ||' '|| per_nombre2 ||' '|| per_apellido1 ||' '|| per_apellido2 AS per_nombre_invs
+    FROM persona_dealta
+    JOIN grados ON persona_dealta.per_grado = grados.grado_id
+    WHERE per_catalogo = $res_catalogo";
+    
+        $sql_planilla = "SELECT pcivil_catalogo AS res_catalogo, 
+        grados.grado_descr AS per_grado_invs,
+        pcivil_nombre1 ||' '|| pcivil_nombre2 ||' '|| pcivil_apellido1 ||' '|| pcivil_apellido2 AS per_nombre_invs
+        FROM persona_planilla
+        JOIN grados ON persona_planilla.pcivil_gradi = grados.grado_id
+        WHERE pcivil_catalogo = $res_catalogo";
+    
+        try {
+            // Ejecutar las consultas y obtener los resultados
+            $datos_dealta = Personalta::fetchArray($sql_dealta);
+            $datos_planilla = Personaplanilla::fetchArray($sql_planilla);
+    
+    
+            // Si la primera consulta no devuelve resultados, ejecutar la segunda consulta
+            if (empty($datos_dealta)) {
+                $datos_planilla = Personaplanilla::fetchArray($sql_planilla);
+                $resultados = $datos_planilla;
+            } else {
+                $resultados = $datos_dealta;
+            }
+    
+            // Fusionar los resultados en un solo array
+            //$resultados = array_merge($datos_dealta, $datos_planilla);
+    
+            // Enviar la respuesta en formato JSON
+            header('Content-Type: application/json');
+            echo json_encode($resultados);
+            return;
+        } catch (Exception $e) {
+            // Manejar errores y devolver una respuesta vacía en caso de error
+            echo json_encode(['error' => 'Error en la consulta']);
+            return;
         }
     }
 }

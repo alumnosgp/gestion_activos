@@ -17,12 +17,12 @@ class Institucionesext extends ActiveRecord
         $this->ins_ext_situacion = $args['ins_ext_situacion'] ?? '1';
        
     }
-    // public function armaNombre(){
-    //     $sql = "SELECT ins_ext_id, ins_ext_nombre 
-    //     FROM armas
-    //     WHERE ins_ext_situacion = 1 
-    //     ORDER BY ins_ext_nombre";
-    //     return $this->fetchArray($sql);
-    // }
+    public function instExt(){
+        $sql = "SELECT ins_ext_id, ins_ext_nombre 
+        FROM inst_externas
+        WHERE ins_ext_situacion = 1 
+        ORDER BY ins_ext_nombre";
+        return $this->fetchArray($sql);
+    }
 }
 ?>

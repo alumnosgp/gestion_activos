@@ -7,7 +7,6 @@ const canvas = document.getElementById("chartMaquina");
 const canvas2 = document.getElementById("chartSoftware");
 const canvasAntivirus = document.getElementById("chartAntivirus");
 const canvasMaquinas = document.getElementById("chartMaquinas");
-
 const btnActualizar = document.getElementById("btnActualizar");
 
 const context = canvas.getContext("2d");
