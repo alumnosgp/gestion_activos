@@ -238,7 +238,12 @@ document.addEventListener("DOMContentLoaded", function () {
         searchable: false,
         orderable: false,
         render: (data, type, row, meta) => 
-          `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+          `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' 
+          data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' 
+          data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' 
+          data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}'
+          data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' 
+          data-uso='${row.maq_uso}'>Imprimir PDF</button>`
       },
     ],
   });
@@ -275,22 +280,22 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function que guardar que omite que se llenen ciertos campos de no contar con ellos
   const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, [
-        "inc_id", "inc_no_identificacion", "desc_id", "desc_incidente_id",
-        "desc_que", "desc_como", "desc_porque", "desc_vista", "desc_impacto_adv",
-        "desc_vulnerabilidad", "det_inc_id", "det_inc_id_incidente", "det_inc_fec_ocurre",
-        "det_inc_fec_descubre", "det_inc_fec_informa", "det_inc_estatus", "det_categ_id",
-        "det_categ_id_incidente", "det_categ_descripcion", "det_categoria", "det_categ_observacion",
-        "det_comp_act_id", "det_comp_act_inc_id", "det_comp_act_componente_id", "det_comp_act_descripcion",
-        "det_efct_id", "det_efec_id_incidente", "det_efct_tipo", "det_efct_valor", "det_efct_impacto",
-        "det_efct_costo", "det_efct_observacion"])) 
-      {
-      Toast.fire({
-        icon: "info",
-        text: "Debe llenar todos los datos",
-      });
-      return;
-    }
+    // if (!validarFormulario(formulario, [
+    //     "inc_id", "inc_no_identificacion", "desc_id", "desc_incidente_id",
+    //     "desc_que", "desc_como", "desc_porque", "desc_vista", "desc_impacto_adv",
+    //     "desc_vulnerabilidad", "det_inc_id", "det_inc_id_incidente", "det_inc_fec_ocurre",
+    //     "det_inc_fec_descubre", "det_inc_fec_informa", "det_inc_estatus", "det_categ_id",
+    //     "det_categ_id_incidente", "det_categ_descripcion", "det_categoria", "det_categ_observacion",
+    //     "det_comp_act_id", "det_comp_act_inc_id", "det_comp_act_componente_id", "det_comp_act_descripcion",
+    //     "det_efct_id", "det_efec_id_incidente", "det_efct_tipo", "det_efct_valor", "det_efct_impacto",
+    //     "det_efct_costo", "det_efct_observacion"])) 
+    //   {
+    //   Toast.fire({
+    //     icon: "info",
+    //     text: "Debe llenar todos los datos",
+    //   });
+    //   return;
+    // }
 
     const body = new FormData(formulario);
     body.delete("inc_id");
@@ -869,7 +874,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // console.log(colocarDatos);
 
   const colocarDatos5 = (dataset) => {
-    modalResolucion.res_inc_id.value = dataset.id4;
+    modalResolucion.res_inc_id.value = dataset.id5;
   };
   
 
