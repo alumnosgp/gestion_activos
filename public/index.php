@@ -14,17 +14,20 @@ use Controllers\OfficeController;
 use Controllers\OficinaController;
 use Controllers\MaquinaController;
 use Controllers\SistemaController;
+use Controllers\ReporteController;
 use Controllers\AntiviruController;
 use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
-// use Controllers\PerpetradorController;
+use Controllers\ReporteincController;
+use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
-use Controllers\ReporteController;
-use Controllers\EstadisticaController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
+$router->get('/', [AppController::class,'index']);
+
+//login
 $router->get('/', [LoginController::class,'index']);
 $router->post('/API/login', [LoginController::class,'loginAPI']);
 $router->get('/menu', [MenuController::class,'index']);
@@ -112,11 +115,10 @@ $router->post('/API/organizaciones/eliminar', [OrganizacionController::class, 'e
 
 
 //reporteria
-
-$router->get('/', [AppController::class,'index']);
 $router->get('/pdf', [ReporteController::class,'pdf']);
 $router->get('/getMaquina', [ReporteController::class,'pdf']);
 // $router->get('/API/reporte/generar', [ReporteController::class, 'pdf']);
+
 
 //estadisticas
 $router->get('/estadisticas', [EstadisticaController::class, 'index']);
@@ -147,6 +149,9 @@ $router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, '
 // // $router->post('/API/incidentes/guardar', [PerpetradorController::class, 'guardarApi']);
 // // $router->get('/API/incidentes/buscarNoInc', [PerpetradorController::class, 'buscarApi1']);
 
+///////////////////////////reporte incidente////////////////////////////////////////
+$router->get('/pdfInc', [ReporteincController::class,'pdfInc']);
+$router->get('/IncidentePDF', [ReporteincController::class,'pdfInc']);
 
 
 $router->comprobarRutas();
