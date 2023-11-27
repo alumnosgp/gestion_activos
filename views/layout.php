@@ -77,6 +77,14 @@
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/menu"><i
                                         class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>MENU</a>
                             </li>
+
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/antivirus"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ANTIVIRUS</a>
+                            </li>            
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/estadisticas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ESTADISTICAS INVENTARIO</a>
+                            </li>            
+
                         </ul>
                     </div>
                     <div class="nav-item dropdown ">
