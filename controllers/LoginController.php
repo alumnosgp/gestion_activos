@@ -40,7 +40,7 @@ class LoginController
                     echo json_encode([
                         'codigo' => 1,
                         'mensaje' => "Sesión iniciada correctamente. Bienvenido $nombre",
-                        'redireccion' => '/gestion_activos/layout'
+                        'redireccion' => '/gestion_activos/maquinas'
                     ]);
                 } else {
                     echo json_encode([

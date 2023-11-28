@@ -44,7 +44,7 @@ const datatable = new Datatable('#tablaPersonasplanillas', {
         },
         {
             title: 'GRADO',
-            data: 'pcivil_gradi'
+            data: 'grado_descr'
         },
         {
             title: 'PLAZA',
@@ -109,7 +109,7 @@ const buscar = async () => {
 
 const guardar = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(formulario, ['pcivil_id'])) {
+    if (!validarFormulario(formulario, ['pcivil_id', 'pcivil_nombre2', 'pcivil_apellido2'])) {
         Toast.fire({
             icon: 'info',
             text: 'Debe llenar todos los datos'

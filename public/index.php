@@ -4,7 +4,6 @@ require_once __DIR__ . '/../includes/app.php';
 
 use MVC\Router;
 use Controllers\AppController;
-
 use Controllers\LoginController;
 use Controllers\MenuController;
 use Controllers\ArmaController;
@@ -14,15 +13,21 @@ use Controllers\OfficeController;
 use Controllers\OficinaController;
 use Controllers\MaquinaController;
 use Controllers\SistemaController;
+use Controllers\ReporteController;
 use Controllers\AntiviruController;
+use Controllers\IncidenteController;
 use Controllers\PersonaltaController;
+use Controllers\ReporteincController;
+use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
-use Controllers\ReporteController;
-use Controllers\EstadisticaController;
+use Controllers\EstadisticaincidenteController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
+$router->get('/', [AppController::class,'index']);
+
+//login
 $router->get('/', [LoginController::class,'index']);
 $router->post('/API/login', [LoginController::class,'loginAPI']);
 $router->get('/menu', [MenuController::class,'index']);
@@ -110,11 +115,10 @@ $router->post('/API/organizaciones/eliminar', [OrganizacionController::class, 'e
 
 
 //reporteria
-
-$router->get('/', [AppController::class,'index']);
 $router->get('/pdf', [ReporteController::class,'pdf']);
 $router->get('/getMaquina', [ReporteController::class,'pdf']);
 // $router->get('/API/reporte/generar', [ReporteController::class, 'pdf']);
+
 
 //estadisticas
 $router->get('/estadisticas', [EstadisticaController::class, 'index']);
@@ -122,6 +126,42 @@ $router->get('/API/estadisticas/buscarDatosEstadistica', [EstadisticaController:
 $router->get('/API/estadisticas/buscarDatosEstadisticaSoftware', [EstadisticaController::class, 'buscarDatosSoftware']);
 $router->get('/API/estadisticas/buscarDatosEstadisticaAntivirus', [EstadisticaController::class, 'buscarDatosAntivirus']);
 $router->get('/API/estadisticas/buscarDatosEstadisticaMaquinas', [EstadisticaController::class, 'buscarDatosMaquinas']);
+
+
+
+
+//////////////////////////////GESTION DE INCIDENTES//////////////////////////////////////////
+///Incidentes///
+$router->get('/incidentes', [IncidenteController::class, 'index']);
+$router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
+$router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarApi']);
+$router->post('/API/incidentes/guardarModal', [IncidenteController::class, 'guardarModal']);
+$router->post('/API/incidentes/modificarDescrip', [IncidenteController::class, 'modificarDescrip']);
+$router->post('/API/incidentes/modificarCategoria', [IncidenteController::class, 'modificarCategoria']);
+$router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
+$router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
+$router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, 'buscarCatalogoInv']);
+
+
+//estadisticasIncidentes
+$router->get('/estadisticasincidentes', [EstadisticaincidenteController::class, 'index']);
+$router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [EstadisticaincidenteController::class, 'buscarCategoriasEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
+
+
+
+
+
+///Soluciones///
+// $router->get('/soluciones', [PerpetradorController::class, 'index']);
+// // $router->get('/API/incidentes/buscar', [PerpetradorController::class, 'buscarApi']);
+// // $router->post('/API/incidentes/guardar', [PerpetradorController::class, 'guardarApi']);
+// // $router->get('/API/incidentes/buscarNoInc', [PerpetradorController::class, 'buscarApi1']);
+
+///////////////////////////reporte incidente////////////////////////////////////////
+$router->get('/pdfInc', [ReporteincController::class,'pdfInc']);
+$router->get('/IncidentePDF', [ReporteincController::class,'pdfInc']);
 
 
 $router->comprobarRutas();
