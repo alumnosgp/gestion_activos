@@ -185,12 +185,44 @@ class IncidenteController
             WHEN p1.per_plaza is null THEN pla2.pla_nombre
             ELSE pla1.pla_nombre
         END as per_plaza_rep,
+        res_inc_id,
+        res_fec_inic_inv,
+        res_inc_incidente_id,
+        res_catalogo,
+        CASE
+            WHEN (p1.per_nombre1 IS NULL) THEN pp.pcivil_nombre1 || ' ' || pp.pcivil_nombre2 || ' ' || pp.pcivil_apellido1 || ' ' || pp.pcivil_apellido2
+            ELSE p1.per_nombre1 || ' ' || p1.per_nombre2 || ' ' || p1.per_apellido1 || ' ' || p1.per_apellido2
+        END AS per_nombre_invs,
+        CASE
+            WHEN p1.per_grado IS NULL THEN g_rep2.grado_descr
+            ELSE g_rep1.grado_descr
+        END AS per_grado_invs,
+        res_fec_fin_inc,
+        res_fec_fin_imp,
+        res_fec_fin_inv,
+        res_referencia,
+        res_perpetrador_id,
+        res_motivo_id,
+        res_desc_perpertrador,
+        res_otro,
+        res_acc_tomadas,
+        res_acc_planificadas,
+        res_acc_sobresa,
+        res_conclu_id,
+        res_justificacion,
+        res_inst_interna_id,
+        res_inst_externa_id,
+        res_otro2,
+        res_otro3,
         i.inc_direccion_rep,
         i.inc_tel_rep,
         i.inc_email_rep,
+        d.det_inc_id,
+        det_inc_id_incidente,
         d.det_inc_fec_ocurre,
         d.det_inc_fec_descubre,
         d.det_inc_fec_informa,
+        d.det_inc_estatus,
         desc_incidente_id,
         desc_id,
         desc_que,
@@ -220,6 +252,8 @@ class IncidenteController
         LEFT JOIN descripcion_inc ON i.inc_id = desc_incidente_id
         LEFT JOIN detalle_categ_inc det_categ ON i.inc_id = det_categ.det_categ_id_incidente
         LEFT JOIN categoria_incidente cat_inc ON det_categ.det_categoria = cat_inc.cat_inc_id
+        LEFT JOIN resolicion_incidente res_inc ON i.inc_id = res_inc.res_inc_incidente_id
+
     WHERE 
         i.inc_situacion = 1
     ORDER BY
@@ -462,6 +496,45 @@ try {
             $incCatg = new Detallecategoria($_POST);           
            
             $resultado = $incCatg->actualizar();
+
+            if ($resultado['resultado'] == 1) {
+                echo json_encode([
+                    'mensaje' => 'Dato modificado correctamente',
+                    'codigo' => 1
+                ]);
+            } else {
+                echo json_encode([
+                    'mensaje' => 'Ocurrió un error db',
+                    'codigo' => 0,
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error excepcion',
+                'codigo' => 0
+            ]);
+        }
+    }
+
+
+    ///////////////////////////////////////////fechas/////////////////////
+    public static function modificarFecha()
+    {
+        try {
+
+            // Formatear las fechas en el formato YYYY-MM-DD HH:MM
+            $fechaOcurreFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_ocurre']));
+            $fechaDescubreFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_descubre']));
+            $fechaInformaFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_informa']));
+
+            $_POST['det_inc_fec_ocurre'] = $fechaOcurreFormateada;
+            $_POST['det_inc_fec_descubre'] = $fechaDescubreFormateada;
+            $_POST['det_inc_fec_informa'] = $fechaInformaFormateada;
+
+            $detInc = new Detalleinc($_POST);           
+           
+            $resultado = $detInc->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

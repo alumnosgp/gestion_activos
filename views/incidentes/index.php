@@ -362,6 +362,9 @@
             </div>
 
             <div class="row justify-content-center">
+                <!-- <div class="col text-center">
+                    <button id="btnBuscar" class="btn btn-warning"> Buscar</button>
+                </div> -->
                 <div class="col text-center">
                     <button id="btnRegresar" class="btn btn-secondary"> Regresar </button>
                 </div>
@@ -497,6 +500,8 @@
             <div class="modal-body">
                 <!-- Otros campos del formulario aquí -->
                 <form action="" id="modalFechas">
+                <input type="number" name="det_inc_id" id="det_inc_id" class="form-control" hidden>
+                <input type="number" name="det_inc_id_incidente" id="det_inc_id_incidente" hidden>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="det_inc_fec_ocurre">FECHA Y HORA DEL INCIDENTE</label>
@@ -517,8 +522,20 @@
                             <input type="datetime-local" name="det_inc_fec_informa" id="det_inc_fec_informa"
                                 class="form-control">
                         </div>
+                        <div class="row mb-3">
+                    <div class="col">
+                        <label for="det_inc_estatus">ESTATUS DEL INCIDENTE</label>
+                        <select name="det_inc_estatus" id="det_inc_estatus" class="form-control">
+                            <option value="">Seleccione Estado...</option>
+                            <option value="en curso">EN CURSO</option>
+                            <option value="finalizado">FINALIZADO</option>
+                        </select>
+                    </div>
+                </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarFecha" class="btn btn-warning"
+                        data-bs-dismiss="modal">Modificar</button>
                 </form>
             </div>
         </div>

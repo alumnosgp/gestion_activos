@@ -137,6 +137,7 @@ $router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarAp
 $router->post('/API/incidentes/guardarModal', [IncidenteController::class, 'guardarModal']);
 $router->post('/API/incidentes/modificarDescrip', [IncidenteController::class, 'modificarDescrip']);
 $router->post('/API/incidentes/modificarCategoria', [IncidenteController::class, 'modificarCategoria']);
+$router->post('/API/incidentes/modificarFecha', [IncidenteController::class, 'modificarFecha']);
 $router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);

@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalGuardar = document.getElementById("modalGuardar");
   const btnModificarDescrip = document.getElementById('btnModificarDescrip');
   const btnModificarCategoria = document.getElementById('btnModificarCategoria');
+  const btnModificarFecha = document.getElementById('btnModificarFecha');
   const btnSiguiente = document.getElementById("btnSiguiente");
   const btnRegresar = document.getElementById("btnRegresar");
 
@@ -188,12 +189,20 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       {
         title: "FECHAS",
-        data: "Fechas",
+        data: "det_inc_id",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-info" id="btmVerFecha" 
-        data-id2='${data}' data-fechaocu='${row.det_inc_fec_ocurre}' data-fechadescu='${row.det_inc_fec_descubre}' 
-        data-fechainf='${row.det_inc_fec_informa}' data-bs-toggle="modal" data-bs-target="#Fechas">Ver</button>`,
+        render: (data, type, row, meta) => { 
+        return`<button type="button" class="btn btn-info" id="btmVerFecha" 
+        data-id2='${row.det_inc_id}' 
+        data-incId9='${row.det_inc_id_incidente}' 
+        data-fechaocu='${row.det_inc_fec_ocurre}' 
+        data-fechadescu='${row.det_inc_fec_descubre}' 
+        data-fechainf='${row.det_inc_fec_informa}' 
+        data-estatus='${row.det_inc_estatus}' 
+        data-bs-toggle="modal" data-bs-target="#Fechas">
+        Ver
+        </button>`},
       },
       {
         title: "DESCRIP",
@@ -223,32 +232,67 @@ document.addEventListener("DOMContentLoaded", function () {
       },  
       {
         title: "ESTADO",
-        data: null,
-        render: () => "<span style='color: red;'>EN PROCESO</span>",
+        data: "det_inc_estatus",
+        render: (data) => {
+            const color = data === "en curso" ? "red" : "green";
+            return `<span style='color: ${color};'>${data}</span>`;
+        },
         searchable: false,
         orderable: false,
-      },
+    },
       {
         title: "ACCION",
-        data: "Resolucion",
+        data: "res_inc_id",
         searchable: false,
         orderable: false,
-        render: (data, type, row, meta) => `<button type="button" class="btn btn-warning" 
-        id="btnVerAccion" data-id5='${data}' data-bs-toggle="modal" data-bs-target="#Resolucion">
+        render: (data, type, row, meta) => `<button type="button" class="btn btn-warning" id="btnVerAccion" 
+        data-id5='${row.res_inc_id}' 
+        data-fecInicInv='${row.res_fec_inic_inv}'
+        data-noIncMod='${row.res_inc_incidente_id}'
+        data-catalogoInv='${row.res_catalogo}'
+        data-gradoInv='${row.per_grado_invs}'
+        data-nombInv='${row.per_nombre_invs}'
+        data-fecInicImp='${row.res_fec_fin_inc}'
+        data-fecFinImp='${row.res_fec_fin_imp}'
+        data-fecFinInv='${row.res_fec_fin_inv}'
+        data-observaciones='${row.res_referencia}'
+        data-tipPerp='${row.res_perpetrador_id}'
+        data-motPerp='${row.res_motivo_id}'
+        data-descPerp='${row.res_desc_perpertrador}'
+        data-otroMot='${row.res_otro}'
+        data-accTomada='${row.res_acc_tomadas}'
+        data-accPlanif='${row.res_acc_planificadas}'
+        data-accSobre='${row.res_acc_sobresa}'
+        data-conclusiones='${row.res_conclu_id}'
+        data-justificacion='${row.res_justificacion}'
+        data-instInter='${row.res_inst_interna_id}'
+        data-instExter='${row.res_inst_externa_id}'
+        data-otro2='${row.res_otro2}'
+        data-otro3='${row.res_otro3}'
+        data-bs-toggle="modal" data-bs-target="#Resolucion">
         Ver
         </button>`,
       },
       {
-        title: "Inventario",
+        title: "INCIDENTES",
         data: "inc_id",
         searchable: false,
         orderable: false,
         render: (data, type, row, meta) => 
-          `<button type="button" class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' 
-          data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' 
-          data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' 
-          data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' 
-          data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+          `<button type="button" class="btn btn-success" 
+          data-id='${data}' 
+          data-nombre='${row.maq_nombre}' 
+          data-mac='${row.maq_mac}' 
+          data-tipo='${row.maq_tipo}' 
+          data-plaza='${row.maq_plaza}' 
+          data-ram='${row.maq_ram_capacidad}' 
+          data-hdd='${row.maq_tipo_disco_duro}' 
+          data-disco='${row.maq_disco_capacidad}' 
+          data-procesador='${row.maq_procesador_capacidad}' 
+          data-sistema='${row.maq_sistema_op}' 
+          data-office='${row.maq_office}' 
+          data-antivirus='${row.maq_antivirus}' 
+          data-uso='${row.maq_uso}'>Imprimir PDF</button>`
       },
     ],
   });
@@ -658,39 +702,94 @@ document.addEventListener("DOMContentLoaded", function () {
     modalRep.inc_id.value = dataset.id1;
   };
 
+
+
+  const modificarFecha = async () => {
+
+    
+    const body = new FormData(modalFechas)
+
+    const url = '/gestion_activos/API/incidentes/modificarFecha';
+    const config = {
+        method: 'POST',
+        body
+    }
+    try {
+        const respuesta = await fetch(url, config)
+        const data = await respuesta.json();
+        // console.log(data)
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
+        switch (codigo) {
+            case 1:
+                formulario.reset();
+                icon = 'success'
+                buscar();
+                break;
+            case 0:
+                icon = 'error'
+                console.log(detalle)
+                break;
+
+            default:
+                break;
+        }
+
+        Toast.fire({
+            icon,
+            text: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
   const traeDatos2 = (e) => {
     const button = e.target;
     const id2 = button.dataset.id2;
+    const incId9 = button.dataset.incid9;
     // console.log(id2)
     const fechaocu = button.dataset.fechaocu;
     const fechadescu = button.dataset.fechadescu;
     const fechainf = button.dataset.fechainf;
-    // console.log(button.dataset.fechainf)
+    const estatus = button.dataset.estatus;
+// console.log(id2, "|", incId9, "|", );
 
     const dataset = {
       id2,
+      incId9,
       fechaocu,
       fechadescu,
-      fechainf
+      fechainf,
+      estatus      
     };
     
 
 
     colocarDatos2(dataset);
     const body = new FormData(modalFechas);
-    body.append("inc_id", id2);
+    body.append("det_inc_id", id2);
+    body.append("det_inc_id_incidente", incId9);
     body.append("det_inc_fec_ocurre", fechaocu);
     body.append("det_inc_fec_descubre", fechadescu);
     body.append("det_inc_fec_informa", fechainf);
+    body.append("det_inc_estatus", estatus);
+
+    // console.log(det_inc_id_incidente);
     
   };
   // console.log(colocarDatos);
 
   const colocarDatos2 = (dataset) => {
+    modalFechas.det_inc_id_incidente.value = dataset.incId9;
     modalFechas.det_inc_fec_ocurre.value = dataset.fechaocu;
     modalFechas.det_inc_fec_descubre.value = dataset.fechadescu;
     modalFechas.det_inc_fec_informa.value = dataset.fechainf;
-    modalFechas.inc_id.value = dataset.id2;
+    modalFechas.det_inc_estatus.value = dataset.estatus;
+    modalFechas.det_inc_id.value = dataset.id2;
   };
 
 
@@ -790,19 +889,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-   /////////////////////////////////////////////////categoria/////////////////////////
+/////////////////////////////////////////////////categoria/////////////////////////
 
    const modificarCategoria = async () => {
-    // if (!validarFormulario(formulario,['inc_id'])) {
-    //     alert('Debe llenar todos los campos');
-    //     return
-    // }
     
     const body = new FormData(modalCategoria)
-  //   for(var pair of body.entries()){
-  //     console.log(pair[0], pair[1]);
-  // }
+
     const url = '/gestion_activos/API/incidentes/modificarCategoria';
     const config = {
         method: 'POST',
@@ -811,7 +903,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
         const respuesta = await fetch(url, config)
         const data = await respuesta.json();
-        console.log(data)
+        // console.log(data)
         const { codigo, mensaje, detalle } = data;
         let icon = 'info'
         switch (codigo) {
@@ -838,6 +930,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(error);
     }
 }
+
 const traeDatos4 = (e) => {
   const button = e.target;
   const id4 = button.dataset.id4;
@@ -858,7 +951,6 @@ const traeDatos4 = (e) => {
   const body = new FormData(modalCategoria);
   body.append("det_categ_id", id4);
   body.append("det_categ_descripcion", descateg);
-  
   body.append("det_categoria", detcategoria);
   body.append("det_categ_observacion", categOb);
   body.append("det_categ_id_incidente", detincId);
@@ -934,7 +1026,7 @@ const imprimirInvInc = async (e) => {
 datatable.on("click", ".btn-success", imprimirInvInc);
 
 
-
+// console.log(traeDatos2,"|",traeDatos4)
 
   buscarNoInc();
   buscar();
@@ -959,4 +1051,5 @@ datatable.on("click", ".btn-success", imprimirInvInc);
   modalGuardar.addEventListener("click", guardarModal);
   btnModificarDescrip.addEventListener("click", modificarDescrip);
   btnModificarCategoria.addEventListener("click", modificarCategoria);
+  btnModificarFecha.addEventListener("click", modificarFecha);
 });
