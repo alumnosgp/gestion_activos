@@ -249,6 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
           data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' 
           data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' 
           data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+
       },
     ],
   });

@@ -4,7 +4,6 @@ require_once __DIR__ . '/../includes/app.php';
 
 use MVC\Router;
 use Controllers\AppController;
-
 use Controllers\LoginController;
 use Controllers\MenuController;
 use Controllers\ArmaController;
@@ -22,6 +21,9 @@ use Controllers\ReporteincController;
 use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
+use Controllers\ReporteController;
+use Controllers\EstadisticaController;
+use Controllers\EstadisticaincidenteController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -129,7 +131,8 @@ $router->get('/API/estadisticas/buscarDatosEstadisticaMaquinas', [EstadisticaCon
 
 
 
-//////////////////////////////GESTION DE INCIDENTES/////////////////////////
+
+//////////////////////////////GESTION DE INCIDENTES//////////////////////////////////////////
 ///Incidentes///
 $router->get('/incidentes', [IncidenteController::class, 'index']);
 $router->get('/API/incidentes/buscar', [IncidenteController::class, 'buscarApi']);
@@ -141,6 +144,14 @@ $router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscar
 $router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
 $router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, 'buscarCatalogoInv']);
+
+
+//estadisticasIncidentes
+$router->get('/estadisticasincidentes', [EstadisticaincidenteController::class, 'index']);
+$router->get('/API/estadisticasincidentes/buscarDatosEstadisticaIncidentes', [EstadisticaincidenteController::class, 'buscarDatosIncidentes']);
+
+
+
 
 
 ///Soluciones///
