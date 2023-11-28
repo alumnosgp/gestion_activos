@@ -21,8 +21,6 @@ use Controllers\ReporteincController;
 use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
-use Controllers\ReporteController;
-use Controllers\EstadisticaController;
 use Controllers\EstadisticaincidenteController;
 
 $router = new Router();
@@ -148,7 +146,8 @@ $router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, '
 
 //estadisticasIncidentes
 $router->get('/estadisticasincidentes', [EstadisticaincidenteController::class, 'index']);
-$router->get('/API/estadisticasincidentes/buscarDatosEstadisticaIncidentes', [EstadisticaincidenteController::class, 'buscarDatosIncidentes']);
+$router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [EstadisticaincidenteController::class, 'buscarCategoriasEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
 
 
 
