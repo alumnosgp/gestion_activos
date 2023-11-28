@@ -533,6 +533,8 @@
             </div>
             <div class="modal-body">
                 <form action="" id="modalDescrip">
+                    <input type="hidden" name="desc_incidente_id" id="desc_incidente_id2">
+                    <input type="hidden" name="desc_id" id="desc_id">
                     <div class="row mb-3">
                         <div class="col">
                             <label for="desc_que">QUE PASO?</label>
@@ -572,7 +574,8 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="btnModificarDescrip" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
+                    <button type="button" id="btnModificarDescrip" class="btn btn-warning"
+                        data-bs-dismiss="modal">Modificar</button>
 
                 </form>
             </div>
@@ -587,7 +590,9 @@
                 <h5 class="modal-title" id="modalModificarRolLabel">CATEGORIA DEL INCIDENTE</h5>
             </div>
             <div class="modal-body">
-                <form action="" id="modalCategoria">
+                <form id="modalCategoria">
+                    <input type="hidden" name="det_categ_id" id="det_categ_id" class="form-control">
+                    <input type="hidden" name="det_categ_id_incidente" id="det_categ_id_incidente">
                     <div class="row mb-3">
                         <div class="col">
                             <label for="det_categ_descripcion">TIPO DE INCIDENTE</label>
@@ -644,11 +649,13 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_fec_inic_inv">FECHA Y HORA DE INICIO</label>
-                            <input type="date-local" name="res_fec_inic_inv" id="res_fec_inic_inv" class="form-control" readonly>
+                            <input type="date-local" name="res_fec_inic_inv" id="res_fec_inic_inv" class="form-control"
+                                readonly>
                         </div>
                         <div class="col">
                             <label for="res_inc_incidente_id">NO. DE INCIDENTE</label>
-                            <input type="text" name="res_inc_incidente_id" id="res_inc_incidente_id" class="form-control">
+                            <input type="text" name="res_inc_incidente_id" id="res_inc_incidente_id"
+                                class="form-control">
                         </div>
                     </div>
                     <hr />
@@ -694,7 +701,8 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_referencia">OBSERVACIONES</label>
-                            <textarea type="text" name="res_referencia" id="res_referencia" class="form-control"></textarea>
+                            <textarea type="text" name="res_referencia" id="res_referencia"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                     <hr />
@@ -726,7 +734,8 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_desc_perpertrador">Descripcion del perpetrador</label>
-                            <textarea type="text" name="res_desc_perpertrador" id="res_desc_perpertrador" class="form-control"></textarea>
+                            <textarea type="text" name="res_desc_perpertrador" id="res_desc_perpertrador"
+                                class="form-control"></textarea>
                         </div>
                         <div class="col">
                             <label for="res_otro">Otros</label>
@@ -738,19 +747,22 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_acc_tomadas">Accionenes tomadas para resolver el incidente</label>
-                            <textarea type="text" name="res_acc_tomadas" id="res_acc_tomadas" class="form-control"></textarea>
+                            <textarea type="text" name="res_acc_tomadas" id="res_acc_tomadas"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_acc_planificadas">Accionenes planificadas para resolver el incidente</label>
-                            <textarea type="text" name="res_acc_planificadas" id="res_acc_planificadas" class="form-control"></textarea>
+                            <textarea type="text" name="res_acc_planificadas" id="res_acc_planificadas"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_acc_sobresa">Accionenes sobresalientes</label>
-                            <textarea type="text" name="res_acc_sobresa" id="res_acc_sobresa" class="form-control"></textarea>
+                            <textarea type="text" name="res_acc_sobresa" id="res_acc_sobresa"
+                                class="form-control"></textarea>
                         </div>
                     </div>
 
@@ -773,7 +785,8 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="res_justificacion">Justifique la Conclusion</label>
-                            <textarea type="text" name="res_justificacion" id="res_justificacion" class="form-control"></textarea>
+                            <textarea type="text" name="res_justificacion" id="res_justificacion"
+                                class="form-control"></textarea>
                         </div>
                     </div>
                     <hr />
@@ -811,10 +824,10 @@
                             <textarea type="text" name="res_otro3" id="res_otro3" class="form-control"></textarea>
                         </div>
                     </div>
-            
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" id="modalGuardar" class="btn btn-primary">Guardar</button>
-                    
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="modalGuardar" class="btn btn-primary">Guardar</button>
+
                 </form>
             </div>
         </div>
