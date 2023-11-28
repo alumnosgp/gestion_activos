@@ -279,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
         searchable: false,
         orderable: false,
         render: (data, type, row, meta) => 
+
           `<button type="button" class="btn btn-success" 
           data-id='${data}' 
           data-nombre='${row.maq_nombre}' 
@@ -293,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
           data-office='${row.maq_office}' 
           data-antivirus='${row.maq_antivirus}' 
           data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+
       },
     ],
   });

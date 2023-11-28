@@ -24,6 +24,7 @@ module.exports = {
     'js/reporteinc/index' : './src/js/reporteinc/index.js',
     'js/soluciones/index' : './src/js/soluciones/index.js',
     'js/estadisticas/index' : './src/js/estadisticas/index.js',
+    'js/estadisticasincidentes/index' : './src/js/estadisticasincidentes/index.js',
   },
   output: {
     filename: '[name].js',
