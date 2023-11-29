@@ -1,0 +1,1 @@
+<p>Fecha {DATE j-m-Y}.</p>

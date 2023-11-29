@@ -21,8 +21,6 @@ use Controllers\ReporteincController;
 use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
-use Controllers\ReporteController;
-use Controllers\EstadisticaController;
 use Controllers\EstadisticaincidenteController;
 
 $router = new Router();
@@ -164,6 +162,7 @@ $router->get('/API/estadisticasincidentes/buscarDatosEstadisticaIncidentes', [Es
 ///////////////////////////reporte incidente////////////////////////////////////////
 $router->get('/pdfInc', [ReporteincController::class,'pdfInc']);
 $router->get('/IncidentePDF', [ReporteincController::class,'pdfInc']);
+$router->get('/prueba', [ReporteincController::class,'pdfimprime']);
 
 
 $router->comprobarRutas();

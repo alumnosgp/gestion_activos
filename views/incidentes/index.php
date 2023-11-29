@@ -208,7 +208,7 @@
             </div>
         </div>
 
-        <!--////////////////////////////////// DETALLE DE INCIDENTE DE SEGURIDAD //////////////////////////////////////////////////////-->
+<!--////////////////////////////////// DETALLE DE INCIDENTE DE SEGURIDAD //////////////////////////////////////////////////////-->
         <div class="row justify-content-center my-4">
             <div class="col-lg-8 border bg-light p-3" id="formularioCategoriaincidentes">
                 <h1 class="text-center mt-5">CATEGORIA DEL INCIDENTE DE SEGURIDAD</h1>
@@ -301,7 +301,7 @@
                             readonly>
                     </div>
                 </div>
-                <div class="row mb-3" id="presentaEfecto">
+                <!-- <div class="row mb-3" id="presentaEfecto"> -->
                     <!-- <div class="col">
                     <label>EL INCIDENTE PRESENTA EFECTOS ABVERSOS?</label>
                     <select name="" id="" class="form-control">
@@ -388,6 +388,8 @@
             </div>
             <div class="modal-body">
                 <form action="" id="modalIrt">
+                <input type="number" name="inc_id" id="inc_id" hidden>
+                <input type="number" name="inc_no_incidente" id="inc_no_incidente" hidden>
                     <!-- Otros campos del formulario aquí -->
                     <div class="row mb-3" name="" id="">
                         <div class="col">
@@ -442,6 +444,8 @@
             </div>
             <div class="modal-body">
                 <form action="" id="modalRep">
+                <input type="number" name="inc_id" id="inc_id" hidden>
+                <input type="number" name="inc_no_incidente" id="inc_no_incidente" hidden>
                     <div class="col">
                         <label for="inc_catalogo_rep">CATALOGO</label>
                         <input type="text" name="inc_catalogo_rep" id="inc_catalogo_rep" class="form-control"
@@ -842,7 +846,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnCerrar" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" id="modalGuardar" class="btn btn-primary">Guardar</button>
 
                 </form>
@@ -850,17 +854,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--////////////////////////////////////////////DATATABLE///////////////////////////////////////////////////////////////-->
