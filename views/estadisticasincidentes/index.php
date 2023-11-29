@@ -155,38 +155,26 @@
         <button id="btnActualizar">Actualizar</button>
         <div class="row">
             <div class="card">
-                <h4>Tipo de Incidentes</h4>
-                <canvas id="chartMaquina"></canvas>
+                <h4>Categoria Incidente</h4>
+                <canvas id="chartCategorias"></canvas>
             </div>
             <div class="card">
-                <h4>Categoria del Incidente</h4>
-                <canvas id="chartSoftware"></canvas>
+                <h4>Tipo de Incidente</h4>
+                <canvas id="chartTipos"></canvas>
             </div>
             <div class="card">
                 <h4>Tipo Perpetrador</h4>
-                <canvas id="chartAntivirus"></canvas>
+                <canvas id="chartCategorias"></canvas>
             </div>
             <div class="card">
                 <h4>Motivo Perpetrador</h4>
-                <canvas id="chartMaquinas"></canvas>
-            </div>
-            <!-- <div class="card">
-                <h4>Entregas</h4>
-                <canvas id="chartEntregas"></canvas>
-            </div>
-            <div class="card">
-                <h4>Marcas de Equipos</h4>
-                <canvas id="chartMarcasEquipos"></canvas>
-            </div>
-            <div class="card">
-                <h4>Entregas Generales</h4>
-                <canvas id="chartEntregasGeneral"></canvas>
+                <canvas id="chartTipos"></canvas>
             </div>
         </div>
-    </div> -->
+    </div>
 
-            <!-- <script src=""></script> -->
-            <script src="<?= asset('./build/js/estadisticasincidentes/index.js') ?>"></script>
+    <!-- <script src=""></script> -->
+    <script src="<?= asset('./build/js/estadisticasincidentes/index.js') ?>"></script>
 </body>
 
 </html>

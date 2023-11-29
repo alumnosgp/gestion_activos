@@ -147,7 +147,10 @@ $router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, '
 
 //estadisticasIncidentes
 $router->get('/estadisticasincidentes', [EstadisticaincidenteController::class, 'index']);
-$router->get('/API/estadisticasincidentes/buscarDatosEstadisticaIncidentes', [EstadisticaincidenteController::class, 'buscarDatosIncidentes']);
+$router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [EstadisticaincidenteController::class, 'buscarCategoriasEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
+$router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [EstadisticaincidenteController::class, 'buscarCategoriasEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
 
 
 

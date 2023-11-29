@@ -7,7 +7,7 @@
     <script src="build/js/app.js"></script>
     <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
-
+    <script src="http://kit.fontawesome.com/e1d55cc160.js" crossorigin="anonymous"></script>
     <title>GESTION ACTIVOS</title>
     <!-- <style>
         body {
@@ -73,8 +73,11 @@
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/incidentes"><i
                                         class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INCIDENTES</a>
                             </li>
+
+
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/estadisticasincidentes"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ESTADISTICAS INCIDENTES</a>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/estadisticasincidentes"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2" class="fa-solid fa-chart-simple"></i>ESTADISTICAS INCIDENTES</a>
+
                             </li>            
 
                         </ul>

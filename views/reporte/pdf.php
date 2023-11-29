@@ -1,13 +1,12 @@
 <html lang="en">
-
+<meta charset="UTF-8">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zziy2YFZ5rPqFMPPpjBRBoxDx2PbAKL3LO9QGHvZ56z25UNR/lvO+ebBqISQSmF5" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zziy2YFZ5rPqFMPPpjBRBoxDx2PbAKL3LO9QGHvZ56z25UNR/lvO+ebBqISQSmF5" crossorigin="anonymous">
     <title>PDF Inventario</title>
-
-    <head>
+<head>
         <style>
             /* Estilos que proporcionaste */
             body {
@@ -35,8 +34,7 @@
             }
 
             .invoice th {
-                background-color: #3498db;
-                /* Cambia este valor a tu color azul preferido */
+                background-color: #f2f2f2;
                 font-weight: bold;
                 color: #fff;
                 /* Cambia este valor al color del texto que desees */
