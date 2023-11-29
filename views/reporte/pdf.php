@@ -35,7 +35,7 @@
             }
 
             .invoice th {
-                background-color: #f2f2f2;
+                background-color: #007ac4;
                 font-weight: bold;
                 color: #333;
             }
