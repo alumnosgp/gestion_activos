@@ -1,12 +1,13 @@
 <html lang="en">
-
+<meta charset="UTF-8">
+    
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zziy2YFZ5rPqFMPPpjBRBoxDx2PbAKL3LO9QGHvZ56z25UNR/lvO+ebBqISQSmF5" crossorigin="anonymous">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="build/js/app.js"></script>
+    <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
+    <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <title>PDF Inventario</title>
-
-    <head>
+<head>
         <style>
             /* Estilos que proporcionaste */
             body {

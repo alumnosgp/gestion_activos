@@ -1,7 +1,35 @@
+<style>
+    .image-highlight:hover {
+        border: 8px solid #f7f7f7;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        color: #333;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background-color: #0056b3;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #007f7f;
+    }
+</style>
+
+
 <div class="container" style="background-color: #f7f7f7;">
     <h1 class="text-center mb-4 text-primary">EJÉRCITO DE GUATEMALA</h1>
     <h2 class="text-center mb-4 text-primary">"CENTRO DE RESPUESTA ANTE INCIDENTES CIBERNÉTICOS"</h2>
-   
+
     <div class="row justify-content-center">
         <div class="col-lg-5 print-left-align">
             <img src="./images/ciber.jpg" width="80%" alt="" style="font-family: Arial, sans-serif;" class="image-highlight">
@@ -29,31 +57,3 @@
     </div>
 </div>
 <script src="<?= asset('./build/js/login/index.js') ?>"></script>
-
-
-<style>
-.image-highlight:hover {
-        border: 8px solid #f7f7f7;
-    }
-   body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .form-label {
-            font-weight: bold;
-        }
-
-        .btn-primary {
-            background-color: #0056b3;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color:  #007f7f;
-        }
-
-    </style>
-

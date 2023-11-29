@@ -137,7 +137,7 @@
                 </ul>
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
                     <!-- Ruta relativa desde el archivo donde se incluye menu.php -->
-                    <a href="/gestion_activos/menu" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>CERRAR
+                    <a href="/gestion_activos/login" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>CERRAR
                         SESION</a>
                 </div>
 
