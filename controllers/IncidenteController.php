@@ -114,18 +114,18 @@ class IncidenteController
             $resoluciones = new Resolucioninc($_POST);
             $resultado7 = $resoluciones->crear();
 
-            $perpetradores = new Perpetrador($_POST);
-            $resultado8 = $perpetradores->crear();
+            // $perpetradores = new Perpetrador($_POST);
+            // $resultado8 = $perpetradores->crear();
 
-            $motivos = new Motivo($_POST);
-            $resultado9 = $motivos->crear();
+            // $motivos = new Motivo($_POST);
+            // $resultado9 = $motivos->crear();
 
 
-            // $detalleinc = new Detalleinc($_POST);
-            // $resultado3 = $detalleinc->crear();
+            // // $detalleinc = new Detalleinc($_POST);
+            // // $resultado3 = $detalleinc->crear();
 
-            $conclusiones = new Conclusion($_POST);
-            $resultado10 = $conclusiones->crear();
+            // $conclusiones = new Conclusion($_POST);
+            // $resultado10 = $conclusiones->crear();
 
 
             if ($resultado7['resultado'] == 1) {
@@ -185,12 +185,45 @@ class IncidenteController
             WHEN p1.per_plaza is null THEN pla2.pla_nombre
             ELSE pla1.pla_nombre
         END as per_plaza_rep,
+        res_inc_id,
+        res_fec_inic_inv,
+        res_inc_incidente_id,
+        res_catalogo,
+        CASE
+            WHEN (p1.per_nombre1 IS NULL) THEN pp.pcivil_nombre1 || ' ' || pp.pcivil_nombre2 || ' ' || pp.pcivil_apellido1 || ' ' || pp.pcivil_apellido2
+            ELSE p1.per_nombre1 || ' ' || p1.per_nombre2 || ' ' || p1.per_apellido1 || ' ' || p1.per_apellido2
+        END AS per_nombre_invs,
+        CASE
+            WHEN p1.per_grado IS NULL THEN g_rep2.grado_descr
+            ELSE g_rep1.grado_descr
+        END AS per_grado_invs,
+        res_fec_fin_inc,
+        inc_no_identificacion,
+        res_fec_fin_imp,
+        res_fec_fin_inv,
+        res_referencia,
+        perp.perp_nombre AS res_perpetrador_id,
+        mot.mot_nombre AS res_motivo_id,
+        res_desc_perpertrador,
+        res_otro,
+        res_acc_tomadas,
+        res_acc_planificadas,
+        res_acc_sobresa,
+        conclu.conclu_nombre AS res_conclu_id,
+        res_justificacion,
+        int_int.ins_int_nombre AS res_inst_interna_id,
+        int_ext.ins_ext_nombre AS res_inst_externa_id,
+        res_otro2,
+        res_otro3,
         i.inc_direccion_rep,
         i.inc_tel_rep,
         i.inc_email_rep,
+        d.det_inc_id,
+        det_inc_id_incidente,
         d.det_inc_fec_ocurre,
         d.det_inc_fec_descubre,
         d.det_inc_fec_informa,
+        d.det_inc_estatus,
         desc_incidente_id,
         desc_id,
         desc_que,
@@ -200,9 +233,16 @@ class IncidenteController
         desc_impacto_adv,
         desc_vulnerabilidad,
         det_categ_id_incidente,
-        det_categ_id,
+        comp_act_nombre AS det_comp_act_componente_id,
+        comp_act.det_comp_act_descripcion,
+        tipo_efect.tip_descrip AS det_efct_tipo,
+        valor_efect.val_decrip AS det_efct_valor,
+        impacto_efect.ipm_decrip AS det_efct_impacto,
+        det_efect.det_efct_costo,
+        det_efect.det_efct_observacion,
+        det_categ.det_categ_id,
         det_categ.det_categ_descripcion,
-        det_categ.det_categoria,
+        cat_inc.cat_inc_decrip AS det_categoria,
         det_categ.det_categ_observacion
     FROM 
         incidente i
@@ -220,6 +260,18 @@ class IncidenteController
         LEFT JOIN descripcion_inc ON i.inc_id = desc_incidente_id
         LEFT JOIN detalle_categ_inc det_categ ON i.inc_id = det_categ.det_categ_id_incidente
         LEFT JOIN categoria_incidente cat_inc ON det_categ.det_categoria = cat_inc.cat_inc_id
+        LEFT JOIN detalle_comp_activo comp_act ON i.inc_id = comp_act.det_comp_act_inc_id
+        LEFT JOIN componente_activo ON comp_act.det_comp_act_componente_id = componente_activo.comp_act_id
+        LEFT JOIN detalle_efec_abv det_efect ON i.inc_id = det_efect.det_efec_id_incidente
+        LEFT JOIN resolicion_incidente res_inc ON i.inc_id = res_inc.res_inc_incidente_id
+        LEFT JOIN conclusiones conclu ON res_inc.res_conclu_id = conclu.conclu_id
+        LEFT JOIN inst_internas int_int ON res_inc.res_inst_interna_id = int_int.ins_int_id
+        LEFT JOIN inst_externas int_ext ON res_inc.res_inst_externa_id = int_ext.ins_ext_id
+        LEFT JOIN perpetradores perp ON res_inc.res_perpetrador_id = perp.perp_id
+        LEFT JOIN motivos mot ON res_inc.res_motivo_id = mot.mot_id
+        LEFT JOIN tipo_efect_adv tipo_efect ON det_efect.det_efct_tipo = tipo_efect.tip_id
+        LEFT JOIN valor_efect_adv valor_efect ON det_efect.det_efct_valor = valor_efect.val_id
+        LEFT JOIN impacto_efect_adv impacto_efect ON det_efect.det_efct_impacto = impacto_efect.imp_id
     WHERE 
         i.inc_situacion = 1
     ORDER BY
@@ -462,6 +514,45 @@ try {
             $incCatg = new Detallecategoria($_POST);           
            
             $resultado = $incCatg->actualizar();
+
+            if ($resultado['resultado'] == 1) {
+                echo json_encode([
+                    'mensaje' => 'Dato modificado correctamente',
+                    'codigo' => 1
+                ]);
+            } else {
+                echo json_encode([
+                    'mensaje' => 'Ocurrió un error db',
+                    'codigo' => 0,
+                ]);
+            }
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error excepcion',
+                'codigo' => 0
+            ]);
+        }
+    }
+
+
+    ///////////////////////////////////////////fechas/////////////////////
+    public static function modificarFecha()
+    {
+        try {
+
+            // Formatear las fechas en el formato YYYY-MM-DD HH:MM
+            $fechaOcurreFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_ocurre']));
+            $fechaDescubreFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_descubre']));
+            $fechaInformaFormateada = date('Y-m-d H:i', strtotime($_POST['det_inc_fec_informa']));
+
+            $_POST['det_inc_fec_ocurre'] = $fechaOcurreFormateada;
+            $_POST['det_inc_fec_descubre'] = $fechaDescubreFormateada;
+            $_POST['det_inc_fec_informa'] = $fechaInformaFormateada;
+
+            $detInc = new Detalleinc($_POST);           
+           
+            $resultado = $detInc->actualizar();
 
             if ($resultado['resultado'] == 1) {
                 echo json_encode([

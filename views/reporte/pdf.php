@@ -2,10 +2,9 @@
 <meta charset="UTF-8">
     
 <head>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="build/js/app.js"></script>
-    <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
-    <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zziy2YFZ5rPqFMPPpjBRBoxDx2PbAKL3LO9QGHvZ56z25UNR/lvO+ebBqISQSmF5" crossorigin="anonymous">
     <title>PDF Inventario</title>
 <head>
         <style>
@@ -30,14 +29,15 @@
             .invoice th,
             .invoice td {
                 border: 1px solid #e0e0e0;
-                padding: 10px;
+                padding: 5px;
                 text-align: left;
             }
 
             .invoice th {
-                background-color: #007ac4;
+                background-color: #f2f2f2;
                 font-weight: bold;
-                color: #333;
+                color: #fff;
+                /* Cambia este valor al color del texto que desees */
             }
 
             /* COLORES ENTRE LAS LINEAS  AZULES*/
@@ -49,7 +49,7 @@
                 background-color: #e0e0e0;
             }
 
-            /* Estilos para la fila de descripción del equipo Y color azul entre las lineas  */
+            /* Estilos para la fila de descripción del incidente Y color azul entre las lineas  */
             .description-row {
                 background-color: #f2f2f2;
                 font-weight: bold;
@@ -62,76 +62,79 @@
                 font-size: 12px;
                 border: 1px solid #dee2e6;
             }
+
+            #encabezado {
+                font-size: 28px;
+                /* Puedes ajustar el tamaño según tu preferencia */
+                color: white;
+                /* Puedes ajustar el color según tu preferencia */
+                /* Otros estilos que desees aplicar */
+            }
+
+            /* Estilos para centrar los títulos en la hoja de impresión */
+            @media print {
+
+                .invoice-header,
+                .company-info {
+                    text-align: center;
+                    margin-bottom: 05px;
+                    /* Puedes ajustar el margen según sea necesario */
+                }
+
+                .company-info p {
+                    margin: 0;
+                    /* Elimina los márgenes de los párrafos */
+                }
+            }
+
+            /* Estilos para el pie de firma */
+            .signature-section {
+                text-align: center;
+                margin-top: 100px;
+            }
+
+            /* .signature-recibi-entregue {
+float: left;
+width: 30%; /* Ancho fijo para mantenerlos en la misma línea y espaciados */
+            /* Añade un poco de espacio entre las firmas */
+
+            /* .signature-entregue {
+float: right;
+/* Esto empujará 'ENTREGUÉ' a la derecha */
+            /* width: 30%; */
+            /* Ancho igual al de los otros bloques de firma para alineación */
+            .signature-line {
+                border-top: 2px solid #000;
+                margin: 50px;
+                width: 80%;
+                /* Ancho en porcentaje para mantenerlo dentro del div correspondiente */
+            }
+
+            .signature-name {
+                font-size: 0.7em;
+                text-align: center;
+                color: #333;
+            }
+
+            .firma {
+                font-size: 0.9em;
+                text-align: center;
+                font-weight: bold;
+                /* Hacerlo negrita */
+                color: #333;
+            }
+
+            .signature-responsable {
+                display: block;
+                margin: 100px auto;
+                width: 60%;
+                /* Ancho igual al de los otros bloques de firma para alineación */
+                color: #333;
+            }
         </style>
     </head>
 
 <body>
-
-    <style>
-        /* Estilos para centrar los títulos en la hoja de impresión */
-        @media print {
-
-            .invoice-header,
-            .company-info {
-                text-align: center;
-                margin-bottom: 05px;
-                /* Puedes ajustar el margen según sea necesario */
-            }
-
-            .company-info p {
-                margin: 0;
-                /* Elimina los márgenes de los párrafos */
-            }
-        }
-
-        /* Estilos para el pie de firma */
-        .signature-section {
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        /* .signature-recibi-entregue {
-            float: left;
-            width: 30%; /* Ancho fijo para mantenerlos en la misma línea y espaciados */
-        /* Añade un poco de espacio entre las firmas */
-
-        /* .signature-entregue {
-            float: right;
-            /* Esto empujará 'ENTREGUÉ' a la derecha */
-        /* width: 30%; */
-        /* Ancho igual al de los otros bloques de firma para alineación */
-        .signature-line {
-            border-top: 2px solid #000;
-            margin: 50px;
-            width: 80%;
-            /* Ancho en porcentaje para mantenerlo dentro del div correspondiente */
-        }
-
-        .signature-name {
-            font-size: 0.7em;
-            text-align: center;
-            margin-top: 30px;
-            color: #333;
-        }
-
-        .firma {
-            font-size: 0.9em;
-            text-align: center;
-            margin-top: 5px;
-            margin-bottom: 50px;
-            font-weight: bold;
-            /* Hacerlo negrita */
-            color: #333;
-        }
-
-        .signature-responsable {
-            display: block;
-            margin: 100px auto;
-            width: 60%;
-            /* Ancho igual al de los otros bloques de firma para alineación */
-            color: #333;
-        }
-    </style>
     <div style="text-align:center;">
         <img src="./images/ciber.jpg" alt="Descripción de la imagen" style="width: 100px; height: auto;">
     </div>
@@ -147,93 +150,132 @@
     <table class="invoice">
         <thead>
             <tr>
-                <th colspan="2" style="text-align: center;">
-                    <h2>INVENTARIOS DE ACTIVOS</h2>
+                <th colspan="12" style="text-align: center;">
+                    <h1 id="encabezado"></h1>INVENTARIOS DE ACTIVOS</h1>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <tr class="description-row">
+            <tr>
                 <!-- <td>ID:</td>
                 <td><?= $maquina['maq_id'] ?></td> -->
             </tr>
-            <tr class="description-row">
-                <td>Tipo:</td>
-                <td><?= $maquina['maq_tipo'] ?></td>
+            <tr>
+                <td class="description-row">Nombre:</td>
+                <td>
+                    <?= $maquina['maq_nombre'] ?>
+                </td>
+                <td class="description-row">DIRECCION MAC:</td>
+                <td>
+                    <?= $maquina['maq_mac'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Nombre:</td>
-                <td><?= $maquina['maq_nombre'] ?></td>
+            <!-- <tr>
+            </tr> -->
+            <tr>
+                <td class="description-row">Tipo:</td>
+                <td>
+                    <?= $maquina['maq_tipo'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>DIRECCION MAC:</td>
-                <td><?= $maquina['maq_mac'] ?></td>
+            <tr>
+                <td class="description-row">Capacidad RAM:</td>
+                <td>
+                    <?= $maquina['maq_ram_capacidad'] ?>
+                </td>
+                <td class="description-row">Tipo de Disco Duro:</td>
+                <td>
+                    <?= $maquina['maq_tipo_disco_duro'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Capacidad RAM:</td>
-                <td><?= $maquina['maq_ram_capacidad'] ?></td>
+            <tr>
             </tr>
-            <tr class="description-row">
-                <td>Tipo de Disco Duro:</td>
-                <td><?= $maquina['maq_tipo_disco_duro'] ?></td>
+            <tr>
+                <td class="description-row">Capacidad Disco Duro:</td>
+                <td>
+                    <?= $maquina['maq_disco_capacidad'] ?>
+                </td>
+                <td class="description-row">Procesador:</td>
+                <td>
+                    <?= $maquina['maq_procesador_capacidad'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Capacidad Disco Duro:</td>
-                <td><?= $maquina['maq_disco_capacidad'] ?></td>
+            <tr>
             </tr>
-            <tr class="description-row">
-                <td>Capacidad Procesador:</td>
-                <td><?= $maquina['maq_procesador_capacidad'] ?></td>
+            <tr>
+                <td class="description-row">Plaza:</td>
+                <td colspan="12">
+                    <?= $maquina['maq_plaza'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Plaza:</td>
-                <td><?= $maquina['maq_plaza'] ?></td>
+            <tr>
+                <td class="description-row">Encargado de Alta</td>
+                <td colspan="12">
+                    <?= $maquina['per_grado_alta'] ?>
+                    <?= $maquina['maq_per_alta'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Personal de Alta</td>
-                <td><?= $maquina['maq_per_alta'] ?></td>
+            <tr>
+                <td class="description-row">Encargado Planillero</td>
+                <td colspan="12">
+                    <?= $maquina['per_grado_planilla'] ?>
+                    <?= $maquina['maq_per_planilla'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Personal de Plantilla</td>
-                <td><?= $maquina['maq_per_planilla'] ?></td>
+            <tr>
+                <td class="description-row">Sistema Operativo</td>
+                <td>
+                    <?= $maquina['maq_sistema_op'] ?>
+                </td>
+                <td class="description-row">Licencia?</td>
+                <td>
+                    <?= $maquina['maq_lic_so'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Sistema Operativo</td>
-                <td><?= $maquina['maq_sistema_op'] ?></td>
+            <tr>
+                <td class="description-row">Tipo de Office</td>
+                <td>
+                    <?= $maquina['maq_office'] ?>
+                </td>
+                <td class="description-row">Licencia?</td>
+                <td>
+                    <?= $maquina['maq_lic_office'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Tipo de Office</td>
-                <td><?= $maquina['maq_office'] ?></td>
+            <tr>
+                <td class="description-row">Tipo de Antivirus</td>
+                <td>
+                    <?= $maquina['maq_antivirus'] ?>
+                </td>
+                <td class="description-row">Licencia?</td>
+                <td>
+                    <?= $maquina['maq_lic_antv'] ?>
+                </td>
             </tr>
-            <tr class="description-row">
-                <td>Licencia de Office</td>
-                <td><?= $maquina['maq_lic_office'] ?></td>
-            </tr>
-            <tr class="description-row">
-                <td>Tipo de Antivirus</td>
-                <td><?= $maquina['maq_antivirus'] ?></td>
-            </tr>
-            <tr class="description-row">
-                <td>Licencia de Antivirus</td>
-                <td><?= $maquina['maq_lic_antv'] ?></td>
-            </tr>
-            <tr class="description-row">
-                <td>Uso</td>
-                <td><?= $maquina['maq_uso'] ?></td>
+            <tr>
+                <td class="description-row">Justificacion de uso</td>
+                <td colspan="12">
+                    <?= $maquina['maq_uso'] ?>
+                </td>
             </tr>
             <!-- ... Continuar con el resto de los datos ... -->
         </tbody>
     </table>
-    
+
 
 
     <!-- Div para contener los tres pies de firma -->
     <div>
         <div class="signature-responsable">
+            <div class="signature-line"></div>
+            <div class="signature-name">
+                <?= $maquina['per_grado_alta'] ?>
+                <?= $maquina['maq_per_alta'] ?>
+                <?= $maquina['per_grado_planilla'] ?>
+                <?= $maquina['maq_per_planilla'] ?>
+            </div>
             <p class="firma">RESPONSABLE</p>
-            <div class="signature-line"></div>     
-            <div class="signature-name"><?= $maquina['maq_per_alta'] ?><?= $maquina['maq_per_planilla'] ?></div>
-        </div>                        
+        </div>
     </div>
 
 

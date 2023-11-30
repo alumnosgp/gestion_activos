@@ -41,7 +41,7 @@
             <div class="col">
             <i class="fa-solid fa-id-card"></i>
                 <label for="maq_per_alta">CATALOGO</label>
-                <input type="text" name="maq_per_alta" id="maq_per_alta" class="form-control"
+                <input type="number" name="maq_per_alta" id="maq_per_alta" class="form-control"
                     placeholder="Ingrese catalogo">
             </div>
             <div class="col">
@@ -66,7 +66,7 @@
             <div class="col">
             <i class="fa-solid fa-id-card"></i>
                 <label for="maq_per_planilla">CATALOGO</label>
-                <input type="text" name="maq_per_planilla" id="maq_per_planilla" class="form-control"
+                <input type="number" name="maq_per_planilla" id="maq_per_planilla" class="form-control"
                     placeholder="Ingrese catalogo">
             </div>
             <div class="col">
