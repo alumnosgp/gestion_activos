@@ -40,7 +40,7 @@
             </button>
             <a class="navbar-brand" href="/gestion_activos/menu">
                 <img src="<?= asset('./images/cit.png') ?>" width="35px'" alt="cit">
-                Sistema de Gestion de Activos
+                Sistema de G.A.
             </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
 

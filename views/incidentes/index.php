@@ -13,13 +13,13 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="inc_no_incidente">NO. DE INCIDENTE</label>
-                        <input type="text" name="inc_no_incidente" id="inc_no_incidente" class="form-control" readonly>
+                        <input type="number" name="inc_no_incidente" id="inc_no_incidente" class="form-control" readonly>
                     </div>
 
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="inc_no_identificacion">NO. INCIDENTE RELACIONADO</label>
-                        <input type="text" name="inc_no_identificacion" id="inc_no_identificacion" class="form-control">
+                        <input type="number" name="inc_no_identificacion" id="inc_no_identificacion" class="form-control">
                     </div>
                 </div>
                 <hr />
@@ -29,7 +29,7 @@
                     <div class="col">
                     <i class="fa-solid fa-id-card"></i>
                         <label for="inc_catalogo_irt">CATALOGO</label>
-                        <input type="text" name="inc_catalogo_irt" id="inc_catalogo_irt" class="form-control"
+                        <input type="number" name="inc_catalogo_irt" id="inc_catalogo_irt" class="form-control"
                             placeholder="Ingrese catalogo">
                     </div>
                     <div class="col">
@@ -75,7 +75,7 @@
                     <div class="col">
                     <i class="fa-solid fa-id-card"></i>
                         <label for="inc_catalogo_rep">CATALOGO</label>
-                        <input type="text" name="inc_catalogo_rep" id="inc_catalogo_rep" class="form-control"
+                        <input type="number" name="inc_catalogo_rep" id="inc_catalogo_rep" class="form-control"
                             placeholder="Ingrese catalogo">
                     </div>
                     <div class="col">
@@ -135,7 +135,7 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="desc_incidente_id">NO. INCIDENTE</label>
-                        <input type="text" name="desc_incidente_id" id="desc_incidente_id" class="form-control"
+                        <input type="number" name="desc_incidente_id" id="desc_incidente_id" class="form-control"
                             readonly>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="det_inc_id_incidente">NO. INCIDENTE</label>
-                        <input type="text" name="det_inc_id_incidente" id="det_inc_id_incidente" class="form-control"
+                        <input type="number" name="det_inc_id_incidente" id="det_inc_id_incidente" class="form-control"
                             readonly>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="det_categ_id_incidente">NO. INCIDENTE</label>
-                        <input type="text" name="det_categ_id_incidente" id="det_categ_id_incidente"
+                        <input type="number" name="det_categ_id_incidente" id="det_categ_id_incidente"
                             class="form-control" readonly>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="det_comp_act_inc_id">NO. INCIDENTE</label>
-                        <input type="text" name="det_comp_act_inc_id" id="det_comp_act_inc_id" class="form-control"
+                        <input type="number" name="det_comp_act_inc_id" id="det_comp_act_inc_id" class="form-control"
                             readonly>
                     </div>
                 </div>
@@ -335,18 +335,10 @@
                     <div class="col">
                     <i class="fa-solid fa-hashtag"></i>
                         <label for="det_efec_id_incidente">NO. INCIDENTE</label>
-                        <input type="text" name="det_efec_id_incidente" id="det_efec_id_incidente" class="form-control"
+                        <input type="number" name="det_efec_id_incidente" id="det_efec_id_incidente" class="form-control"
                             readonly>
                     </div>
                 </div>
-                <!-- <div class="row mb-3" id="presentaEfecto"> -->
-                    <!-- <div class="col">
-                    <label>EL INCIDENTE PRESENTA EFECTOS ABVERSOS?</label>
-                    <select name="" id="" class="form-control">
-                        <option value="">NO PRESENTA</option>
-                        <option value="">PRESENTA</option>
-                    </select>
-                </div> -->
                     <div class="row mb-3" id="efectoAbversos">
                         <div class="row mb-3">
                             <div class="col">
@@ -405,9 +397,6 @@
             </div>
 
             <div class="row justify-content-center">
-                <!-- <div class="col text-center">
-                    <button id="btnBuscar" class="btn btn-warning"> Buscar</button>
-                </div> -->
                 <div class="col text-center">
                 
                     <button id="btnRegresar" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Regresar </button>
@@ -425,12 +414,12 @@
 </form>
 
 <!--////////////////////////// MODAL IRT///////////////////////////////////////////////////////////////-->
-<div class="modal fade" id="Irt" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Irt" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <i class="fa-solid fa-person"></i>
-                <h5 class="modal-title" id="modalModificarRolLabel">MIEMBRO DEL IRT</h5>
+                <h5 class="modal-title">MIEMBRO DEL IRT</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -489,11 +478,11 @@
     </div>
 </div>
 <!--////////////////////////// MODAL REPEPORTE///////////////////////////////////////////////////////////////-->
-<div class="modal fade" id="Rep" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Rep" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModificarRolLabel">DATOS DE LA PERSONA QUE REPORTA</h5>
+                <h5 class="modal-title">DATOS DE LA PERSONA QUE REPORTA</h5>
             </div>
             <div class="modal-body">
                 <form action="" id="modalRep">
@@ -555,11 +544,11 @@
 </div>
 
 <!--////////////////////////// MODAL FECHAS///////////////////////////////////////////////////////////////-->
-<div class="modal fade" id="Fechas" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Fechas" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModificarRolLabel">DETALLE DE INCIDENTE DE SEGURIDAD</h5>
+                <h5 class="modal-title">DETALLE DE INCIDENTE DE SEGURIDAD</h5>
             </div>
             <div class="modal-body">
                 <!-- Otros campos del formulario aquí -->
@@ -601,17 +590,18 @@
                 </div>
                     </div>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnModificarFecha" class="btn btn-warning" data-bs-dismiss="modal">Modificar</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!--////////////////////////// MODAL DESCRIPCION///////////////////////////////////////////////////////////////-->
-<div class="modal fade" id="Descrip" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Descrip" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModificarRolLabel">DESCRIPCION DE INCIDENTES</h5>
+                <h5 class="modal-title">DESCRIPCION DE INCIDENTES</h5>
             </div>
             <div class="modal-body">
                 <form action="" id="modalDescrip">
@@ -671,11 +661,11 @@
     </div>
 </div>
 <!--////////////////////////// MODAL CATEGORIA///////////////////////////////////////////////////////////////-->
-<div class="modal fade" id="Categoria" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Categoria" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModificarRolLabel">CATEGORIA DEL INCIDENTE</h5>
+                <h5 class="modal-title">CATEGORIA DEL INCIDENTE</h5>
             </div>
             <div class="modal-body">
                 <form id="modalCategoria">
@@ -726,11 +716,11 @@
 
 <!--////////////////////////////////////////////MODAL DE RESOLUCION///////////////////////////////////////////////////////////////-->
 
-<div class="modal fade" id="Resolucion" tabindex="-1" aria-labelledby="modalModificarRolLabel" aria-hidden="true">
+<div class="modal fade" id="Resolucion" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalModificarRolLabel">RESOLUCION DE INCIDENTE</h5>
+                <h5 class="modal-title">RESOLUCION DE INCIDENTE</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -747,8 +737,8 @@
                         <div class="col">
                         <i class="fa-solid fa-hashtag"></i>
                             <label for="res_inc_incidente_id">NO. DE INCIDENTE</label>
-                            <input type="text" name="res_inc_incidente_id" id="res_inc_incidente_id"
-                                class="form-control">
+                            <input type="number" name="res_inc_incidente_id" id="res_inc_incidente_id"
+                                class="form-control" readonly>
                         </div>
                     </div>
                     <hr />
@@ -757,7 +747,7 @@
                         <div class="col">
                         <i class="fa-solid fa-id-card"></i>
                             <label for="res_catalogo">CATALOGO</label>
-                            <input type="text" name="res_catalogo" id="res_catalogo" class="form-control"
+                            <input type="number" name="res_catalogo" id="res_catalogo" class="form-control"
                                 placeholder="Ingrese catalogo">
                         </div>
                         <div class="col">
