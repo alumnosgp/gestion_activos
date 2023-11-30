@@ -138,6 +138,7 @@ $router->post('/API/incidentes/guardar', [IncidenteController::class, 'guardarAp
 $router->post('/API/incidentes/guardarModal', [IncidenteController::class, 'guardarModal']);
 $router->post('/API/incidentes/modificarDescrip', [IncidenteController::class, 'modificarDescrip']);
 $router->post('/API/incidentes/modificarCategoria', [IncidenteController::class, 'modificarCategoria']);
+$router->post('/API/incidentes/modificarFecha', [IncidenteController::class, 'modificarFecha']);
 $router->get('/API/incidentes/buscarNoInc', [IncidenteController::class, 'buscarApi1']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoIrt', [IncidenteController::class, 'buscarDatosPorCatalogoIrtApi']);
 $router->get('/API/incidentes/buscarDatosPorCatalogoRep', [IncidenteController::class, 'buscarDatosPorCatalogoRepApi']);
@@ -148,20 +149,17 @@ $router->get('/API/incidentes/buscarCatalogoInv', [IncidenteController::class, '
 $router->get('/estadisticasincidentes', [EstadisticaincidenteController::class, 'index']);
 $router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [EstadisticaincidenteController::class, 'buscarCategoriasEstadistica']);
 $router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarPerpetradorIncidentes', [EstadisticaincidenteController::class, 'buscarPerpetradorEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarMotivoIncidentes', [EstadisticaincidenteController::class, 'buscarMotivoEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarEstado', [EstadisticaincidenteController::class, 'buscarEstado']);
+$router->get('/API/estadisticasincidentes/buscarComponentes', [EstadisticaincidenteController::class, 'buscarComponentes']);
 
 
-
-
-
-///Soluciones///
-// $router->get('/soluciones', [PerpetradorController::class, 'index']);
-// // $router->get('/API/incidentes/buscar', [PerpetradorController::class, 'buscarApi']);
-// // $router->post('/API/incidentes/guardar', [PerpetradorController::class, 'guardarApi']);
-// // $router->get('/API/incidentes/buscarNoInc', [PerpetradorController::class, 'buscarApi1']);
 
 ///////////////////////////reporte incidente////////////////////////////////////////
 $router->get('/pdfInc', [ReporteincController::class,'pdfInc']);
 $router->get('/IncidentePDF', [ReporteincController::class,'pdfInc']);
+$router->get('/prueba', [ReporteincController::class,'pdfimprime']);
 
 
 $router->comprobarRutas();

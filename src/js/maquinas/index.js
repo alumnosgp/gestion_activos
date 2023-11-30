@@ -542,6 +542,24 @@ const imprimirInventario = async (e) => {
       method: "GET",
       headers,
     };
+
+    Swal.fire({
+      title: "Generando PDF...",
+      html: "Por favor espera <b></b> milisegundos.",
+      timer: 5000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const b = Swal.getHtmlContainer().querySelector("b");
+        timerInterval = setInterval(() => {
+          b.textContent = Swal.getTimerLeft();
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      },
+    });
+    
     try {
       const respuesta = await fetch(url, config);
       if (respuesta.ok) {

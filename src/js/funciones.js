@@ -4,9 +4,11 @@ export const validarFormulario = (formulario, excepciones = [] ) => {
     let validarFormulario = []
     elements.forEach( element => {
         if(!element.value.trim() && ! excepciones.includes(element.id) ){
+            console.log(element)
             element.classList.add('is-invalid');
           
             validarFormulario.push(false)
+
         }else{
             element.classList.remove('is-invalid');
         }
