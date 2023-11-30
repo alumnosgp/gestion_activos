@@ -4,75 +4,65 @@ namespace Controllers;
 
 use Mpdf\Mpdf;
 use MVC\Router;
-use Model\Maquina;
+use Model\Incidente;
 use Exception;
 
-class ReporteincController {
+class ReporteincController
+{
 
 
-    public static function IncidentePDF($maq_id)
+    public static function IncidentePDF($inc_id)
     {
-        $sql = "SELECT  maquina.*,
-        plazas.pla_nombre AS maq_plaza,
-        sistema_operativo.sist_nombre AS maq_sistema_op,
-        office.off_nombre AS maq_office,
-        antivirus.ant_nombre AS maq_antivirus,
-        alta.per_nombre1 || ' ' || alta.per_nombre2 || ' ' || alta.per_apellido1 || ' ' || alta.per_apellido2 AS maq_per_alta,
-        planilla.pcivil_nombre1 || ' ' || planilla.pcivil_nombre2 || ' ' || planilla.pcivil_apellido1 || ' ' || planilla.pcivil_apellido2 AS maq_per_planilla
-FROM 
-    maquina 
-FULL JOIN 
-    plazas ON maquina.maq_plaza = plazas.pla_id
-FULL JOIN 
-    sistema_operativo ON maquina.maq_sistema_op = sistema_operativo.sist_id
-FULL JOIN 
-    office ON maquina.maq_office = office.off_id
-FULL JOIN 
-    antivirus ON maquina.maq_antivirus = antivirus.ant_id
-FULL JOIN 
-    persona_dealta alta ON maquina.maq_per_alta = alta.per_catalogo
-FULL JOIN 
-    persona_planilla planilla ON maquina.maq_per_planilla = planilla.pcivil_catalogo
-WHERE 
-    maquina.maq_id = ${maq_id} ";
+        try {
 
-        try{
-            $maquina=Maquina::fetchArray($sql);
-            return $maquina;
-        }
-        catch(Exception $e){            
+            $modelincidente = new Incidente(["inc_id" => $inc_id]);
+            $incidente = $modelincidente->getInfo();
+            return $incidente;
+        } catch (Exception $e) {
         }
     }
 
-    public static function pdfInc (Router $router){
-        $maq_id = $_GET['maq_id'];
+    public static function pdfInc(Router $router)
+{
+    $inc_id = $_GET['inc_id'];
 
-    $maquina = static::IncidentePDF($maq_id);
+    $incidente = static::IncidentePDF($inc_id);
 
-        //consulta a la BD 
+    $mpdf = new Mpdf([
+        "orientation" => "P",
+        "default_font_size" => 12,
+        "default_font" => "arial",
+        "format" => "Letter",
+        "mode" => 'utf-8'
+    ]);
+
+    $mpdf->SetMargins(10, 10, 10);
+
+    $htmlHeader = $router->load('reporteinc/header');
+    $mpdf->SetHTMLHeader($htmlHeader, 'O');
+    
+
+    $htmlFooter = $router->load('reporteinc/footer');
+    $mpdf->SetHTMLFooter($htmlFooter);
+
+    $html = $router->load('reporteinc/pdfInc', [
+        'incidente' => $incidente[0],
+    ]);
+
+    $mpdf->WriteHTML($html);
+    $mpdf->Output();
+}
 
 
-      
-        $mpdf = new Mpdf([
-            "orientation" => "P",
-            "default_font_size" => 12,
-            "default_font" => "arial",
-            "format" => "Letter",
-            "mode" => 'utf-8'
+    public static function pdfimprime(Router $router)
+    {
+        $inc_id = $_GET['inc_id'];
+
+        $incidente = static::IncidentePDF($inc_id);
+
+        $router->render('reporteinc/pdfInc', [
+            'incidente' => $incidente[0],
         ]);
-        $mpdf->SetMargins(10,10,10);
-
-        $html = $router->load('reporteinc/pdfInc',[
-            'maquina' => $maquina[0],
-           
-        ]);
-        // $htmlHeader = $router->load('reporte/header', [
-        //     'saludo' => $saludo
-        // ]);
-        $htmlFooter = $router->load('reporteinc/footer');
-        // $mpdf->SetHTMLHeader($htmlHeader);
-        $mpdf->SetHTMLFooter($htmlFooter);
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        //print_r($incidente);
     }
 }

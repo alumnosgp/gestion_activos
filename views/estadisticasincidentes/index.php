@@ -164,11 +164,11 @@
             </div>
             <div class="card">
                 <h4>Tipo Perpetrador</h4>
-                <canvas id="chartCategoria"></canvas>
+                <canvas id="chartPerpetrador"></canvas>
             </div>
             <div class="card">
                 <h4>Motivo Perpetrador</h4>
-                <canvas id="chartTipo"></canvas>
+                <canvas id="chartMotivo"></canvas>
             </div>
         </div>
     </div>
