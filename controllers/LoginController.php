@@ -14,7 +14,7 @@ class LoginController
         if (!isset($_SESSION['auth_user'])) {
             $router->render('login/index', []);
         } else {
-            $router->render('maquinas/index', []);
+            $router->render('menu/index', []);
        
         }
     }
@@ -40,7 +40,7 @@ class LoginController
                     echo json_encode([
                         'codigo' => 1,
                         'mensaje' => "Sesión iniciada correctamente. Bienvenido $nombre",
-                        'redireccion' => '/gestion_activos/maquinas'
+                        'redireccion' => '/gestion_activos/menu'
                     ]);
                 } else {
                     echo json_encode([
