@@ -155,8 +155,16 @@
         <button id="btnActualizar">Actualizar</button>
         <div class="row">
             <div class="card">
+                <h4>Estado del Incidente</h4>
+                <canvas id="chartEstado"></canvas>
+            </div>
+            <div class="card">
                 <h4>Categoria Incidente</h4>
                 <canvas id="chartCategorias"></canvas>
+            </div>
+            <div class="card">
+                <h4>Categoria Componentes</h4>
+                <canvas id="chartComponentes"></canvas>
             </div>
             <div class="card">
                 <h4>Tipo de Incidente</h4>

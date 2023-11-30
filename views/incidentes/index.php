@@ -1,6 +1,6 @@
 <form id="formTotal">
     <div class="row justify-content-center">
-        <div class="row justify-content-center my-4">
+        <div class="row justify-content-center my-1">
             <div class="col-lg-8 border bg-light p-3" id="formularioIncidentes">
                 <h1 class="text-center mt-5">REGISTRO DE INCIDENTES</h1>
                 <input type="number" name="inc_id" id="inc_id" class="form-control" hidden>

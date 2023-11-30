@@ -151,16 +151,10 @@ $router->get('/API/estadisticasincidentes/buscaCategoriaIncidentes', [Estadistic
 $router->get('/API/estadisticasincidentes/buscarTipoIncidentes', [EstadisticaincidenteController::class, 'buscarTiposEstadistica']);
 $router->get('/API/estadisticasincidentes/buscarPerpetradorIncidentes', [EstadisticaincidenteController::class, 'buscarPerpetradorEstadistica']);
 $router->get('/API/estadisticasincidentes/buscarMotivoIncidentes', [EstadisticaincidenteController::class, 'buscarMotivoEstadistica']);
+$router->get('/API/estadisticasincidentes/buscarEstado', [EstadisticaincidenteController::class, 'buscarEstado']);
+$router->get('/API/estadisticasincidentes/buscarComponentes', [EstadisticaincidenteController::class, 'buscarComponentes']);
 
 
-
-
-
-///Soluciones///
-// $router->get('/soluciones', [PerpetradorController::class, 'index']);
-// // $router->get('/API/incidentes/buscar', [PerpetradorController::class, 'buscarApi']);
-// // $router->post('/API/incidentes/guardar', [PerpetradorController::class, 'guardarApi']);
-// // $router->get('/API/incidentes/buscarNoInc', [PerpetradorController::class, 'buscarApi1']);
 
 ///////////////////////////reporte incidente////////////////////////////////////////
 $router->get('/pdfInc', [ReporteincController::class,'pdfInc']);

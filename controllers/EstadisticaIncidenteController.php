@@ -110,5 +110,68 @@ class EstadisticaIncidenteController
             
         }
     }
+    
+    
+    
+    
+    
+    public static function buscarEstado()
+    {
+        $sql ="SELECT 
+        d.det_inc_estatus AS descripcion,
+        COUNT(*) AS cantidad
+    FROM 
+        incidente i
+        INNER JOIN detalle_inc d ON i.inc_id = d.det_inc_id_incidente
+    WHERE 
+        i.inc_situacion = 1
+    GROUP BY 
+        d.det_inc_estatus
+    ORDER BY 
+        d.det_inc_estatus";
+
+        try {
+
+            $resultados = Incidente::fetchArray($sql);
+
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+            
+        }
+    }
+    public static function buscarComponentes()
+    {
+        $sql ="SELECT 
+        d.det_inc_estatus AS descripcion,
+        COUNT(*) AS cantidad
+    FROM 
+        incidente i
+        INNER JOIN detalle_inc d ON i.inc_id = d.det_inc_id_incidente
+    WHERE 
+        i.inc_situacion = 1
+    GROUP BY 
+        d.det_inc_estatus
+    ORDER BY 
+        d.det_inc_estatus";
+
+        try {
+
+            $resultados = Incidente::fetchArray($sql);
+
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+            
+        }
+    }
  
 }

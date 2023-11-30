@@ -5,18 +5,39 @@ import { event } from "jquery";
 /* Cambas para las division de los canvas y no genere conflictos */
 const canvasCategorias = document.getElementById("chartCategorias");
 const canvasTipos = document.getElementById("chartTipos");
-const canvasPerpetrador = document.getElementById("chartPerpetrador");/** CAMBIAR */
-const canvasMotivo = document.getElementById("chartMotivo");/**CAMBIAR */
+const canvasPerpetrador = document.getElementById("chartPerpetrador");
+const canvasMotivo = document.getElementById("chartMotivo");
+const canvasEstado = document.getElementById("chartEstado");
+const canvasComponentes = document.getElementById("chartComponentes");
 
 const btnActualizar = document.getElementById("btnActualizar");
 
 const contextCategorias = canvasCategorias.getContext("2d");
 const contextTipos = canvasTipos.getContext("2d");
-const contextPerpetrador= canvasPerpetrador.getContext("2d");/** CAMBIAR */
-const contextMotivo = canvasMotivo.getContext("2d");/**CAMBIAR */
+const contextPerpetrador= canvasPerpetrador.getContext("2d");
+const contextMotivo = canvasMotivo.getContext("2d");
+const contextEstado = canvasEstado.getContext("2d");
+const contextComponentes = canvasComponentes.getContext("2d");
 
 
 /*AQUI INICIA CONFIGURACION DE ESTILOS DE LAS GRAFICA */
+const chartEstado = new Chart(contextEstado, {
+  type: "bar",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "Tipos de Incidentes",
+        data: [],
+        backgroundColor: [],
+      },
+    ],
+  },
+  options: {
+    indexAxis: "x",
+  },
+});
+////////////////////////////////////////////////////////////
 const chartCategorias = new Chart(contextCategorias, {
   type: "pie",
   data: {
@@ -67,9 +88,26 @@ const chartPerpetrador = new Chart(contextPerpetrador, {
     indexAxis: "y",
   },
 });
+//////////////////////////////////////////////////////////////////
+const chartComponentes = new Chart(contextComponentes, {
+  type: "pie",
+  data: {
+    labels: [],
+    datasets: [
+      {
+        label: "Tipos de Incidentes",
+        data: [],
+        backgroundColor: [],
+      },
+    ],
+  },
+  options: {
+    indexAxis: "y",
+  },
+});
 /*AQUI LA SEGUNDA CONFIGURACION DE ESTILOS DE LA 4TA GRAFICA */
 const chartMotivo = new Chart(contextMotivo, {
-  type: "doughnut",
+  type: "bar",
   data: {
     labels: [],
     datasets: [
@@ -89,6 +127,41 @@ const chartMotivo = new Chart(contextMotivo, {
 /*AQUI TERMINAN LAS FORMATOS DE FORMA DE LAS GRAFICAS */
 /****************************************************************************************************************** */
 /*AQUI SON LOS DIRECCIONAMIENTOS DE LAS FUNCIONES POR GRAFICAS */
+const buscarEstado = async () => {
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarEstado`;
+  const config = {
+    method: "GET",
+  };
+
+  const request = await fetch(url, config);
+  const response = await request.json();
+  console.log(response);
+
+  try {
+    chartEstado.data.labels = [];
+    chartEstado.data.datasets[0].data = [];
+    chartEstado.data.datasets[0].backgroundColor = [];
+
+    if (response) {
+      response.forEach((registro) => {
+        chartEstado.data.labels.push(registro.descripcion);
+        chartEstado.data.datasets[0].data.push(registro.cantidad);
+        chartEstado.data.datasets[0].backgroundColor.push(getRandomColor());        
+      });
+      
+    } else {
+      Toast.fire({
+        title: "No se encontraron registros",
+        icon: "info",
+      });
+    }
+
+    chartEstado.update();
+  } catch (error) {
+    console.log(error);
+  }
+};
+////////////////////////////////////////////////////////////////////////////////////
 const getEstadisticas = async () => {
   const url = `/gestion_activos/API/estadisticasincidentes/buscaCategoriaIncidentes`;
   const config = {
@@ -119,6 +192,43 @@ const getEstadisticas = async () => {
     }
 
     chartCategorias.update();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////
+const buscarComponentes = async () => {
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarComponentes`;
+  const config = {
+    method: "GET",
+  };
+
+  const request = await fetch(url, config);
+  const response = await request.json();
+  console.log(response);
+
+  try {
+    chartComponentes.data.labels = [];
+    chartComponentes.data.datasets[0].data = [];
+    chartComponentes.data.datasets[0].backgroundColor = [];
+
+    if (response) {
+      response.forEach((registro) => {
+        chartComponentes.data.labels.push(registro.descripcion);
+        chartComponentes.data.datasets[0].data.push(registro.cantidad);
+        chartComponentes.data.datasets[0].backgroundColor.push(getRandomColor());        
+      });
+      
+    } else {
+      Toast.fire({
+        title: "No se encontraron registros",
+        icon: "info",
+      });
+    }
+
+    chartComponentes.update();
   } catch (error) {
     console.log(error);
   }
@@ -235,6 +345,8 @@ const getEstadisticasMotivo = async () => {
 
 /* CUARTO  FUNCION PARA LLAMAR LOS DATOS A LA GRAFICA */
 getEstadisticas();
+buscarEstado();
+buscarComponentes();
 getEstadisticasTipos();
 getEstadisticaPerpetrador();
 getEstadisticasMotivo();
