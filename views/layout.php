@@ -9,24 +9,34 @@
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <script src="http://kit.fontawesome.com/e1d55cc160.js" crossorigin="anonymous"></script>
     <title>GESTION ACTIVOS</title>
-    <!-- <style>
-        body {
-            background-image: url('C:\docker\gestion_activos\CIBERDEFENSA.png'); /* Cambia 'background-image.jpg' a la imagen de fondo que desees */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+     <style>
+      
+        
 
         .container-fluid {
-            background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
-            padding: 20px;
+          
+            padding: 1px;
             border-radius: 10px;
-        }
-    </style> -->
+        } 
+
+        /* Estilos para resaltar textos al pasar el mouse */
+a:hover,
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #ff3d50; /* Cambia el color a tu preferencia */
+}
+
+/* Estilos para resaltar los inputs al pasar el mouse */
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="password"]:hover,
+input[type="number"]:hover,
+textarea:hover,
+select:hover {
+  border-color: #ff6347; /* Cambia el color del borde a tu preferencia */
+  box-shadow: #1f1f1f; /* Agrega una sombra al input */
+}
+
+    </style> 
 </head>
 
 <body class="bg-image bg-opcity-50">
@@ -73,11 +83,14 @@
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/incidentes"><i
                                         class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE INCIDENTES</a>
                             </li>
+                            <!-- <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/menu"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>MENU</a>
+                            </li> -->
 
 
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/estadisticasincidentes"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2" class="fa-solid fa-chart-simple"></i>ESTADISTICAS INCIDENTES</a>
-
                             </li>            
 
                         </ul>
@@ -132,10 +145,10 @@
                         </ul>
                     </div>
                 </ul>
-                <div class="col-lg-1 d-grid mb-lg-0 mb-2">
+                <div class="col-lg-2 d-grid mb-lg-0 mb-2">
                     <!-- Ruta relativa desde el archivo donde se incluye menu.php -->
-                    <a href="/gestion_activos/menu" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>CERRAR
-                        SESION</a>
+                    <a href="/gestion_activos/menu" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i>Cerrar
+                        Sesion</a>
                 </div>
 
 
