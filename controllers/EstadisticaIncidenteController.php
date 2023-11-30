@@ -57,6 +57,58 @@ class EstadisticaIncidenteController
             
         }
     }
-  
+    
+    public static function buscarMotivoEstadistica()
+    {
+        $sql ="SELECT 
+        mot.mot_nombre AS descripcion,
+        COUNT(*) AS cantidad
+    FROM 
+        incidente i
+        INNER JOIN resolicion_incidente res_inc ON i.inc_id = res_inc.res_inc_incidente_id
+        INNER JOIN motivos mot ON res_inc.res_motivo_id = mot.mot_id
+    GROUP BY 
+        mot.mot_nombre";
+
+        try {
+
+            $resultados = Incidente::fetchArray($sql);
+
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+            
+        }
+    }
+    public static function buscarPerpetradorEstadistica()
+    {
+        $sql ="SELECT 
+        perp.perp_nombre AS descripcion,
+        COUNT(*) AS cantidad
+    FROM 
+        incidente i
+        INNER JOIN resolicion_incidente res_inc ON i.inc_id = res_inc.res_inc_incidente_id
+        INNER JOIN perpetradores perp ON res_inc.res_perpetrador_id = perp.perp_id
+    GROUP BY 
+        perp.perp_nombre";
+
+        try {
+
+            $resultados = Incidente::fetchArray($sql);
+
+            echo json_encode($resultados);
+        } catch (Exception $e) {
+            echo json_encode([
+                'detalle' => $e->getMessage(),
+                'mensaje' => 'Ocurrió un error',
+                'codigo' => 0
+            ]);
+            
+        }
+    }
  
 }

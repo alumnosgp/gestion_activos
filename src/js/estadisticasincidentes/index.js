@@ -5,15 +5,15 @@ import { event } from "jquery";
 /* Cambas para las division de los canvas y no genere conflictos */
 const canvasCategorias = document.getElementById("chartCategorias");
 const canvasTipos = document.getElementById("chartTipos");
-const canvasCategoria = document.getElementById("chartCategoria");/** CAMBIAR */
-const canvasTipo = document.getElementById("chartTipo");/**CAMBIAR */
+const canvasPerpetrador = document.getElementById("chartPerpetrador");/** CAMBIAR */
+const canvasMotivo = document.getElementById("chartMotivo");/**CAMBIAR */
 
 const btnActualizar = document.getElementById("btnActualizar");
 
 const contextCategorias = canvasCategorias.getContext("2d");
 const contextTipos = canvasTipos.getContext("2d");
-const contextCategoria = canvasCategorias.getContext("2d");/** CAMBIAR */
-const contextTipo = canvasTipos.getContext("2d");/**CAMBIAR */
+const contextPerpetrador= canvasPerpetrador.getContext("2d");/** CAMBIAR */
+const contextMotivo = canvasMotivo.getContext("2d");/**CAMBIAR */
 
 
 /*AQUI INICIA CONFIGURACION DE ESTILOS DE LAS GRAFICA */
@@ -51,7 +51,7 @@ const chartTipos = new Chart(contextTipos, {
   },
 });
 /*AQUI INICIA CONFIGURACION DE ESTILOS DE LA 3RA  GRAFICA */
-const chartCategoria = new Chart(contextCategoria, {
+const chartPerpetrador = new Chart(contextPerpetrador, {
   type: "pie",
   data: {
     labels: [],
@@ -68,7 +68,7 @@ const chartCategoria = new Chart(contextCategoria, {
   },
 });
 /*AQUI LA SEGUNDA CONFIGURACION DE ESTILOS DE LA 4TA GRAFICA */
-const chartTipo = new Chart(contextTipo, {
+const chartMotivo = new Chart(contextMotivo, {
   type: "doughnut",
   data: {
     labels: [],
@@ -110,7 +110,7 @@ const getEstadisticas = async () => {
         chartCategorias.data.datasets[0].data.push(registro.cantidad);
         chartCategorias.data.datasets[0].backgroundColor.push(getRandomColor());        
       });
-      getEstadisticasTipos();
+      
     } else {
       Toast.fire({
         title: "No se encontraron registros",
@@ -160,23 +160,8 @@ const getEstadisticasTipos = async () => {
   }
 };
 
-/* TERCERA FUNCION DE DIRECIONAMIENTO */
-
-
-/* CUARTO  FUNCION PARA LLAMAR LOS DATOS A LA GRAFICA */
-getEstadisticas();
-
-const getRandomColor = () => {
-  const r = Math.floor(Math.random() * 256);
-  const g = Math.floor(Math.random() * 256);
-  const b = Math.floor(Math.random() * 256);
-
-  const rgbColor = `rgba(${r},${g},${b},0.5)`;
-  return rgbColor;
-};
-/*AQUI SON LOS DIRECCIONAMIENTOS DE LAS FUNCIONES POR GRAFICAS */
-const getEstadistica = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscaCategoriaIncidentes`;
+const getEstadisticaPerpetrador = async () => {
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarPerpetradorIncidentes`;
   const config = {
     method: "GET",
   };
@@ -186,17 +171,16 @@ const getEstadistica = async () => {
   console.log(response);
 
   try {
-    chartCategorias.data.labels = [];
-    chartCategorias.data.datasets[0].data = [];
-    chartCategorias.data.datasets[0].backgroundColor = [];
+    chartPerpetrador.data.labels = [];
+    chartPerpetrador.data.datasets[0].data = [];
+    chartPerpetrador.data.datasets[0].backgroundColor = [];
 
     if (response) {
       response.forEach((registro) => {
-        chartCategorias.data.labels.push(registro.descripcion);
-        chartCategorias.data.datasets[0].data.push(registro.cantidad);
-        chartCategorias.data.datasets[0].backgroundColor.push(getRandomColor());        
+        chartPerpetrador.data.labels.push(registro.descripcion);
+        chartPerpetrador.data.datasets[0].data.push(registro.cantidad);
+        chartPerpetrador.data.datasets[0].backgroundColor.push(getRandomColor());        
       });
-      getEstadisticasTipos();
     } else {
       Toast.fire({
         title: "No se encontraron registros",
@@ -204,15 +188,15 @@ const getEstadistica = async () => {
       });
     }
 
-    chartCategorias.update();
+    chartPerpetrador.update();
   } catch (error) {
     console.log(error);
   }
 };
 
 /* SEGUNDA FUNCION DE DIRECIONAMIENTO */
-const getEstadisticasTipo = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarTipoIncidentes`;
+const getEstadisticasMotivo = async () => {
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarMotivoIncidentes`;
   const config = {
     method: "GET",
   };
@@ -222,15 +206,15 @@ const getEstadisticasTipo = async () => {
   console.log(response);
 
   try {
-    chartTipos.data.labels = [];
-    chartTipos.data.datasets[0].data = [];
-    chartTipos.data.datasets[0].backgroundColor = [];
+    chartMotivo.data.labels = [];
+    chartMotivo.data.datasets[0].data = [];
+    chartMotivo.data.datasets[0].backgroundColor = [];
 
     if (response) {
       response.forEach((registro) => {
-        chartTipos.data.labels.push(registro.descripcion);
-        chartTipos.data.datasets[0].data.push(registro.cantidad);
-        chartTipos.data.datasets[0].backgroundColor.push(getRandomColor());
+        chartMotivo.data.labels.push(registro.descripcion);
+        chartMotivo.data.datasets[0].data.push(registro.cantidad);
+        chartMotivo.data.datasets[0].backgroundColor.push(getRandomColor());
       });
       
     } else {
@@ -240,7 +224,7 @@ const getEstadisticasTipo = async () => {
       });
     }
 
-    chartTipos.update();
+    chartMotivo.update();
   } catch (error) {
     console.log(error);
   }
@@ -251,8 +235,11 @@ const getEstadisticasTipo = async () => {
 
 /* CUARTO  FUNCION PARA LLAMAR LOS DATOS A LA GRAFICA */
 getEstadisticas();
+getEstadisticasTipos();
+getEstadisticaPerpetrador();
+getEstadisticasMotivo();
 
-const getRandomColo = () => {
+const getRandomColor = () => {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);
@@ -260,6 +247,8 @@ const getRandomColo = () => {
   const rgbColor = `rgba(${r},${g},${b},0.5)`;
   return rgbColor;
 };
+
+
 
 
 /************************* AQUI TERMINA LOS DIRECCIONAMIENTOS ******************************************** */

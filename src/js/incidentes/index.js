@@ -1,15 +1,20 @@
 import Datatable from "datatables.net-bs5";
-import { Dropdown, Modal} from "bootstrap";
+import { Dropdown, Modal } from "bootstrap";
 import Swal from "sweetalert2";
 import { lenguaje } from "../lenguaje";
 import { validarFormulario, Toast, confirmacion } from "../funciones";
 
-
 document.addEventListener("DOMContentLoaded", function () {
   //FORMULARIO INCIDENTES
-  const formularioDescrip = document.getElementById("formularioDescripcionincidentes");
-  const formularioDetal = document.getElementById("formularioDetalledeincidente");
-  const formularioCateg = document.getElementById("formularioCategoriaincidentes");
+  const formularioDescrip = document.getElementById(
+    "formularioDescripcionincidentes"
+  );
+  const formularioDetal = document.getElementById(
+    "formularioDetalledeincidente"
+  );
+  const formularioCateg = document.getElementById(
+    "formularioCategoriaincidentes"
+  );
   // const modalParaVerDatos = new Modal(document.getElementById('modalDatos'))
   const formularioEfect = document.getElementById("formularioEfectoabverso");
   const formularioComp = document.getElementById("formularioComponentes");
@@ -31,12 +36,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const modalResolucion = document.getElementById("modalResolucion");
   const btnCerrar = document.getElementById("btnCerrar");
 
+  const btnDatatable = document.getElementById("datatableShow");
+  const objDatatable = document.getElementById("datatable");
 
   const btnGuardar = document.getElementById("btnGuardar");
   const modalGuardar = document.getElementById("modalGuardar");
-  const btnModificarDescrip = document.getElementById('btnModificarDescrip');
-  const btnModificarCategoria = document.getElementById('btnModificarCategoria');
-  const btnModificarFecha = document.getElementById('btnModificarFecha');
+  const btnModificarDescrip = document.getElementById("btnModificarDescrip");
+  const btnModificarCategoria = document.getElementById(
+    "btnModificarCategoria"
+  );
+  const btnModificarFecha = document.getElementById("btnModificarFecha");
   const btnSiguiente = document.getElementById("btnSiguiente");
   const btnRegresar = document.getElementById("btnRegresar");
 
@@ -49,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
     formularioEfect,
   ];
 
+  objDatatable.style.display = "none";
   let posicionFormulario = 0;
 
   formularios.slice(1).forEach((form) => (form.style.display = "none"));
@@ -110,14 +120,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const avanzarFormulario = (e) => {
     e.preventDefault();
     const codigo_incidente = formulario.inc_no_incidente.value;
-    console.log(codigo_incidente)
+    console.log(codigo_incidente);
 
-    formulario.inc_no_incidente.value=codigo_incidente
-    formulario.desc_incidente_id.value=codigo_incidente
-    formulario.det_inc_id_incidente.value=codigo_incidente
-    formulario.det_categ_id_incidente.value=codigo_incidente
-    formulario.det_comp_act_inc_id.value=codigo_incidente
-    formulario.det_efec_id_incidente.value=codigo_incidente
+    formulario.inc_no_incidente.value = codigo_incidente;
+    formulario.desc_incidente_id.value = codigo_incidente;
+    formulario.det_inc_id_incidente.value = codigo_incidente;
+    formulario.det_categ_id_incidente.value = codigo_incidente;
+    formulario.det_comp_act_inc_id.value = codigo_incidente;
+    formulario.det_efec_id_incidente.value = codigo_incidente;
     // formulario.res_inc_incidente_id.value=codigo_incidente
 
     if (posicionFormulario < formularios.length - 1) {
@@ -132,6 +142,19 @@ document.addEventListener("DOMContentLoaded", function () {
       posicionFormulario--;
       mostrarFormulario(posicionFormulario);
     }
+  };
+
+  const resetFormulario = () => {
+    posicionFormulario = 0;
+    formularioInc.style.display = "";
+    formularioDescrip.style.display = "none";
+    formularioDetal.style.display = "none";
+    formularioCateg.style.display = "none";
+    formularioComp.style.display = "none";
+    formularioEfect.style.display = "none";
+    establecerFechaActual();
+    buscarNoInc();
+    mostrarFormulario(0);
   };
 
   // Mueve la declaración de la función hacia arriba
@@ -150,7 +173,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Llama a la función después de haberla declarado
   establecerFechaActual();
 
-  
   let contador = 1;
   const datatable = new Datatable("#tablaIncidentes", {
     language: lenguaje,
@@ -173,12 +195,8 @@ document.addEventListener("DOMContentLoaded", function () {
         data: "Irt",
         searchable: false,
         orderable: false,
-        render: (
-          data,
-          type,
-          row,
-          meta
-        ) => `<button type="button" class="btn btn-primary" id="btnVerIrt" 
+        render: (data, type, row, meta) => {
+          return `<button type="button" class="btn btn-primary" id="btnVerIrt" 
         data-id='${data}' 
         data-numInc='${row.inc_no_incidente}'
         data-nombre='${row.per_nombre_irt}' 
@@ -187,19 +205,16 @@ document.addEventListener("DOMContentLoaded", function () {
         data-telefono='${row.inc_tel_irt}' 
         data-puesto='${row.per_plaza_irt}' 
         data-email='${row.inc_email_irt}' 
-        data-bs-toggle="modal" data-bs-target="#Irt">Ver</button>`,
+        data-bs-toggle="modal" data-bs-target="#Irt">Ver</button>`;
+        },
       },
       {
         title: "REPORTO",
         data: "Rep",
         searchable: false,
         orderable: false,
-        render: (
-          data,
-          type,
-          row,
-          meta
-        ) => `<button type="button" class="btn btn-secondary" id="btnVerRep" 
+        render: (data, type, row, meta) => {
+          return `<button type="button" class="btn btn-secondary" id="btnVerRep" 
         data-id1='${data}' 
         data-numbInc='${row.inc_no_incidente}'
         data-nombre1='${row.per_nombre_rep}' 
@@ -209,7 +224,8 @@ document.addEventListener("DOMContentLoaded", function () {
         data-puesto1='${row.per_plaza_rep}' 
         data-email1='${row.inc_email_rep}' 
         data-direccion1='${row.inc_direccion_rep}' 
-        data-bs-toggle="modal" data-bs-target="#Rep">Ver</button>`,
+        data-bs-toggle="modal" data-bs-target="#Rep">Ver</button>`;
+        },
       },
       {
         title: "FECHAS",
@@ -229,19 +245,24 @@ document.addEventListener("DOMContentLoaded", function () {
         </button>`;
         },
       },
+
       {
         title: "DESCRIP",
         data: "desc_id",
         searchable: false,
         orderable: false,
-        render: (
-          data,
-          type,
-          row,
-          meta
-        ) => `<button type="button" class="btn btn-dark" id="btnVerDescrip" data-id3='${row.desc_id}' 
-        data-que='${row.desc_que}' data-como='${row.desc_como}' data-porque='${row.desc_porque}' data-vista='${row.desc_vista}' 
-        data-impacto='${row.desc_impacto_adv}' data-id_incidente='${row.desc_incidente_id}' data-vulnerabilidad='${row.desc_vulnerabilidad}' data-bs-toggle="modal" data-bs-target="#Descrip">Ver</button>`,
+        render: (data, type, row, meta) => {
+          return `<button type="button" class="btn btn-dark" id="btnVerDescrip" 
+        data-id3='${row.desc_id}' 
+        data-que='${row.desc_que}' 
+        data-como='${row.desc_como}' 
+        data-porque='${row.desc_porque}' 
+        data-vista='${row.desc_vista}' 
+        data-impacto='${row.desc_impacto_adv}' 
+        data-id_incidente='${row.desc_incidente_id}' 
+        data-vulnerabilidad='${row.desc_vulnerabilidad}' 
+        data-bs-toggle="modal" data-bs-target="#Descrip">Ver</button>`;
+        },
       },
       {
         title: "CATEGORIA",
@@ -249,7 +270,6 @@ document.addEventListener("DOMContentLoaded", function () {
         searchable: false,
         orderable: false,
         render: (data, type, row, meta) => () => {
-          // console.log(row.det_categoria)
           return `<button type="button" class="btn btn-light" id="btnVerCateg" 
                 data-id4='${row.det_categ_id}' 
                 data-detincId='${row.det_categ_id_incidente}'
@@ -308,8 +328,7 @@ document.addEventListener("DOMContentLoaded", function () {
           </span>`;
         },
       },
-      
-      
+
       {
         title: "REPORTE PDF",
         data: "res_inc_id",
@@ -329,54 +348,51 @@ document.addEventListener("DOMContentLoaded", function () {
     ],
   });
 
-
-
-/////////////////////// Function que buscar para el datatable///////////////////////
+  /////////////////////// Function que buscar para el datatable///////////////////////
   const buscar = async () => {
     const url = `/gestion_activos/API/incidentes/buscar`;
     const config = {
-        method: 'GET'
+      method: "GET",
     };
     try {
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-        console.log(data);
-        datatable.clear().draw();
-        if (data) {
-            contador = 1;
-            datatable.rows.add(data).draw();
-        } else {
-            Toast.fire({
-                title: 'No se encontraron registros',
-                icon: 'info'
-            });
-        }
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      console.log(data);
+      datatable.clear().draw();
+      if (data) {
+        contador = 1;
+        datatable.rows.add(data).draw();
+      } else {
+        Toast.fire({
+          title: "No se encontraron registros",
+          icon: "info",
+        });
+      }
     } catch (error) {
-        console.log('Error en la llamada a la API:', error);
+      console.log("Error en la llamada a la API:", error);
     }
-  }
+  };
 
-
-
-///////////////////////// Function que guardar que omite que se llenen ciertos campos de no contar con ellos
+  ///////////////////////// Function que guardar que omite que se llenen ciertos campos de no contar con ellos
   const guardar = async (evento) => {
     evento.preventDefault();
-    // if (!validarFormulario(formulario, [
-    //     "inc_id", "inc_no_identificacion", "desc_id", "desc_incidente_id",
-    //     "desc_que", "desc_como", "desc_porque", "desc_vista", "desc_impacto_adv",
-    //     "desc_vulnerabilidad", "det_inc_id", "det_inc_id_incidente", "det_inc_fec_ocurre",
-    //     "det_inc_fec_descubre", "det_inc_fec_informa", "det_inc_estatus", "det_categ_id",
-    //     "det_categ_id_incidente", "det_categ_descripcion", "det_categoria", "det_categ_observacion",
-    //     "det_comp_act_id", "det_comp_act_inc_id", "det_comp_act_componente_id", "det_comp_act_descripcion",
-    //     "det_efct_id", "det_efec_id_incidente", "det_efct_tipo", "det_efct_valor", "det_efct_impacto",
-    //     "det_efct_costo", "det_efct_observacion"])) 
-    //   {
-    //   Toast.fire({
-    //     icon: "info",
-    //     text: "Debe llenar todos los datos",
-    //   });
-    //   return;
-    // }
+    if (
+      !validarFormulario(formulario, [
+        "inc_id",
+        "inc_no_identificacion",
+        "desc_id",
+        "det_inc_id",
+        "det_categ_id",
+        "det_comp_act_id",
+        "det_efct_id",
+      ])
+    ) {
+      Toast.fire({
+        icon: "info",
+        text: "Debe llenar todos los datos",
+      });
+      return;
+    }
 
     const body = new FormData(formulario);
     body.delete("inc_id");
@@ -402,6 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
         case 1:
           formulario.reset();
           icon = "success";
+          resetFormulario();
           buscar();
           break;
 
@@ -425,8 +442,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /////////////////////////////////////////////////GUARDAR DEL MODAL//////////////////////////////////////////
   const guardarModal = async (evento) => {
     evento.preventDefault();
-    if (!validarFormulario(modalResolucion, ["res_inc_id"])) 
-      {
+    if (!validarFormulario(modalResolucion, ["res_inc_id"])) {
       Toast.fire({
         icon: "info",
         text: "Debe llenar todos los datos",
@@ -475,14 +491,13 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       btnCerrar.click();
-
     } catch (error) {
       console.log(error);
       btnCerrar.click();
     }
   };
 
-    // Function que busca el catalogo de IRT que reportan catalogo_Irt
+  // Function que busca el catalogo de IRT que reportan catalogo_Irt
   const buscarDatosPorCatalogoIrt = async () => {
     let inc_catalogo_irt = document.getElementById("inc_catalogo_irt").value;
     const url = `/gestion_activos/API/incidentes/buscarDatosPorCatalogoIrt?inc_catalogo_irt=${inc_catalogo_irt}`;
@@ -573,8 +588,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-
-/////////////////////////////buscar catalogo del investigador//////////////
+  /////////////////////////////buscar catalogo del investigador//////////////
   const buscarCatalogoInv = async () => {
     let res_catalogo = document.getElementById("res_catalogo").value;
     const url = `/gestion_activos/API/incidentes/buscarCatalogoInv?res_catalogo=${res_catalogo}`;
@@ -625,17 +639,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const incidente = data[0].inc_no_incidente;
         inc_no_incidente.value = incidente;
       } else {
-        // Toast.fire({
-        //     title: 'No se encontraron registros',
-        //     icon: 'info'
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-
-
 
   ///////////////////////IRT///////////////////////////////////////////////////////////
 
@@ -649,7 +657,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const puesto = button.dataset.puesto;
     const email = button.dataset.email;
     const telefono = button.dataset.telefono;
-    // console.log(button.dataset.catalogo)
 
     const dataset = {
       id,
@@ -659,24 +666,20 @@ document.addEventListener("DOMContentLoaded", function () {
       catalogo,
       puesto,
       email,
-      telefono
+      telefono,
     };
-    
-
 
     colocarDatos(dataset);
     const body = new FormData(modalIrt);
     body.append("inc_id", id);
-    body.append('inc_no_incidente', numInc);
+    body.append("inc_no_incidente", numInc);
     body.append("per_nombre_irt", nombre);
     body.append("per_grado_irt", grado);
     body.append("inc_catalogo_irt", catalogo);
     body.append("per_plaza_irt", puesto);
     body.append("inc_email_irt", email);
     body.append("inc_tel_irt", telefono);
-    
   };
-  // console.log(colocarDatos);
 
   const colocarDatos = (dataset) => {
     modalIrt.inc_no_incidente.value = dataset.numInc;
@@ -688,7 +691,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modalIrt.inc_tel_irt.value = dataset.telefono;
     modalIrt.inc_id.value = dataset.id;
   };
-
 
   const traeDatos1 = (e) => {
     const button = e.target;
@@ -711,10 +713,8 @@ document.addEventListener("DOMContentLoaded", function () {
       puesto1,
       email1,
       direccion1,
-      telefono1
+      telefono1,
     };
-    
-
 
     colocarDatos1(dataset);
     const body = new FormData(modalRep);
@@ -727,9 +727,7 @@ document.addEventListener("DOMContentLoaded", function () {
     body.append("inc_email_rep", email1);
     body.append("inc_tel_rep", telefono1);
     body.append("inc_direccion_rep", direccion1);
-    
   };
-  // console.log(colocarDatos);
 
   const colocarDatos1 = (dataset) => {
     modalRep.inc_no_incidente.value = dataset.numbInc;
@@ -743,61 +741,50 @@ document.addEventListener("DOMContentLoaded", function () {
     modalRep.inc_id.value = dataset.id1;
   };
 
-
-
   const modificarFecha = async () => {
-
-    
-    const body = new FormData(modalFechas)
-
-    const url = '/gestion_activos/API/incidentes/modificarFecha';
+    const body = new FormData(modalFechas);
+    const url = "/gestion_activos/API/incidentes/modificarFecha";
     const config = {
-        method: 'POST',
-        body
-    }
+      method: "POST",
+      body,
+    };
     try {
-        const respuesta = await fetch(url, config)
-        const data = await respuesta.json();
-        // console.log(data)
-        const { codigo, mensaje, detalle } = data;
-        let icon = 'info'
-        switch (codigo) {
-            case 1:
-                formulario.reset();
-                icon = 'success'
-                buscar();
-                break;
-            case 0:
-                icon = 'error'
-                console.log(detalle)
-                break;
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      const { codigo, mensaje, detalle } = data;
+      let icon = "info";
+      switch (codigo) {
+        case 1:
+          formulario.reset();
+          icon = "success";
+          buscar();
+          break;
+        case 0:
+          icon = "error";
+          console.log(detalle);
+          break;
 
-            default:
-                break;
-        }
+        default:
+          break;
+      }
 
-        Toast.fire({
-            icon,
-            text: mensaje
-        })
-
+      Toast.fire({
+        icon,
+        text: mensaje,
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
-
-
+  };
 
   const traeDatos2 = (e) => {
     const button = e.target;
     const id2 = button.dataset.id2;
     const incId9 = button.dataset.incid9;
-    // console.log(id2)
     const fechaocu = button.dataset.fechaocu;
     const fechadescu = button.dataset.fechadescu;
     const fechainf = button.dataset.fechainf;
     const estatus = button.dataset.estatus;
-// console.log(id2, "|", incId9, "|", );
 
     const dataset = {
       id2,
@@ -805,10 +792,8 @@ document.addEventListener("DOMContentLoaded", function () {
       fechaocu,
       fechadescu,
       fechainf,
-      estatus      
+      estatus,
     };
-    
-
 
     colocarDatos2(dataset);
     const body = new FormData(modalFechas);
@@ -818,11 +803,7 @@ document.addEventListener("DOMContentLoaded", function () {
     body.append("det_inc_fec_descubre", fechadescu);
     body.append("det_inc_fec_informa", fechainf);
     body.append("det_inc_estatus", estatus);
-
-    // console.log(det_inc_id_incidente);
-    
   };
-  // console.log(colocarDatos);
 
   const colocarDatos2 = (dataset) => {
     modalFechas.det_inc_id_incidente.value = dataset.incId9;
@@ -833,51 +814,44 @@ document.addEventListener("DOMContentLoaded", function () {
     modalFechas.det_inc_id.value = dataset.id2;
   };
 
-
   /////////////////////////////////////////////////descripcion/////////////////////////
 
   const modificarDescrip = async () => {
-    // if (!validarFormulario(formulario,['inc_id'])) {
-    //     alert('Debe llenar todos los campos');
-    //     return
-    // }
-    
-    const body = new FormData(modalDescrip)
-    const url = '/gestion_activos/API/incidentes/modificarDescrip';
+    const body = new FormData(modalDescrip);
+    const url = "/gestion_activos/API/incidentes/modificarDescrip";
     const config = {
-        method: 'POST',
-        body
-    }
+      method: "POST",
+      body,
+    };
     try {
-        const respuesta = await fetch(url, config)
-        const data = await respuesta.json();
-        console.log(data)
-        const { codigo, mensaje, detalle } = data;
-        let icon = 'info'
-        switch (codigo) {
-            case 1:
-                formulario.reset();
-                icon = 'success'
-                buscar();
-                break;
-            case 0:
-                icon = 'error'
-                console.log(detalle)
-                break;
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      console.log(data);
+      const { codigo, mensaje, detalle } = data;
+      let icon = "info";
+      switch (codigo) {
+        case 1:
+          formulario.reset();
+          icon = "success";
+          buscar();
+          break;
+        case 0:
+          icon = "error";
+          console.log(detalle);
+          break;
 
-            default:
-                break;
-        }
+        default:
+          break;
+      }
 
-        Toast.fire({
-            icon,
-            text: mensaje
-        })
-
+      Toast.fire({
+        icon,
+        text: mensaje,
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
 
   const traeDatos3 = (e) => {
     const button = e.target;
@@ -900,9 +874,9 @@ document.addEventListener("DOMContentLoaded", function () {
       vista,
       impacto,
       vulnerabilidad,
-      id_incidente
+      id_incidente,
     };
-  
+
     colocarDatos3(dataset);
     const body = new FormData(modalDescrip);
     body.append("desc_id", id3);
@@ -913,7 +887,6 @@ document.addEventListener("DOMContentLoaded", function () {
     body.append("desc_vista", vista);
     body.append("desc_impacto_adv", impacto);
     body.append("desc_vulnerabilidad", vulnerabilidad);
-       
   };
   // console.log(colocarDatos);
 
@@ -928,79 +901,69 @@ document.addEventListener("DOMContentLoaded", function () {
     modalDescrip.desc_id.value = dataset.id3;
   };
 
+  /////////////////////////////////////////////////categoria/////////////////////////
 
+  const modificarCategoria = async () => {
+    const body = new FormData(modalCategoria);
 
-/////////////////////////////////////////////////categoria/////////////////////////
-
-   const modificarCategoria = async () => {
-    
-    const body = new FormData(modalCategoria)
-
-    const url = '/gestion_activos/API/incidentes/modificarCategoria';
+    const url = "/gestion_activos/API/incidentes/modificarCategoria";
     const config = {
-        method: 'POST',
-        body
-    }
+      method: "POST",
+      body,
+    };
     try {
-        const respuesta = await fetch(url, config)
-        const data = await respuesta.json();
-        // console.log(data)
-        const { codigo, mensaje, detalle } = data;
-        let icon = 'info'
-        switch (codigo) {
-            case 1:
-                formulario.reset();
-                icon = 'success'
-                buscar();
-                break;
-            case 0:
-                icon = 'error'
-                console.log(detalle)
-                break;
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      // console.log(data)
+      const { codigo, mensaje, detalle } = data;
+      let icon = "info";
+      switch (codigo) {
+        case 1:
+          formulario.reset();
+          icon = "success";
+          buscar();
+          break;
+        case 0:
+          icon = "error";
+          console.log(detalle);
+          break;
 
-            default:
-                break;
-        }
+        default:
+          break;
+      }
 
-        Toast.fire({
-            icon,
-            text: mensaje
-        })
-
+      Toast.fire({
+        icon,
+        text: mensaje,
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
 
-const traeDatos4 = (e) => {
-  const button = e.target;
-  const id4 = button.dataset.id4;
-  const descateg = button.dataset.descateg;
-  const detcategoria = button.dataset.detcategoria;
-  const categOb = button.dataset.categob;
-  const detincId = button.dataset.detincid;
-// console.log(id4,"|",descateg,"|",detcategoria,"|",categOb,"|",detincId)
-  const dataset = {
+  const traeDatos4 = (e) => {
+    const button = e.target;
+    const id4 = button.dataset.id4;
+    const descateg = button.dataset.descateg;
+    const detcategoria = button.dataset.detcategoria;
+    const categOb = button.dataset.categob;
+    const detincId = button.dataset.detincid;
+    const dataset = {
       id4,
       descateg,
       detcategoria,
       categOb,
-      detincId
+      detincId,
+    };
+
+    colocarDatos4(dataset);
+    const body = new FormData(modalCategoria);
+    body.append("det_categ_id", id4);
+    body.append("det_categ_descripcion", descateg);
+    body.append("det_categoria", detcategoria);
+    body.append("det_categ_observacion", categOb);
+    body.append("det_categ_id_incidente", detincId);
   };
-
-  colocarDatos4(dataset);
-  const body = new FormData(modalCategoria);
-  body.append("det_categ_id", id4);
-  body.append("det_categ_descripcion", descateg);
-  body.append("det_categoria", detcategoria);
-  body.append("det_categ_observacion", categOb);
-  body.append("det_categ_id_incidente", detincId);
-//   for(var pair of body.entries()){
-//     console.log(pair[0], pair[1]);
-// }
-};
-
-  // console.log(colocarDatos);
 
   const colocarDatos4 = (dataset) => {
     modalCategoria.det_categ_descripcion.value = dataset.descateg;
@@ -1010,102 +973,82 @@ const traeDatos4 = (e) => {
     modalCategoria.det_categ_id.value = dataset.id4;
   };
 
-
-////////////////////////////trae datos 5///////////////////////////////////
-const traeDatos5 = (e) => {
-  const button = e.target;
-  const id5=button.dataset.id5
-  const dataset = {
-    id5
-  };
-
-  colocarDatos5(dataset);
-  const body = new FormData(modalResolucion);
-  body.append("res_inc_incidente_id", id5);
-     
-};
-// console.log(colocarDatos);
-
-const colocarDatos5 = (dataset) => {
-  modalResolucion.res_inc_incidente_id.value = dataset.id5;
-};
-
-  
-
-/////////////////////////////////////PDF//////////////////////////////////////////////////
-const imprimirInvInc = async (e) => {
-  const button = e.target;
-  const id = button.dataset.id;
-  if (await confirmacion("warning", "¿Desea imprimir este Inventario?")) {
-    const url = `/gestion_activos/pdfInc?inc_id=${id}`;
-    const headers = new Headers();
-    headers.append("X-Requested-With", "fetch");
-    const config = {
-      method: "GET",
-      headers,
+  ////////////////////////////trae datos 5///////////////////////////////////
+  const traeDatos5 = (e) => {
+    const button = e.target;
+    const id5 = button.dataset.id5;
+    const dataset = {
+      id5,
     };
 
-    Swal.fire({
-      title: "Generando PDF...",
-      html: "Por favor espera <b></b> milisegundos.",
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector("b");
-        timerInterval = setInterval(() => {
-          b.textContent = Swal.getTimerLeft();
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    });
-    try {
-      const respuesta = await fetch(url, config);
-      if (respuesta.ok) {
-        const blob = await respuesta.blob();
+    colocarDatos5(dataset);
+    const body = new FormData(modalResolucion);
+    body.append("res_inc_incidente_id", id5);
+  };
+  // console.log(colocarDatos);
 
-        if (blob) {
-          const urlBlob = window.URL.createObjectURL(blob);
-          window.open(urlBlob, "_blank");
+  const colocarDatos5 = (dataset) => {
+    modalResolucion.res_inc_incidente_id.value = dataset.id5;
+  };
+
+  /////////////////////////////////////PDF//////////////////////////////////////////////////
+  const imprimirInvInc = async (e) => {
+    const button = e.target;
+    const id = button.dataset.id;
+    if (await confirmacion("warning", "¿Desea imprimir este Inventario?")) {
+      const url = `/gestion_activos/pdfInc?inc_id=${id}`;
+      const headers = new Headers();
+      headers.append("X-Requested-With", "fetch");
+      const config = {
+        method: "GET",
+        headers,
+      };
+
+      try {
+        const respuesta = await fetch(url, config);
+        if (respuesta.ok) {
+          const blob = await respuesta.blob();
+
+          if (blob) {
+            const urlBlob = window.URL.createObjectURL(blob);
+            window.open(urlBlob, "_blank");
+          } else {
+            console.error("No se pudo obtener el PDF.");
+          }
         } else {
-          console.error("No se pudo obtener el PDF.");
+          console.error("Error al generar el PDF.");
         }
-      } else {
-        console.error("Error al generar el PDF.");
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
     }
-  }
-};
+  };
 
-datatable.on("click", ".btn-success", imprimirInvInc);
-
-
-// console.log(traeDatos2,"|",traeDatos4)
+  datatable.on("click", ".btn-success", imprimirInvInc);
 
   buscarNoInc();
   buscar();
 
-
   btnSiguiente.classList.add("w-100", "mx-auto", "mt-3");
   btnRegresar.classList.add("w-100", "mx-auto", "mt-3");
   btnGuardar.classList.add("w-100", "mx-auto", "mt-3");
-  // datatable.on('click', '#verIrt', abrirModal)
   inc_catalogo_irt.addEventListener("change", buscarDatosPorCatalogoIrt);
   inc_catalogo_rep.addEventListener("change", buscarDatosPorCatalogoRep);
   res_catalogo.addEventListener("change", buscarCatalogoInv);
   btnRegresar.addEventListener("click", retrocederFormulario);
   btnSiguiente.addEventListener("click", avanzarFormulario);
   btnGuardar.addEventListener("click", guardar);
-  datatable.on('click', '#btnVerIrt', traeDatos);
-  datatable.on('click', '#btnVerRep', traeDatos1);
-  datatable.on('click', '#btmVerFecha', traeDatos2);
-  datatable.on('click', '#btnVerDescrip', traeDatos3);
-  datatable.on('click', '#btnVerCateg', traeDatos4);
-  datatable.on('click', '#btnVerAccion', traeDatos5);
+  btnDatatable.addEventListener("click", () => {
+    objDatatable.style.display === "none"
+      ? (objDatatable.style.display = "")
+      : (objDatatable.style.display = "none");
+  });
+  datatable.on("click", "#btnVerIrt", traeDatos);
+  datatable.on("click", "#btnVerRep", traeDatos1);
+  datatable.on("click", "#btmVerFecha", traeDatos2);
+  datatable.on("click", "#btnVerDescrip", traeDatos3);
+  datatable.on("click", "#btnVerCateg", traeDatos4);
+  datatable.on("click", "#btnVerAccion", traeDatos5);
   modalGuardar.addEventListener("click", guardarModal);
   btnModificarDescrip.addEventListener("click", modificarDescrip);
   btnModificarCategoria.addEventListener("click", modificarCategoria);
