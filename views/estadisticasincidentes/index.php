@@ -152,6 +152,16 @@
 <body>
     <div class="container">
         <h1 class="reporte-titulo">ESTADISTICAS DE LOS INCIDENTES</h1>
+        <div class="row mb-3">
+            <div class="col">
+                <label for="fechaInicio">Fecha de inicio</label>
+                <input type="date" id="fechaInicio" name="fechaInicio" class="form-control w-100">
+            </div>
+            <div class="col">
+                <label for="fechaFin">Fecha de finalizacion</label>
+                <input type="date" id="fechaFin" name="fechaFin" class="form-control w-100">
+            </div>
+        </div>
         <button id="btnActualizar">Actualizar</button>
         <div class="row">
             <div class="card">

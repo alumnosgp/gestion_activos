@@ -455,9 +455,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  /////////////////////////////////////////////////GUARDAR DEL MODAL//////////////////////////////////////////
   const guardarModal = async (evento) => {
     evento.preventDefault();
+  
     if (!validarFormulario(modalResolucion, ["res_inc_id"])) {
       Toast.fire({
         icon: "info",
@@ -465,53 +465,66 @@ document.addEventListener("DOMContentLoaded", function () {
       });
       return;
     }
-
+  
     const body = new FormData(modalResolucion);
     body.delete("res_inc_id");
-    for (var pair of body.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+  
     const url = "/gestion_activos/API/incidentes/guardarModal";
-
+  
     const headers = new Headers();
     headers.append("X-Requested-With", "fetch");
     const config = {
       method: "POST",
       body,
     };
-
+  
     try {
       const respuesta = await fetch(url, config);
       const data = await respuesta.json();
       console.log(data);
       const { codigo, mensaje, detalle } = data;
       let icon = "info";
+  
       switch (codigo) {
         case 1:
           formulario.reset();
           icon = "success";
           buscar();
+          // Elimina el btnCerrar.click() de aquí
           break;
-
+  
         case 0:
           icon = "error";
           console.log(detalle);
           break;
-
+  
         default:
           break;
       }
+  
       Toast.fire({
         icon,
         text: mensaje,
       });
-
-      btnCerrar.click();
+  
+      // Mueve btnCerrar.click() aquí, dentro del bloque try
+      if (btnCerrar !== null) {
+        btnCerrar.click();
+      } else {
+        console.error("El botón de cierre es nulo.");
+      }
     } catch (error) {
       console.log(error);
-      btnCerrar.click();
+  
+      // Mueve btnCerrar.click() aquí, dentro del bloque catch
+      if (btnCerrar !== null) {
+        btnCerrar.click();
+      } else {
+        console.error("El botón de cierre es nulo.");
+      }
     }
   };
+  
 
   // Function que busca el catalogo de IRT que reportan catalogo_Irt
   const buscarDatosPorCatalogoIrt = async () => {

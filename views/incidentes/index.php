@@ -897,7 +897,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnCerrar" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" id="modalGuardar" class="btn btn-primary">Guardar</button>
 
                 </form>
