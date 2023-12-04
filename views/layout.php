@@ -9,34 +9,6 @@
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
     <script src="http://kit.fontawesome.com/e1d55cc160.js" crossorigin="anonymous"></script>
     <title>GESTION ACTIVOS</title>
-     <style>
-      
-        
-
-        .container-fluid {
-          
-            padding: 1px;
-            border-radius: 10px;
-        } 
-
-        /* Estilos para resaltar textos al pasar el mouse */
-a:hover,
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: #ff3d50; /* Cambia el color a tu preferencia */
-}
-
-/* Estilos para resaltar los inputs al pasar el mouse */
-input[type="text"]:hover,
-input[type="email"]:hover,
-input[type="password"]:hover,
-input[type="number"]:hover,
-textarea:hover,
-select:hover {
-  border-color: #ff6347; /* Cambia el color del borde a tu preferencia */
-  box-shadow: #1f1f1f; /* Agrega una sombra al input */
-}
-
-    </style> 
 </head>
 
 <body class="bg-image bg-opcity-50">
@@ -97,7 +69,7 @@ select:hover {
                     </div>
                     <div class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle" href="gestion_activos/menu" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>MATENIMIENTOS DE ACTIVOS</a>
+                            <i class="bi bi-gear me-2"></i>MATENIMIENTOS</a>
                         <ul class="dropdown-menu  dropdown-menu-dark " id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
@@ -107,8 +79,7 @@ select:hover {
                             <li>
                                 <a class="dropdown-item nav-link text-white "
                                     href="/gestion_activos/personasplanillas"><i
-                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PERSONAS
-                                    PLANILLA</a>
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PLANILLEROS</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/oficinas"><i
@@ -141,6 +112,46 @@ select:hover {
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/gestion_activos/antivirus"><i
                                         class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ANTIVIRUS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/perpetradores"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>PERPETRADORES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/motivos_perpetradores"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>MOTIVOS DE PERPETRADORES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/conclusiones"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>CONCLUSIONES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/inst_internas"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>INST. INTERNAS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/inst_externas"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>INST. EXTERNAS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/compo_activos"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>COMPONENTES ACTIVOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/categorias"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>CATEGORIAS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/efectosAbv"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>EFECTOS ABVERSOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/ponderaciones"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>PONDERACIONES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/gestion_activos/impacto"><i
+                                        class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>IMPACTO</a>
                             </li>
                         </ul>
                     </div>

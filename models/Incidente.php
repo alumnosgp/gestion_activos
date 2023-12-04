@@ -141,14 +141,14 @@ class Incidente extends ActiveRecord
         LEFT JOIN grados g_rep1 ON per_rep1.per_grado = g_rep1.grado_id
         LEFT JOIN grados g_rep2 ON pp.pcivil_gradi = g_rep2.grado_id
         LEFT JOIN plazas pla_rep1 ON per_rep1.per_plaza = pla_rep1.pla_id
-        LEFT JOIN detalle_inc d ON i.inc_id = d.det_inc_id_incidente
-        LEFT JOIN descripcion_inc ON i.inc_id = desc_incidente_id
-        LEFT JOIN detalle_categ_inc det_categ ON i.inc_id = det_categ.det_categ_id_incidente
+        LEFT JOIN detalle_inc d ON i.inc_no_incidente = d.det_inc_id_incidente
+        LEFT JOIN descripcion_inc ON i.inc_no_incidente = desc_incidente_id
+        LEFT JOIN detalle_categ_inc det_categ ON i.inc_no_incidente = det_categ.det_categ_id_incidente
         LEFT JOIN categoria_incidente cat_inc ON det_categ.det_categoria = cat_inc.cat_inc_id
-        LEFT JOIN detalle_comp_activo comp_act ON i.inc_id = comp_act.det_comp_act_inc_id
+        LEFT JOIN detalle_comp_activo comp_act ON i.inc_no_incidente = comp_act.det_comp_act_inc_id
         LEFT JOIN componente_activo ON comp_act.det_comp_act_componente_id = componente_activo.comp_act_id
-        LEFT JOIN detalle_efec_abv det_efect ON i.inc_id = det_efect.det_efec_id_incidente
-        LEFT JOIN resolicion_incidente res_inc ON i.inc_id = res_inc.res_inc_incidente_id
+        LEFT JOIN detalle_efec_abv det_efect ON i.inc_no_incidente = det_efect.det_efec_id_incidente
+        LEFT JOIN resolicion_incidente res_inc ON i.inc_no_incidente = res_inc.res_inc_incidente_id
         LEFT JOIN conclusiones conclu ON res_inc.res_conclu_id = conclu.conclu_id
         LEFT JOIN inst_internas int_int ON res_inc.res_inst_interna_id = int_int.ins_int_id
         LEFT JOIN inst_externas int_ext ON res_inc.res_inst_externa_id = int_ext.ins_ext_id
@@ -159,7 +159,7 @@ class Incidente extends ActiveRecord
         LEFT JOIN impacto_efect_adv impacto_efect ON det_efect.det_efct_impacto = impacto_efect.imp_id
       
    WHERE 
-            inc_id = $this->inc_id";
+            inc_no_incidente = $this->inc_no_incidente";
 
 
             

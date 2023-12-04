@@ -32,7 +32,7 @@ class MaquinaController
     {
         try {
             // Crear una instancia de Maquina con los datos del formulario
-            $maquinas = new Maquina($_POST);
+            
     
             // Validar la dirección MAC
             if (isset($_POST['maq_mac'])) {
@@ -40,6 +40,9 @@ class MaquinaController
     
                 if (filter_var($direccionMAC, FILTER_VALIDATE_MAC)) {
                     // La dirección MAC es válida, procede con la lógica para guardar
+
+                    $_POST['maq_mac'] = str_replace('-',':',$direccionMAC);
+                    $maquinas = new Maquina($_POST);
                     $resultado = $maquinas->crear();
     
                     if ($resultado['resultado'] == 1) {
@@ -234,6 +237,39 @@ public static function eliminarAPI()
             echo json_encode([]);
         }
     }
+
+
+
+///////////////////////////////mac////////////////////////////
+public static function validarDireccionMAC()
+{
+    $mac_address = $_GET['maq_mac'] ?? '';
+
+    // Define el patrón de validación de dirección MAC con guiones
+    $pattern = '/^([0-9A-Fa-f]{2}[-]){5}([0-9A-Fa-f]{2})$/';
+
+    // Verifica si la dirección MAC coincide con el patrón
+    if (preg_match($pattern, $mac_address)) {
+        // La dirección MAC es válida
+        $response = [
+            'mensaje' => 'La dirección MAC es válida',
+            'codigo' => 1
+        ];
+    } else {
+        // La dirección MAC no es válida
+        $response = [
+            'mensaje' => 'La dirección MAC no es válida',
+            'codigo' => 0
+        ];
+    }
+
+    // Retorna la respuesta en formato JSON
+    header('Content-Type: application/json');
+    echo json_encode($response);
+}
+
+
+
 }
 
 ?>

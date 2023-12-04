@@ -366,3 +366,8 @@ const getRandomColor = () => {
 /************************* AQUI TERMINA LOS DIRECCIONAMIENTOS ******************************************** */
 
 btnActualizar.addEventListener("click", getEstadisticas);
+btnActualizar.addEventListener("click", buscarEstado);
+btnActualizar.addEventListener("click", buscarComponentes);
+btnActualizar.addEventListener("click", getEstadisticasTipos);
+btnActualizar.addEventListener("click", getEstadisticaPerpetrador);
+btnActualizar.addEventListener("click", getEstadisticasMotivo);

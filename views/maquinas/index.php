@@ -1,6 +1,6 @@
-<h1 class="text-center mt-5">REGISTRO DE INVENTARIO</h1>
-<div class="row justify-content-center my-4">
-    <form class="col-lg-8 border bg-light p-3" id="formularioMaquinas">
+<div class="row justify-content-center">
+    <form class="col-lg-8 border bg-light" id="formularioMaquinas">
+        <h1 class="text-center mt-5">REGISTRO DE INVENTARIO</h1>
         <input type="number" name="maq_id" id="maq_id" class="form-control" hidden>
         <div class="row mb-3">
             <div class="col">

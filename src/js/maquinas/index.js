@@ -11,6 +11,7 @@ const btnBuscar = document.getElementById("btnBuscar");
 const btnCancelar = document.getElementById("btnCancelar");
 const per_catalogo = document.getElementById("maq_per_alta");
 const pcivil_catalogo = document.getElementById("maq_per_planilla");
+const mac_maquina = document.getElementById("maq_mac");
 const divPersonalAlta = document.getElementById("perAlta");
 const divPersonalPlanilla = document.getElementById("personalPlanilla");
 const maq_plazas = document.getElementById("maq_plaza");
@@ -65,24 +66,6 @@ const datatable = new Datatable("#tablaMaquinas", {
         return row.maq_per_planilla + ' ' + row.maq_per_alta;
       } 
     },
-
-
-    // {
-    //   title: "CATALOGO DEL ENCARGADO (ALTA)",
-    //   data: "maq_per_alta",
-    // },
-    // {
-    //   title: "CATALOGO DEL ENCARGADO (PLANILLA)",
-    //   data: "maq_per_planilla",
-    // },
-    // {
-    //   title: "CATALOGO DEL ENCARGADO",
-    //   data: null,
-    //   render: function (data, type, row, meta) {
-    //     // Combina los valores de las columnas en una sola columna
-    //     return row.maq_per_planilla + ' ' + row.maq_per_alta;
-    //   } 
-    // },
   { 
     title: "NOMBRE DEL ENCARGADO",
     data: null,
@@ -443,6 +426,47 @@ const buscarPlanillero = async () => {
   typingTimeout = setTimeout(fetchData, 2500);
 };
 
+
+
+const validarDireccionMAC = async () => {
+  let mac_maquina = formulario.maq_mac.value;
+  clearTimeout(typingTimeout);
+  const fetchData = async () => {
+    const url = `/gestion_activos/API/maquinas/validarDireccionMAC?maq_mac=${mac_maquina}`;
+    const config = {
+      method: "GET",
+    };
+    try {
+      const respuesta = await fetch(url, config);
+      const data = await respuesta.json();
+      console.log(data);
+      if (data && data.codigo === 1) {
+        // La dirección MAC es válida, puedes realizar acciones adicionales si es necesario
+        Toast.fire({
+          icon: "success",
+          title: "La dirección MAC es válida.",
+        });
+      } else {
+        // La dirección MAC no es válida
+        formulario.maq_mac.value = "";
+        Toast.fire({
+          icon: "info",
+          title: "Ingrese una dirección MAC válida.",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      Toast.fire({
+        icon: "error",
+        title: "Ocurrió un error al validar la dirección MAC.",
+      });
+    }
+  };
+  typingTimeout = setTimeout(fetchData, 4500);
+};
+
+
 const traeDatos = (e) => {
   const button = e.target;
   const id = button.dataset.id;
@@ -542,24 +566,7 @@ const imprimirInventario = async (e) => {
       method: "GET",
       headers,
     };
-
-    Swal.fire({
-      title: "Generando PDF...",
-      html: "Por favor espera <b></b> milisegundos.",
-      timer: 5000,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const b = Swal.getHtmlContainer().querySelector("b");
-        timerInterval = setInterval(() => {
-          b.textContent = Swal.getTimerLeft();
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    });
-    
+   
     try {
       const respuesta = await fetch(url, config);
       if (respuesta.ok) {
@@ -594,3 +601,10 @@ btnCancelar.addEventListener("click", cancelarAccion);
 btnModificar.addEventListener("click", modificar);
 per_catalogo.addEventListener("input", buscarNombres);
 pcivil_catalogo.addEventListener("input", buscarPlanillero);
+mac_maquina.addEventListener("input", validarDireccionMAC);
+
+$('.macaddress').mask('AA:AA:AA:AA:AA:AA', {
+  onKeyPress: function(str, e, obj){
+      $(obj).val(str.toUpperCase());
+  }
+});

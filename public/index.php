@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../includes/app.php';
 
 
+use Controllers\ImpactoController;
 use MVC\Router;
 use Controllers\AppController;
 use Controllers\LoginController;
@@ -16,11 +17,20 @@ use Controllers\SistemaController;
 use Controllers\ReporteController;
 use Controllers\AntiviruController;
 use Controllers\IncidenteController;
+use Controllers\CategoriaController;
+use Controllers\TipoEfectoController;
+use Controllers\PonderacionController;
 use Controllers\PersonaltaController;
 use Controllers\ReporteincController;
+use Controllers\ConclusionController;
+use Controllers\ComponenteController;
+use Controllers\PerpetradorController;
 use Controllers\EstadisticaController;
 use Controllers\OrganizacionController;
 use Controllers\PersonaplanillaController;
+use Controllers\InstitucionesintController;
+use Controllers\InstitucionesextController;
+use Controllers\MotivoPerpetradorController;
 use Controllers\EstadisticaincidenteController;
 
 $router = new Router();
@@ -41,6 +51,7 @@ $router->post('/API/maquinas/modificar', [MaquinaController::class, 'modificarAp
 $router->post('/API/maquinas/eliminar', [MaquinaController::class, 'eliminarApi']);
 $router->get('/API/maquinas/buscarNombres', [MaquinaController::class, 'buscarNombresApi']);
 $router->get('/API/maquinas/buscarPlanillero', [MaquinaController::class, 'buscarPlanilleroAPI']);
+$router->get('/API/maquinas/validarDireccionMAC', [MaquinaController::class, 'validarDireccionMAC']);
 
 
 //sistemas
@@ -160,6 +171,88 @@ $router->get('/API/estadisticasincidentes/buscarComponentes', [Estadisticaincide
 $router->get('/pdfInc', [ReporteincController::class,'pdfInc']);
 $router->get('/IncidentePDF', [ReporteincController::class,'pdfInc']);
 $router->get('/prueba', [ReporteincController::class,'pdfimprime']);
+
+
+
+//perpetradores
+$router->get('/perpetradores', [PerpetradorController::class, 'index']);
+$router->get('/API/perpetradores/buscar', [PerpetradorController::class, 'buscarApi']);
+$router->post('/API/perpetradores/guardar', [PerpetradorController::class, 'guardarApi']);
+$router->post('/API/perpetradores/modificar', [PerpetradorController::class, 'modificarApi']);
+$router->post('/API/perpetradores/eliminar', [PerpetradorController::class, 'eliminarApi']);
+
+
+//motivos
+$router->get('/motivos_perpetradores', [MotivoPerpetradorController::class, 'index']);
+$router->get('/API/motivos_perpetradores/buscar', [MotivoPerpetradorController::class, 'buscarApi']);
+$router->post('/API/motivos_perpetradores/guardar', [MotivoPerpetradorController::class, 'guardarApi']);
+$router->post('/API/motivos_perpetradores/modificar', [MotivoPerpetradorController::class, 'modificarApi']);
+$router->post('/API/motivos_perpetradores/eliminar', [MotivoPerpetradorController::class, 'eliminarApi']);
+
+
+//conclusiones
+$router->get('/conclusiones', [ConclusionController::class, 'index']);
+$router->get('/API/conclusiones/buscar', [ConclusionController::class, 'buscarApi']);
+$router->post('/API/conclusiones/guardar', [ConclusionController::class, 'guardarApi']);
+$router->post('/API/conclusiones/modificar', [ConclusionController::class, 'modificarApi']);
+$router->post('/API/conclusiones/eliminar', [ConclusionController::class, 'eliminarApi']);
+
+
+//INTERNAS
+$router->get('/inst_internas', [InstitucionesintController::class, 'index']);
+$router->get('/API/inst_internas/buscar', [InstitucionesintController::class, 'buscarApi']);
+$router->post('/API/inst_internas/guardar', [InstitucionesintController::class, 'guardarApi']);
+$router->post('/API/inst_internas/modificar', [InstitucionesintController::class, 'modificarApi']);
+$router->post('/API/inst_internas/eliminar', [InstitucionesintController::class, 'eliminarApi']);
+
+
+//EXTERNAS
+$router->get('/inst_externas', [InstitucionesextController::class, 'index']);
+$router->get('/API/inst_externas/buscar', [InstitucionesextController::class, 'buscarApi']);
+$router->post('/API/inst_externas/guardar', [InstitucionesextController::class, 'guardarApi']);
+$router->post('/API/inst_externas/modificar', [InstitucionesextController::class, 'modificarApi']);
+$router->post('/API/inst_externas/eliminar', [InstitucionesextController::class, 'eliminarApi']);
+
+
+//COMPONENTES
+$router->get('/compo_activos', [ComponenteController::class, 'index']);
+$router->get('/API/compo_activos/buscar', [ComponenteController::class, 'buscarApi']);
+$router->post('/API/compo_activos/guardar', [ComponenteController::class, 'guardarApi']);
+$router->post('/API/compo_activos/modificar', [ComponenteController::class, 'modificarApi']);
+$router->post('/API/compo_activos/eliminar', [ComponenteController::class, 'eliminarApi']);
+
+
+//CATEGORIAS
+$router->get('/categorias', [CategoriaController::class, 'index']);
+$router->get('/API/categorias/buscar', [CategoriaController::class, 'buscarApi']);
+$router->post('/API/categorias/guardar', [CategoriaController::class, 'guardarApi']);
+$router->post('/API/categorias/modificar', [CategoriaController::class, 'modificarApi']);
+$router->post('/API/categorias/eliminar', [CategoriaController::class, 'eliminarApi']);
+
+
+//EFECTOS
+$router->get('/efectosAbv', [TipoEfectoController::class, 'index']);
+$router->get('/API/efectosAbv/buscar', [TipoEfectoController::class, 'buscarApi']);
+$router->post('/API/efectosAbv/guardar', [TipoEfectoController::class, 'guardarApi']);
+$router->post('/API/efectosAbv/modificar', [TipoEfectoController::class, 'modificarApi']);
+$router->post('/API/efectosAbv/eliminar', [TipoEfectoController::class, 'eliminarApi']);
+
+
+//PONDERACIONES
+$router->get('/ponderaciones', [PonderacionController::class, 'index']);
+$router->get('/API/ponderaciones/buscar', [PonderacionController::class, 'buscarApi']);
+$router->post('/API/ponderaciones/guardar', [PonderacionController::class, 'guardarApi']);
+$router->post('/API/ponderaciones/modificar', [PonderacionController::class, 'modificarApi']);
+$router->post('/API/ponderaciones/eliminar', [PonderacionController::class, 'eliminarApi']);
+
+
+//IMPACTO
+$router->get('/impacto', [ImpactoController::class, 'index']);
+$router->get('/API/impacto/buscar', [ImpactoController::class, 'buscarApi']);
+$router->post('/API/impacto/guardar', [ImpactoController::class, 'guardarApi']);
+$router->post('/API/impacto/modificar', [ImpactoController::class, 'modificarApi']);
+$router->post('/API/impacto/eliminar', [ImpactoController::class, 'eliminarApi']);
+
 
 
 $router->comprobarRutas();

@@ -42,9 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnGuardar = document.getElementById("btnGuardar");
   const modalGuardar = document.getElementById("modalGuardar");
   const btnModificarDescrip = document.getElementById("btnModificarDescrip");
-  const btnModificarCategoria = document.getElementById(
-    "btnModificarCategoria"
-  );
+  const btnModificarCategoria = document.getElementById("btnModificarCategoria");
   const btnModificarFecha = document.getElementById("btnModificarFecha");
   const btnSiguiente = document.getElementById("btnSiguiente");
   const btnRegresar = document.getElementById("btnRegresar");
@@ -106,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const showCompFormulario = (e) => {
+    formulariosiguiente;
     e.preventDefault();
     posicionFormulario = 4;
     mostrarFormulario(posicionFormulario);
@@ -119,8 +118,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const avanzarFormulario = (e) => {
     e.preventDefault();
+    if (posicionFormulario===2) {
+      
+      const fechaInicio = formulario.det_inc_fec_ocurre.value;
+      const fechaFin = formulario.det_inc_fec_informa.value;
+
+      if (fechaFin < fechaInicio) {
+        Toast.fire({
+          icon:'info',
+          text: "La fecha en que se informa no puede ser menor a la fecha en que ocurrio",
+        });
+        return;
+      }
+    }
+
     const codigo_incidente = formulario.inc_no_incidente.value;
-    console.log(codigo_incidente);
+    // console.log(codigo_incidente);
 
     formulario.inc_no_incidente.value = codigo_incidente;
     formulario.desc_incidente_id.value = codigo_incidente;
@@ -173,6 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Llama a la función después de haberla declarado
   establecerFechaActual();
 
+  
   let contador = 1;
   const datatable = new Datatable("#tablaIncidentes", {
     language: lenguaje,
@@ -233,6 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
         searchable: false,
         orderable: false,
         render: (data, type, row, meta) => {
+          // console.log(row);
           return `<button type="button" class="btn btn-info" id="btmVerFecha" 
         data-id2='${row.det_inc_id}' 
         data-incId9='${row.det_inc_id_incidente}' 
@@ -321,13 +336,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 data-otro2='${row.res_otro2}'
                 data-otro3='${row.res_otro3}'
                 data-bs-toggle="modal" data-bs-target="#Resolucion">
-                Ver
+                Realizar Accion
               </button>`
             : `<span style='color: green;'>
             Resuelto
           </span>`;
         },
       },
+      
 
       {
         title: "REPORTE PDF",
@@ -337,9 +353,9 @@ document.addEventListener("DOMContentLoaded", function () {
         render: (data, type, row, meta) => () => {
           return data !== ""
             ? `<button 
-                                 type="button" 
-                                 class="btn btn-success" 
-                                 data-id='${row.inc_no_incidente}'>Imprimir PDF</button>`
+                type="button" 
+                class="btn btn-success" 
+                data-id='${row.inc_no_incidente}'>Imprimir PDF</button>`
             : `<span style='color: Red;'>
             Sin resolucion
           </span>`;
@@ -357,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const respuesta = await fetch(url, config);
       const data = await respuesta.json();
-      console.log(data);
+      // console.log(data);
       datatable.clear().draw();
       if (data) {
         contador = 1;
@@ -396,9 +412,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const body = new FormData(formulario);
     body.delete("inc_id");
-    for (var pair of body.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    // for (var pair of body.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
     const url = "/gestion_activos/API/incidentes/guardar";
 
     const headers = new Headers();
@@ -633,11 +649,14 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const respuesta = await fetch(url, config);
       const data = await respuesta.json();
-      console.log(data);
+      // console.log(data);
 
       if (data && data.length > 0) {
         const incidente = data[0].inc_no_incidente;
+
         inc_no_incidente.value = incidente;
+        // console.log(inc_no_incidente);
+        // console.log(incidente);
       } else {
       }
     } catch (error) {
@@ -996,7 +1015,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const button = e.target;
     const id = button.dataset.id;
     if (await confirmacion("warning", "¿Desea imprimir este Inventario?")) {
-      const url = `/gestion_activos/pdfInc?inc_id=${id}`;
+      const url = `/gestion_activos/pdfInc?inc_no_incidente=${id}`;
+      console.log(id);
       const headers = new Headers();
       headers.append("X-Requested-With", "fetch");
       const config = {
@@ -1029,9 +1049,10 @@ document.addEventListener("DOMContentLoaded", function () {
   buscarNoInc();
   buscar();
 
-  btnSiguiente.classList.add("w-100", "mx-auto", "mt-3");
-  btnRegresar.classList.add("w-100", "mx-auto", "mt-3");
-  btnGuardar.classList.add("w-100", "mx-auto", "mt-3");
+  btnSiguiente.classList.add("w-50", "mx-auto", "mt-3");
+  btnRegresar.classList.add("w-50", "mx-auto", "mt-3");
+  btnGuardar.classList.add("w-50", "mx-auto", "mt-3");
+  btnDatatable.classList.add("w-100", "mx-auto", "mt-3");
   inc_catalogo_irt.addEventListener("change", buscarDatosPorCatalogoIrt);
   inc_catalogo_rep.addEventListener("change", buscarDatosPorCatalogoRep);
   res_catalogo.addEventListener("change", buscarCatalogoInv);

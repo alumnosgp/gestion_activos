@@ -11,11 +11,11 @@ class ReporteincController
 {
 
 
-    public static function IncidentePDF($inc_id)
+    public static function IncidentePDF($inc_no_incidente)
     {
         try {
 
-            $modelincidente = new Incidente(["inc_id" => $inc_id]);
+            $modelincidente = new Incidente(["inc_no_incidente" => $inc_no_incidente]);
             $incidente = $modelincidente->getInfo();
             return $incidente;
         } catch (Exception $e) {
@@ -24,9 +24,9 @@ class ReporteincController
 
     public static function pdfInc(Router $router)
 {
-    $inc_id = $_GET['inc_id'];
+    $inc_no_incidente = $_GET['inc_no_incidente'];
 
-    $incidente = static::IncidentePDF($inc_id);
+    $incidente = static::IncidentePDF($inc_no_incidente);
 
     $mpdf = new Mpdf([
         "orientation" => "P",
@@ -56,9 +56,9 @@ class ReporteincController
 
     public static function pdfimprime(Router $router)
     {
-        $inc_id = $_GET['inc_id'];
+        $inc_no_incidente = $_GET['inc_no_incidente'];
 
-        $incidente = static::IncidentePDF($inc_id);
+        $incidente = static::IncidentePDF($inc_no_incidente);
 
         $router->render('reporteinc/pdfInc', [
             'incidente' => $incidente[0],

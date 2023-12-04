@@ -1,30 +1,26 @@
 <form id="formTotal">
     <div class="row justify-content-center">
-        <div class="row justify-content-center my-1">
+        <div class="row justify-content-center">
             <div class="col-lg-8 border bg-light p-3" id="formularioIncidentes">
                 <h1 class="text-center mt-5">REGISTRO DE INCIDENTES</h1>
                 <input type="number" name="inc_id" id="inc_id" class="form-control" hidden>
+                <input type="number" name="inc_no_incidente" id="inc_no_incidente" class="form-control"
+                    hidden>
                 <div class="row mb-3">
                     <div class="col">
                         <i class="fa-regular fa-calendar-days"></i>
                         <label for="inc_fecha">FECHA Y HORA</label>
                         <input type="date-local" name="inc_fecha" id="inc_fecha" class="form-control" readonly>
                     </div>
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="inc_no_incidente">NO. DE INCIDENTE</label>
-                        <input type="number" name="inc_no_incidente" id="inc_no_incidente" class="form-control"
-                            readonly>
-                    </div>
 
                     <div class="col">
                         <i class="fa-solid fa-hashtag"></i>
                         <label for="inc_no_identificacion">NO. INCIDENTE RELACIONADO</label>
                         <input type="number" name="inc_no_identificacion" id="inc_no_identificacion"
-                            class="form-control">
+                            class="form-control" placeholder="Si esta relacionado con un incidente: 00">
                     </div>
                 </div>
-                <hr />
+                <hr/>
 
                 <h3 class="text-center mt-5">MIEMBRO DEL IRT</h3>
                 <div class="row mb-3" name="" id="">
@@ -70,8 +66,7 @@
                             placeholder="Ingrese Email">
                     </div>
                 </div>
-                <hr />
-                <i class="fa-solid fa-person"></i>
+                <hr/>
                 <h3 class="text-center mt-5">DATOS DE LA PERSONA QUE REPORTA</h3>
                 <div class="row mb-3" name="" id="">
                     <div class="col">
@@ -130,17 +125,10 @@
         <!--////////////////////////////////// FORMULARIO DE DESCRIPCIONES//////////////////////////////////////////////////////-->
 
         <div class="row justify-content-center ">
-            <div class="col-lg-8 border bg-light p-3" id="formularioDescripcionincidentes">
+            <div class="col-lg-10 border bg-light p-3" id="formularioDescripcionincidentes">
                 <h1 class="text-center mt-5">DESCRIPCION DE INCIDENTES</h1>
                 <input type="number" name="desc_id" id="desc_id" class="form-control" hidden>
-                <div class="row mb-3">
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="desc_incidente_id">NO. INCIDENTE</label>
-                        <input type="number" name="desc_incidente_id" id="desc_incidente_id" class="form-control"
-                            readonly>
-                    </div>
-                </div>
+                <input type="number" name="desc_incidente_id" id="desc_incidente_id" class="form-control" hidden>
                 <div class="row mb-3">
                     <div class="col">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -194,14 +182,8 @@
             <div class="col-lg-8 border bg-light p-3" id="formularioDetalledeincidente">
                 <h1 class="text-center mt-5">DETALLE DE INCIDENTE DE SEGURIDAD</h1>
                 <input type="number" name="det_inc_id" id="det_inc_id" class="form-control" hidden>
-                <div class="row mb-3">
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="det_inc_id_incidente">NO. INCIDENTE</label>
                         <input type="number" name="det_inc_id_incidente" id="det_inc_id_incidente" class="form-control"
-                            readonly>
-                    </div>
-                </div>
+                            hidden>
                 <div class="row mb-3">
                     <div class="col">
                         <i class="fa-regular fa-calendar-days"></i>
@@ -245,14 +227,8 @@
             <div class="col-lg-8 border bg-light p-3" id="formularioCategoriaincidentes">
                 <h1 class="text-center mt-5">CATEGORIA DEL INCIDENTE DE SEGURIDAD</h1>
                 <input type="number" name="det_categ_id" id="det_categ_id" class="form-control" hidden>
-                <div class="row mb-3">
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="det_categ_id_incidente">NO. INCIDENTE</label>
                         <input type="number" name="det_categ_id_incidente" id="det_categ_id_incidente"
-                            class="form-control" readonly>
-                    </div>
-                </div>
+                            class="form-control" hidden>
 
                 <div class="row mb-3">
                     <div class="col">
@@ -295,14 +271,8 @@
             <div class="col-lg-8 border bg-light p-3" id="formularioComponentes">
                 <h1 class="text-center mt-5">COMPONENTES DEL INCIDENTE DE SEGURIDAD</h1>
                 <input type="number" name="det_comp_act_id" id="det_comp_act_id" class="form-control" hidden>
-                <div class="row mb-3">
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="det_comp_act_inc_id">NO. INCIDENTE</label>
-                        <input type="number" name="det_comp_act_inc_id" id="det_comp_act_inc_id" class="form-control"
-                            readonly>
-                    </div>
-                </div>
+                        <input type="text" name="det_comp_act_inc_id" id="det_comp_act_inc_id" class="form-control"
+                            hidden>
                 <div class="row mb-3">
                     <div class="col">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -333,14 +303,8 @@
             <div class="col-lg-8 border bg-light p-3" id="formularioEfectoabverso">
                 <h1 class="text-center mt-5">EFECTOS ABVERSOS DEL INCIDENTE DE CIBERSEGURIDAD</h1>
                 <input type="number" name="det_efct_id" id="det_efct_id" class="form-control" hidden>
-                <div class="row mb-3">
-                    <div class="col">
-                        <i class="fa-solid fa-hashtag"></i>
-                        <label for="det_efec_id_incidente">NO. INCIDENTE</label>
-                        <input type="number" name="det_efec_id_incidente" id="det_efec_id_incidente"
-                            class="form-control" readonly>
-                    </div>
-                </div>
+                        <input type="text" name="det_efec_id_incidente" id="det_efec_id_incidente"
+                            class="form-control" hidden>
                 <div class="row mb-3" id="efectoAbversos">
                     <div class="row mb-3">
                         <div class="col">
@@ -359,10 +323,10 @@
                             <i class="fa-solid fa-receipt"></i>
                             <label for="det_efct_valor">POMDERACION</label>
                             <select name="det_efct_valor" id="det_efct_valor" class="form-control">
-                                <option value="">Selecione ponderacion...</option>
-                                <?php foreach ($impactos as $impacto): ?>
-                                    <option value="<?= $impacto['imp_id'] ?>">
-                                        <?= $impacto['ipm_decrip'] ?>
+                            <option value="">Selecione impacto...</option>
+                                <?php foreach ($valores as $valor): ?>
+                                    <option value="<?= $valor['val_id'] ?>">
+                                        <?= $valor['val_decrip'] ?>
                                     </option>
                                 <?php endforeach ?>
                             </select>
@@ -371,10 +335,10 @@
                             <i class="fa-brands fa-atlassian"></i>
                             <label for="det_efct_impacto">IMPACTO</label>
                             <select name="det_efct_impacto" id="det_efct_impacto" class="form-control">
-                                <option value="">Selecione impacto...</option>
-                                <?php foreach ($valores as $valor): ?>
-                                    <option value="<?= $valor['val_id'] ?>">
-                                        <?= $valor['val_decrip'] ?>
+                                <option value="">Selecione ponderacion...</option>
+                                <?php foreach ($impactos as $impacto): ?>
+                                    <option value="<?= $impacto['imp_id'] ?>">
+                                        <?= $impacto['ipm_decrip'] ?>
                                     </option>
                                 <?php endforeach ?>
                             </select>
@@ -400,18 +364,17 @@
 
         <div class="row justify-content-center">
             <div class="col text-center">
-
-                <button id="btnRegresar" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Regresar
-                </button>
+                <button id="btnRegresar" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Regresar </button>
             </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col text-center">
-
-                <button id="btnSiguiente" class="btn btn-primary">Siguiente <i
-                        class="fa-solid fa-arrow-right"></i></button>
-            </div>
-            <div class="col text-center">
-
                 <button id="btnGuardar" class="btn btn-success"><i class="fa-solid fa-check"></i> Guardar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                <button id="btnSiguiente" class="btn btn-primary">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
             </div>
         </div>
     </div>
@@ -429,7 +392,7 @@
             <div class="modal-body">
                 <form action="" id="modalIrt">
                     <input type="number" name="inc_id" id="inc_id" hidden>
-                    <input type="number" name="inc_no_incidente" id="inc_no_incidente" hidden>
+                    <input type="text" name="inc_no_incidente" id="inc_no_incidente" hidden>
                     <!-- Otros campos del formulario aquí -->
                     <div class="row mb-3" name="" id="">
                         <div class="col">
@@ -492,7 +455,7 @@
             <div class="modal-body">
                 <form action="" id="modalRep">
                     <input type="number" name="inc_id" id="inc_id" hidden>
-                    <input type="number" name="inc_no_incidente" id="inc_no_incidente" hidden>
+                    <input type="text" name="inc_no_incidente" id="inc_no_incidente" hidden>
                     <div class="col">
                         <i class="fa-solid fa-id-card"></i>
                         <label for="inc_catalogo_rep">CATALOGO</label>
@@ -560,7 +523,7 @@
                 <!-- Otros campos del formulario aquí -->
                 <form action="" id="modalFechas">
                     <input type="number" name="det_inc_id" id="det_inc_id" class="form-control" hidden>
-                    <input type="number" name="det_inc_id_incidente" id="det_inc_id_incidente" hidden>
+                    <input type="text" name="det_inc_id_incidente" id="det_inc_id_incidente" hidden>
                     <div class="row mb-3">
                         <div class="col">
                             <i class="fa-regular fa-calendar-days"></i>
@@ -612,7 +575,7 @@
             </div>
             <div class="modal-body">
                 <form action="" id="modalDescrip">
-                    <input type="hidden" name="desc_incidente_id" id="desc_incidente_id2">
+                    <input type="text" name="desc_incidente_id" id="desc_incidente_id2" hidden>
                     <input type="hidden" name="desc_id" id="desc_id">
                     <div class="row mb-3">
                         <div class="col">
@@ -727,7 +690,7 @@
 <!--////////////////////////////////////////////MODAL DE RESOLUCION///////////////////////////////////////////////////////////////-->
 
 <div class="modal fade" id="Resolucion" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">RESOLUCION DE INCIDENTE</h5>
@@ -744,23 +707,19 @@
                             <input type="date-local" name="res_fec_inic_inv" id="res_fec_inic_inv" class="form-control"
                                 readonly>
                         </div>
-                        <div class="col">
-                            <i class="fa-solid fa-hashtag"></i>
-                            <label for="res_inc_incidente_id">NO. DE INCIDENTE</label>
                             <input type="number" name="res_inc_incidente_id" id="res_inc_incidente_id"
-                                class="form-control" readonly>
-                        </div>
+                                class="form-control" hidden>
                     </div>
                     <hr />
                     <h4 class="modal-title" id="">INVESTIGADOR DEL INCIDENTE</h4>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-id-card"></i>
                             <label for="res_catalogo">CATALOGO</label>
                             <input type="number" name="res_catalogo" id="res_catalogo" class="form-control"
                                 placeholder="Ingrese catalogo">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-user-graduate"></i>
                             <label for="per_grado_invs">GRADO DEL INVESTIGADOR</label>
                             <input type="text" name="per_grado_invs" id="per_grado_invs" class="form-control"
@@ -778,23 +737,23 @@
                     <hr />
                     <h4 class="modal-title" id="">FINALIZACION DE LA INVESTIGACION</h4>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_inc">FECHA Y HORA INICIO DEL IMPACTO</label>
                             <input type="datetime-local" name="res_fec_fin_inc" id="res_fec_fin_inc"
-                                class="form-control">
+                                class="form-control w-100">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_imp">FECHA Y HORA FIN DEL IMPACTO</label>
                             <input type="datetime-local" name="res_fec_fin_imp" id="res_fec_fin_imp"
-                                class="form-control">
+                                class="form-control w-100">
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_inv">FECHA Y HORA DE FINALIZACION</label>
                             <input type="datetime-local" name="res_fec_fin_inv" id="res_fec_fin_inv"
-                                class="form-control">
+                                class="form-control w-100">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -808,7 +767,7 @@
                     <hr />
                     <h4 class="modal-title" id="">PERPETRADOR INVOLUCRADO</h4>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-person"></i>
                             <label for="res_perpetrador_id">Tipo de perpetrador</label>
                             <select name="res_perpetrador_id" id="res_perpetrador_id" class="form-control">
@@ -820,7 +779,7 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-dragon"></i>
                             <label for="res_motivo_id">Motivos del perpetrador</label>
                             <select name="res_motivo_id" id="res_motivo_id" class="form-control">
@@ -834,13 +793,13 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-prescription"></i>
                             <label for="res_desc_perpertrador">Descripcion del perpetrador</label>
                             <textarea type="text" name="res_desc_perpertrador" id="res_desc_perpertrador"
                                 class="form-control"></textarea>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-comments"></i>
                             <label for="res_otro">Otros</label>
                             <textarea type="text" name="res_otro" id="res_otro" class="form-control"></textarea>
@@ -900,7 +859,7 @@
                     </div>
                     <hr />
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <h4 class="modal-title" id="">Entidades internas notificadas</h4><i
                                 class="fa-solid fa-comments"></i>
                             <select name="res_inst_interna_id" id="res_inst_interna_id" class="form-control">
@@ -912,7 +871,7 @@
                                 <?php endforeach ?>
                             </select>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <h4 class="modal-title" id="">Entidades externas notificadas</h4><i
                                 class="fa-solid fa-comments"></i>
                             <select name="res_inst_externa_id" id="res_inst_externa_id" class="form-control">
@@ -926,12 +885,12 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-person-military-to-person"></i>
                             <label for="res_otro2">Otras entidades internas</label>
                             <textarea type="text" name="res_otro2" id="res_otro2" class="form-control"></textarea>
                         </div>
-                        <div class="col">
+                        <div class="col-6">
                             <i class="fa-solid fa-person-military-to-person"></i>
                             <label for="res_otro3">Otras entidades externas</label>
                             <textarea type="text" name="res_otro3" id="res_otro3" class="form-control"></textarea>

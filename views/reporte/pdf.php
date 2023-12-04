@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zziy2YFZ5rPqFMPPpjBRBoxDx2PbAKL3LO9QGHvZ56z25UNR/lvO+ebBqISQSmF5" crossorigin="anonymous">
     <title>PDF Inventario</title>
 <head>
-        <style>
+<style>
             /* Estilos que proporcionaste */
             body {
                 font-family: 'Arial', sans-serif;
@@ -16,25 +16,36 @@
                 padding: 0;
             }
 
+            thead {
+                display: table-header-group;
+            }
+
+            /* Estilos para el encabezado que se ocultará en las páginas siguientes */
+            tbody {
+                display: table-row-group;
+            }
+
+
             /* ... (Estilos anteriores) ... */
 
             /* Estilos nuevos para la tabla */
             .invoice {
                 width: 100%;
                 font-size: 14px;
-                border-collapse: collapse;
+                border-collapse: solid;
                 margin-bottom: 10px;
             }
 
             .invoice th,
             .invoice td {
                 border: 1px solid #e0e0e0;
-                padding: 5px;
+                padding: 10px;
                 text-align: left;
             }
 
             .invoice th {
-                background-color: #f2f2f2;
+                background-color: #3498db;
+                /* Cambia este valor a tu color azul preferido */
                 font-weight: bold;
                 color: #fff;
                 /* Cambia este valor al color del texto que desees */
@@ -59,16 +70,8 @@
             .description-row td {
                 padding: 8px;
                 text-align: left;
-                font-size: 12px;
-                border: 1px solid #dee2e6;
-            }
-
-            #encabezado {
-                font-size: 28px;
-                /* Puedes ajustar el tamaño según tu preferencia */
-                color: white;
-                /* Puedes ajustar el color según tu preferencia */
-                /* Otros estilos que desees aplicar */
+                font-size: 15px;
+                border: 3px solid #dee2e6;
             }
 
             /* Estilos para centrar los títulos en la hoja de impresión */
@@ -85,29 +88,33 @@
                     margin: 0;
                     /* Elimina los márgenes de los párrafos */
                 }
+
+                @media print {
+                    thead {
+                        display: table-header-group;
+                    }
+                }
             }
 
-            /* Estilos para el pie de firma */
+
+                /* .signature-recibi-entregue {
+                    float: left;
+                    width: 30%; }
+
+                .signature-entregue {
+                    float: right;
+                width: 30%;
+                 } */
+
             .signature-section {
                 text-align: center;
                 margin-top: 100px;
             }
 
-            /* .signature-recibi-entregue {
-float: left;
-width: 30%; /* Ancho fijo para mantenerlos en la misma línea y espaciados */
-            /* Añade un poco de espacio entre las firmas */
-
-            /* .signature-entregue {
-float: right;
-/* Esto empujará 'ENTREGUÉ' a la derecha */
-            /* width: 30%; */
-            /* Ancho igual al de los otros bloques de firma para alineación */
             .signature-line {
                 border-top: 2px solid #000;
                 margin: 50px;
                 width: 80%;
-                /* Ancho en porcentaje para mantenerlo dentro del div correspondiente */
             }
 
             .signature-name {
@@ -131,6 +138,11 @@ float: right;
                 /* Ancho igual al de los otros bloques de firma para alineación */
                 color: #333;
             }
+            #encabezado {
+                font-size: 28px; /* Puedes ajustar el tamaño según tu preferencia */
+                color: white; /* Puedes ajustar el color según tu preferencia */
+                /* Otros estilos que desees aplicar */
+            }
         </style>
     </head>
 
@@ -139,7 +151,7 @@ float: right;
         <img src="./images/ciber.jpg" alt="Descripción de la imagen" style="width: 100px; height: auto;">
     </div>
     <!-- Información de los Inventarios -->
-    <div class="company-info">
+    <div class="company-info" style="text-align: center;">
         <!-- <h1 class="company-name">EJÉRCITO DE GUATEMALA</h1> -->
         <p class="company-name">Comando de Informatica y Tecnología</p>
         <p class="company-address">12 Ave. Zona - 13, Ciudad de Guatemala, Código Postal 12345</p>
