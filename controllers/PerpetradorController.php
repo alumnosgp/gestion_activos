@@ -37,7 +37,8 @@ class PerpetradorController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM perpetradores where perp_situacion = 1 ";
+        $sql = "SELECT * FROM perpetradores where perp_situacion = 1 
+        ORDER BY perp_nombre";
         if (isset($_GET['perp_nombre']) && $_GET['perp_nombre'] != '') {
             $perp_nombre = $_GET['perp_nombre'];
             $sql .= " and perp_nombre like '%$perp_nombre%' ";

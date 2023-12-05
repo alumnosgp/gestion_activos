@@ -50,7 +50,8 @@ class PersonaltaController{
         inner join armas on arm_id = per_arma
         inner join grados on grado_id = per_grado
         inner join plazas on pla_id = per_plaza
-        WHERE per_situacion = 1";
+        WHERE per_situacion = 1
+        ORDER BY per_nombre1";
         
         if (isset($_GET['per_nombre1']) && $_GET['per_nombre1'] != '') {
             $per_nombre1 = $_GET['per_nombre1'];

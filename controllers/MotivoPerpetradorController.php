@@ -37,7 +37,8 @@ class MotivoPerpetradorController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM motivos where mot_situacion = 1 ";
+        $sql = "SELECT * FROM motivos where mot_situacion = 1 
+        ORDER BY mot_nombre";
         if (isset($_GET['mot_nombre']) && $_GET['mot_nombre'] != '') {
             $mot_nombre = $_GET['mot_nombre'];
             $sql .= " and mot_nombre like '%$mot_nombre%' ";

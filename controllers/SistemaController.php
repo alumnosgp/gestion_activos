@@ -37,7 +37,8 @@ class SistemaController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM sistema_operativo where sist_situacion = 1 ";
+        $sql = "SELECT * FROM sistema_operativo where sist_situacion = 1 
+        ORDER BY sist_nombre";
         if (isset($_GET['sist_nombre']) && $_GET['sist_nombre'] != '') {
             $sist_nombre = $_GET['sist_nombre'];
             $sql .= " and sist_nombre like '%$sist_nombre%' ";
