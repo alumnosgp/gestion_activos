@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const inc_catalogo_rep = document.getElementById("inc_catalogo_rep");
   const res_catalogo = document.getElementById("res_catalogo");
   const inc_no_incidente = document.getElementById("inc_no_incidente");
+  const res_fec_fin_inv = document.getElementById("res_fec_fin_inv");
   const formulario = document.getElementById("formTotal");
   const formModalResolucion = document.getElementById("modalResolucion");
   const incFecha = document.getElementById("inc_fecha");
@@ -384,9 +385,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const body = new FormData(formulario);
     body.delete("inc_id");
-    // for (var pair of body.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
     const url = "/gestion_activos/API/incidentes/guardar";
 
     const headers = new Headers();
@@ -429,6 +427,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const guardarModal = async (evento) => {
     evento.preventDefault();
+
+     const fechaInicioImpact = formModalResolucion.res_fec_fin_inc.value;
+     const fechaFinInpact = formModalResolucion.res_fec_fin_imp.value;
+     const fechaFinInvest = formModalResolucion.res_fec_fin_inv.value;
+ 
+     function validarFechas() {
+         if (new Date(fechaFinInpact) < new Date(fechaInicioImpact)) {
+             Toast.fire({
+                 icon: 'info',
+                 text: "La fecha en que finalizo es incoorecta",
+             });
+             return false;
+         }
+         if (new Date(fechaFinInvest) < new Date(fechaInicioImpact) || new Date(fechaFinInvest) < new Date(fechaFinInpact)) {
+             Toast.fire({
+                 icon: 'info',
+                 text: "La fecha en que finaliza la investigacion es incorrecta",
+             });
+             return false;
+         }
+         return true;
+     }
+     if (!validarFechas()) {
+         return;
+     }
+ 
   
     if (!validarFormulario(modalResolucion, ["res_inc_id"])) {
       Toast.fire({
@@ -462,7 +486,6 @@ document.addEventListener("DOMContentLoaded", function () {
           formulario.reset();
           icon = "success";
           buscar();
-          // Elimina el btnCerrar.click() de aquí
           break;
   
         case 0:
@@ -648,7 +671,12 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(error);
     }
   };
-
+  
+  window.addEventListener('load', () => {
+    const inc_no_incidente = document.getElementById('inc_no_incidente');
+    inc_no_incidente.readOnly = true;
+  });
+  
   ///////////////////////IRT///////////////////////////////////////////////////////////
 
   const traeDatos = (e) => {
@@ -1041,6 +1069,7 @@ document.addEventListener("DOMContentLoaded", function () {
   inc_catalogo_irt.addEventListener("change", buscarDatosPorCatalogoIrt);
   inc_catalogo_rep.addEventListener("change", buscarDatosPorCatalogoRep);
   res_catalogo.addEventListener("change", buscarCatalogoInv);
+  res_fec_fin_inv.addEventListener("change", guardarModal);
   btnRegresar.addEventListener("click", retrocederFormulario);
   btnSiguiente.addEventListener("click", avanzarFormulario);
   btnGuardar.addEventListener("click", guardar);

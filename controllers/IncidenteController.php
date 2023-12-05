@@ -53,6 +53,7 @@ class IncidenteController
     public static function guardarApi()
     {
         try {
+            
             $incidentes = new Incidente($_POST);
             $resultado = $incidentes->crear();
 
@@ -380,12 +381,8 @@ try {
         $sql = "SELECT NVL(MAX(inc_id), 0) + 1 AS inc_no_incidente FROM incidente";
         
         try {
-            
-            
             $incidente = Incidente::fetchArray($sql);
             $incidente[0]['inc_no_incidente'] = date("Ymd") . '' . $incidente[0]['inc_no_incidente'];
-            
-            
             echo json_encode($incidente);
             
         } catch (Exception $e) {

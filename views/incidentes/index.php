@@ -3,8 +3,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 border bg-light p-3" id="formularioIncidentes">
                 <h1 class="text-center mt-5">REGISTRO DE INCIDENTES</h1>
-                <input type="number" name="inc_id" id="inc_id" class="form-control" hidden>
-                <input type="number" name="inc_no_incidente" id="inc_no_incidente" class="form-control"
+                <input type="number" name="inc_id" id="inc_id" class="form-control" hidden readonly>
+                <input type="number" name="inc_no_incidente" id="inc_no_incidente" class="form-control"readonly
                     hidden>
                 <div class="row mb-3">
                     <div class="col">
@@ -737,19 +737,23 @@
                     <hr />
                     <h4 class="modal-title" id="">FINALIZACION DE LA INVESTIGACION</h4>
                     <div class="row mb-3">
-                        <div class="col-6">
+                        <div class="col-10">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_inc">FECHA Y HORA INICIO DEL IMPACTO</label>
                             <input type="datetime-local" name="res_fec_fin_inc" id="res_fec_fin_inc"
                                 class="form-control w-100">
                         </div>
-                        <div class="col-6">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-10">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_imp">FECHA Y HORA FIN DEL IMPACTO</label>
                             <input type="datetime-local" name="res_fec_fin_imp" id="res_fec_fin_imp"
                                 class="form-control w-100">
                         </div>
-                        <div class="col-6">
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-10">
                             <i class="fa-regular fa-calendar-days"></i>
                             <label for="res_fec_fin_inv">FECHA Y HORA DE FINALIZACION</label>
                             <input type="datetime-local" name="res_fec_fin_inv" id="res_fec_fin_inv"
