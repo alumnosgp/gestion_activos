@@ -79,57 +79,29 @@ document.addEventListener("DOMContentLoaded", function () {
     btnGuardar.style.display = indice === formularios.length - 1 ? "" : "none";
   };
 
-  const showIncformulario = (e) => {
-    e.preventDefault();
-    posicionFormulario = 0;
-    mostrarFormulario(posicionFormulario);
-  };
-
-  const showDescripformulario = (e) => {
-    e.preventDefault();
-    posicionFormulario = 1;
-    mostrarFormulario(posicionFormulario);
-  };
-
-  const showDetalFormulario = (e) => {
-    e.preventDefault();
-    posicionFormulario = 2;
-    mostrarFormulario(posicionFormulario);
-  };
-
-  const showCategFormulario = (e) => {
-    e.preventDefault();
-    posicionFormulario = 3;
-    mostrarFormulario(posicionFormulario);
-  };
-
-  const showCompFormulario = (e) => {
-    formulariosiguiente;
-    e.preventDefault();
-    posicionFormulario = 4;
-    mostrarFormulario(posicionFormulario);
-  };
-
-  const showEfectFormulario = (e) => {
-    e.preventDefault();
-    posicionFormulario = 5;
-    mostrarFormulario(posicionFormulario);
-  };
-
   const avanzarFormulario = (e) => {
     e.preventDefault();
     if (posicionFormulario===2) {
       
       const fechaInicio = formulario.det_inc_fec_ocurre.value;
+      const fechaDescubre = formulario.det_inc_fec_descubre.value;
       const fechaFin = formulario.det_inc_fec_informa.value;
 
-      if (fechaFin < fechaInicio) {
+      if (new Date(fechaDescubre) < new Date(fechaInicio)) {
         Toast.fire({
-          icon:'info',
-          text: "La fecha en que se informa no puede ser menor a la fecha en que ocurrio",
+          icon: 'info',
+          text: "La fecha en que se inicio no puede ser menor que cuando ocurrio incidente",
         });
         return;
       }
+      if (new Date(fechaFin) < new Date(fechaInicio) || new Date(fechaFin) < new Date(fechaDescubre)) {
+        Toast.fire({
+          icon: 'info',
+          text: "La fecha en que se informa no puede ser menor a la fecha en que ocurrió o se descubrio el incidente",
+        });
+        return;
+      }
+      
     }
 
     const codigo_incidente = formulario.inc_no_incidente.value;
