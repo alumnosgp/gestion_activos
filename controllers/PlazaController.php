@@ -43,7 +43,8 @@ class PlazaController{
     {
         $sql = "SELECT * FROM plazas
         inner join oficinas on ofic_id = pla_oficina
-        where pla_situacion = 1 ";
+        where pla_situacion = 1 
+        ORDER BY pla_nombre";
         if (isset($_GET['pla_nombre']) && $_GET['pla_nombre'] != '') {
             $pla_nombre = $_GET['pla_nombre'];
             $sql .= " and pla_nombre like '%$pla_nombre%' ";

@@ -37,7 +37,8 @@ class OrganizacionController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM organizaciones where org_situacion = 1 ";
+        $sql = "SELECT * FROM organizaciones where org_situacion = 1 
+        ORDER BY org_nombre";
         if (isset($_GET['org_nombre']) && $_GET['org_nombre'] != '') {
             $org_nombre = $_GET['org_nombre'];
             $sql .= " and org_nombre like '%$org_nombre%' ";

@@ -37,7 +37,8 @@ class ArmaController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM armas where arm_situacion = 1";
+        $sql = "SELECT * FROM armas where arm_situacion = 1
+        ORDER BY arm_desc";
         if (isset($_GET['arm_desc']) && $_GET['arm_desc'] != '') {
             $arm_desc = $_GET['arm_desc'];
             $sql .= " and arm_desc like '%$arm_desc%'";

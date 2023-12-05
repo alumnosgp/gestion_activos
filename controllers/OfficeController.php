@@ -37,7 +37,8 @@ class OfficeController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM office where off_situacion = 1 ";
+        $sql = "SELECT * FROM office where off_situacion = 1 
+        ORDER BY off_nombre";
         if (isset($_GET['off_nombre']) && $_GET['off_nombre'] != '') {
             $off_nombre = $_GET['off_nombre'];
             $sql .= " and off_nombre like '%$off_nombre%' ";

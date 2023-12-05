@@ -37,7 +37,8 @@ class InstitucionesintController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM inst_internas where ins_int_situacion = 1 ";
+        $sql = "SELECT * FROM inst_internas where ins_int_situacion = 1 
+        ORDER BY ins_int_nombre";
         if (isset($_GET['ins_int_nombre']) && $_GET['ins_int_nombre'] != '') {
             $ins_int_nombre = $_GET['ins_int_nombre'];
             $sql .= " and ins_int_nombre like '%$ins_int_nombre%' ";

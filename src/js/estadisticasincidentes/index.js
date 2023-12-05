@@ -9,6 +9,8 @@ const canvasPerpetrador = document.getElementById("chartPerpetrador");
 const canvasMotivo = document.getElementById("chartMotivo");
 const canvasEstado = document.getElementById("chartEstado");
 const canvasComponentes = document.getElementById("chartComponentes");
+const fechaInicio = document.getElementById("fechaInicio");
+const fechaFin = document.getElementById("fechaFin");
 
 const btnActualizar = document.getElementById("btnActualizar");
 
@@ -73,7 +75,7 @@ const chartTipos = new Chart(contextTipos, {
 });
 /*AQUI INICIA CONFIGURACION DE ESTILOS DE LA 3RA  GRAFICA */
 const chartPerpetrador = new Chart(contextPerpetrador, {
-  type: "pie",
+  type: "polarArea",
   data: {
     labels: [],
     datasets: [
@@ -85,12 +87,12 @@ const chartPerpetrador = new Chart(contextPerpetrador, {
     ],
   },
   options: {
-    indexAxis: "y",
+    indexAxis: "x",
   },
 });
-//////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////
 const chartComponentes = new Chart(contextComponentes, {
-  type: "pie",
+  type: "bar",
   data: {
     labels: [],
     datasets: [
@@ -102,7 +104,7 @@ const chartComponentes = new Chart(contextComponentes, {
     ],
   },
   options: {
-    indexAxis: "y",
+    indexAxis: "x",
   },
 });
 /*AQUI LA SEGUNDA CONFIGURACION DE ESTILOS DE LA 4TA GRAFICA */
@@ -128,14 +130,14 @@ const chartMotivo = new Chart(contextMotivo, {
 /****************************************************************************************************************** */
 /*AQUI SON LOS DIRECCIONAMIENTOS DE LAS FUNCIONES POR GRAFICAS */
 const buscarEstado = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarEstado`;
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarEstado?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
 
   const request = await fetch(url, config);
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   try {
     chartEstado.data.labels = [];
@@ -151,7 +153,7 @@ const buscarEstado = async () => {
       
     } else {
       Toast.fire({
-        title: "No se encontraron registros",
+        title: "No se encontraron registros estados",
         icon: "info",
       });
     }
@@ -163,14 +165,16 @@ const buscarEstado = async () => {
 };
 ////////////////////////////////////////////////////////////////////////////////////
 const getEstadisticas = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscaCategoriaIncidentes`;
+  // console.log(fechaInicio.value)
+  // console.log(fechaFin.value)
+  const url = `/gestion_activos/API/estadisticasincidentes/buscaCategoriaIncidentes?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
 
   const request = await fetch(url, config);
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   try {
     chartCategorias.data.labels = [];
@@ -186,7 +190,7 @@ const getEstadisticas = async () => {
       
     } else {
       Toast.fire({
-        title: "No se encontraron registros",
+        title: "No se encontraron registros categorias",
         icon: "info",
       });
     }
@@ -200,14 +204,14 @@ const getEstadisticas = async () => {
 
 ////////////////////////////////////////////////////////////////////////////////////
 const buscarComponentes = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarComponentes`;
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarComponentes?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
 
   const request = await fetch(url, config);
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   try {
     chartComponentes.data.labels = [];
@@ -223,7 +227,7 @@ const buscarComponentes = async () => {
       
     } else {
       Toast.fire({
-        title: "No se encontraron registros",
+        title: "No se encontraron registros de componentes",
         icon: "info",
       });
     }
@@ -236,14 +240,14 @@ const buscarComponentes = async () => {
 
 /* SEGUNDA FUNCION DE DIRECIONAMIENTO */
 const getEstadisticasTipos = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarTipoIncidentes`;
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarTipoIncidentes?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
 
   const request = await fetch(url, config);
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   try {
     chartTipos.data.labels = [];
@@ -259,7 +263,7 @@ const getEstadisticasTipos = async () => {
       
     } else {
       Toast.fire({
-        title: "No se encontraron registros",
+        title: "No se encontraron registros tipos de incidentes",
         icon: "info",
       });
     }
@@ -271,14 +275,14 @@ const getEstadisticasTipos = async () => {
 };
 
 const getEstadisticaPerpetrador = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarPerpetradorIncidentes`;
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarPerpetradorIncidentes?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
 
   const request = await fetch(url, config);
   const response = await request.json();
-  console.log(response);
+  // console.log(response);
 
   try {
     chartPerpetrador.data.labels = [];
@@ -293,7 +297,7 @@ const getEstadisticaPerpetrador = async () => {
       });
     } else {
       Toast.fire({
-        title: "No se encontraron registros",
+        title: "No se encontraron registros sobre perpetradores",
         icon: "info",
       });
     }
@@ -305,8 +309,8 @@ const getEstadisticaPerpetrador = async () => {
 };
 
 /* SEGUNDA FUNCION DE DIRECIONAMIENTO */
-const getEstadisticasMotivo = async () => {
-  const url = `/gestion_activos/API/estadisticasincidentes/buscarMotivoIncidentes`;
+const buscarMotivoIncidentes = async () => {
+  const url = `/gestion_activos/API/estadisticasincidentes/buscarMotivoIncidentes?fechaInicio=${fechaInicio.value}&fechaFin=${fechaFin.value}`;
   const config = {
     method: "GET",
   };
@@ -340,6 +344,7 @@ const getEstadisticasMotivo = async () => {
   }
 };
 
+
 /* TERCERA FUNCION DE DIRECIONAMIENTO */
 
 
@@ -349,7 +354,7 @@ buscarEstado();
 buscarComponentes();
 getEstadisticasTipos();
 getEstadisticaPerpetrador();
-getEstadisticasMotivo();
+buscarMotivoIncidentes();
 
 const getRandomColor = () => {
   const r = Math.floor(Math.random() * 256);
@@ -366,8 +371,8 @@ const getRandomColor = () => {
 /************************* AQUI TERMINA LOS DIRECCIONAMIENTOS ******************************************** */
 
 btnActualizar.addEventListener("click", getEstadisticas);
+btnActualizar.addEventListener("click", getEstadisticasTipos);
+btnActualizar.addEventListener("click", buscarMotivoIncidentes);
 btnActualizar.addEventListener("click", buscarEstado);
 btnActualizar.addEventListener("click", buscarComponentes);
-btnActualizar.addEventListener("click", getEstadisticasTipos);
 btnActualizar.addEventListener("click", getEstadisticaPerpetrador);
-btnActualizar.addEventListener("click", getEstadisticasMotivo);

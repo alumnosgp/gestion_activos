@@ -37,7 +37,8 @@ class InstitucionesextController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM inst_externas where ins_ext_situacion = 1 ";
+        $sql = "SELECT * FROM inst_externas where ins_ext_situacion = 1 
+        ORDER BY ins_ext_nombre";
         if (isset($_GET['ins_ext_nombre']) && $_GET['ins_ext_nombre'] != '') {
             $ins_ext_nombre = $_GET['ins_ext_nombre'];
             $sql .= " and ins_ext_nombre like '%$ins_ext_nombre%' ";

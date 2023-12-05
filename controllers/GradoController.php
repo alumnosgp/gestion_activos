@@ -37,7 +37,8 @@ class GradoController{
 
     public static function buscarAPI()
     {
-        $sql = "SELECT * FROM grados where grado_situacion = 1 ";
+        $sql = "SELECT * FROM grados where grado_situacion = 1 
+        ORDER BY grado_descr";
         if (isset($_GET['grado_descr']) && $_GET['grado_descr'] != '') {
             $grado_descr = $_GET['grado_descr'];
             $sql .= " and grado_descr like '%$grado_descr%' ";

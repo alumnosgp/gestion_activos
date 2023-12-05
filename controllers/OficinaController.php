@@ -42,7 +42,8 @@ class OficinaController{
     {
         $sql = "SELECT * FROM oficinas 
         inner join organizaciones on org_id = ofic_organizacion
-        where ofic_situacion = 1 ";
+        where ofic_situacion = 1 
+        ORDER BY ofic_nombre";
         if (isset($_GET['ofic_nombre']) && $_GET['ofic_nombre'] != '') {
             $ofic_nombre = $_GET['ofic_nombre'];
             $sql .= " and ofic_nombre like '%$ofic_nombre%' ";
