@@ -1,3 +1,62 @@
+<style>
+        #inc_no_incidente {
+            display: none;
+        }
+
+        #inc_no_incidente[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+        #desc_incidente_id {
+            display: none;
+        }
+
+        #desc_incidente_id[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+        #det_inc_id_incidente {
+            display: none;
+        }
+
+        #det_inc_id_incidente[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+        #det_categ_id_incidente {
+            display: none;
+        }
+
+        #det_categ_id_incidente[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+        #det_comp_act_inc_id {
+            display: none;
+        }
+
+        #det_comp_act_inc_id[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+        #det_efec_id_incidente {
+            display: none;
+        }
+
+        #det_efec_id_incidente[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+
+        #res_inc_incidente_id {
+            display: none;
+        }
+
+        #res_inc_incidente_id[readonly] {
+            pointer-events: none;
+            background-color: #f4f4f4; 
+        }
+    </style>
 <form id="formTotal">
     <div class="row justify-content-center">
         <div class="row justify-content-center">
@@ -222,7 +281,7 @@
             </div>
         </div>
 
-        <!--////////////////////////////////// DETALLE DE INCIDENTE DE SEGURIDAD //////////////////////////////////////////////////////-->
+        <!--////////////////////////////////// DETALLE DE CATEGORIA DE SEGURIDAD //////////////////////////////////////////////////////-->
         <div class="row justify-content-center ">
             <div class="col-lg-8 border bg-light p-3" id="formularioCategoriaincidentes">
                 <h1 class="text-center mt-5">CATEGORIA DEL INCIDENTE DE SEGURIDAD</h1>
@@ -703,7 +762,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <i class="fa-regular fa-calendar-days"></i>
-                            <label for="res_fec_inic_inv">FECHA Y HORA DE INICIO</label>
+                            <label for="res_fec_inic_inv">FECHA Y HORA DE LA RESOLUCION DEL INCIDENTE</label>
                             <input type="date-local" name="res_fec_inic_inv" id="res_fec_inic_inv" class="form-control"
                                 readonly>
                         </div>

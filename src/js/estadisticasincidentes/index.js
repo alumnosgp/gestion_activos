@@ -75,7 +75,7 @@ const chartTipos = new Chart(contextTipos, {
 });
 /*AQUI INICIA CONFIGURACION DE ESTILOS DE LA 3RA  GRAFICA */
 const chartPerpetrador = new Chart(contextPerpetrador, {
-  type: "polarArea",
+  type: "pie",
   data: {
     labels: [],
     datasets: [
