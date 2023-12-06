@@ -43,12 +43,12 @@ $router->post('/API/login', [LoginController::class,'loginAPI']);
 $router->get('/menu', [MenuController::class,'index']);
 $router->get('/API/closeSession', [MenuController::class,'closeSessionAPI']);
 
-//sistemas
+//maquina
 $router->get('/maquinas', [MaquinaController::class, 'index']);
 $router->get('/API/maquinas/buscar', [MaquinaController::class, 'buscarApi']);
 $router->post('/API/maquinas/guardar', [MaquinaController::class, 'guardarApi']);
-$router->post('/API/maquinas/modificar', [MaquinaController::class, 'modificarApi']);
 $router->post('/API/maquinas/eliminar', [MaquinaController::class, 'eliminarApi']);
+$router->post('/API/maquinas/modificar', [MaquinaController::class, 'modificarApi']);
 $router->get('/API/maquinas/buscarNombres', [MaquinaController::class, 'buscarNombresApi']);
 $router->get('/API/maquinas/buscarPlanillero', [MaquinaController::class, 'buscarPlanilleroAPI']);
 $router->get('/API/maquinas/validarDireccionMAC', [MaquinaController::class, 'validarDireccionMAC']);

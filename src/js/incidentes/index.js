@@ -888,7 +888,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const traeDatos3 = (e) => {
     const button = e.target;
     const id3 = button.dataset.id3;
-    // console.log(id3);
     const que = button.dataset.que;
     const como = button.dataset.como;
     const porque = button.dataset.porque;
@@ -896,7 +895,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const impacto = button.dataset.impacto;
     const vulnerabilidad = button.dataset.vulnerabilidad;
     const id_incidente = button.dataset.id_incidente;
-    // console.log(button.dataset.porque)
 
     const dataset = {
       id3,
@@ -999,7 +997,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const colocarDatos4 = (dataset) => {
     modalCategoria.det_categ_descripcion.value = dataset.descateg;
-    modalCategoria.det_categoria.value = dataset.detcategoria;
+
+
+    // modalCategoria.det_categoria.value = dataset.detcategoria;
+    for (var i = 0; i < modalCategoria.det_categoria.length; i++) {
+      if (modalCategoria.det_categoria.options[i].text === dataset.detcategoria) {
+        modalCategoria.det_categoria.selectedIndex = i;
+        break;
+      }
+    }
+
     modalCategoria.det_categ_observacion.value = dataset.categOb;
     modalCategoria.det_categ_id_incidente.value = dataset.detincId;
     modalCategoria.det_categ_id.value = dataset.id4;

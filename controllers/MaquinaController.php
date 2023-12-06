@@ -87,32 +87,59 @@ class MaquinaController
     $maq_nombre = isset($_GET['maq_nombre']) ? $_GET['maq_nombre'] : '';
 
     // Consulta SQL para buscar máquinas
-    $sql = "SELECT  maquina.*,
-
-    plazas.pla_nombre AS maq_plaza,
+    $sql = "SELECT
+    maquina.*,
+    maq_plaza,
+    alta.per_catalogo AS maq_per_alta_catalogo,
+    alta.per_nombre1 || ' ' || alta.per_nombre2 || ' ' || alta.per_apellido1 || ' ' || alta.per_apellido2 AS maq_per_alta_nombre,
+    planilla.pcivil_catalogo AS maq_per_planilla_catalogo,
+    planilla.pcivil_nombre1 || ' ' || planilla.pcivil_nombre2 || ' ' || planilla.pcivil_apellido1 || ' ' || planilla.pcivil_apellido2 AS maq_per_planilla_nombre,
+    CASE
+        WHEN maquina.maq_per_alta IS NOT NULL THEN alta.per_nombre1 || ' ' || alta.per_nombre2 || ' ' || alta.per_apellido1 || ' ' || alta.per_apellido2
+        ELSE ''
+    END AS per_nombre,
+    CASE
+        WHEN maquina.maq_per_planilla IS NOT NULL THEN planilla.pcivil_nombre1 || ' ' || planilla.pcivil_nombre2 || ' ' || planilla.pcivil_apellido1 || ' ' || planilla.pcivil_apellido2
+        ELSE ''
+    END AS pcivil_nombre,
+    grados_per.grado_descr AS per_grado,
+    plazas.pla_nombre AS per_plaza,
+    grados_pcivil.grado_descr AS pcivil_gradi,
+    plazas_pcivil.pla_nombre AS pcivil_plaza,
     sistema_operativo.sist_nombre AS maq_sistema_op,
+    maquina.maq_lic_so,
     office.off_nombre AS maq_office,
+    maq_lic_office,
     antivirus.ant_nombre AS maq_antivirus,
-    alta.per_nombre1 || ' ' || alta.per_nombre2 || ' ' || alta.per_apellido1 || ' ' || alta.per_apellido2 AS maq_per_alta,
-    planilla.pcivil_nombre1 || ' ' || planilla.pcivil_nombre2 || ' ' || planilla.pcivil_apellido1 || ' ' || planilla.pcivil_apellido2 AS maq_per_planilla
+    maq_lic_antv,
+    maquina.maq_uso,
+    maquina.maq_ram_capacidad,
+    maquina.maq_tipo_disco_duro,
+    maquina.maq_disco_capacidad,
+    maquina.maq_procesador_capacidad
 FROM 
     maquina 
-FULL JOIN 
-    plazas ON maquina.maq_plaza = plazas.pla_id
-FULL JOIN 
+INNER JOIN 
     sistema_operativo ON maquina.maq_sistema_op = sistema_operativo.sist_id
-FULL JOIN 
+INNER JOIN 
     office ON maquina.maq_office = office.off_id
-FULL JOIN 
+INNER JOIN 
     antivirus ON maquina.maq_antivirus = antivirus.ant_id
 FULL JOIN 
     persona_dealta alta ON maquina.maq_per_alta = alta.per_catalogo
 FULL JOIN 
     persona_planilla planilla ON maquina.maq_per_planilla = planilla.pcivil_catalogo
-
-    WHERE 
-        maquina.maq_situacion >= 1
-    ORDER BY maq_id DESC";
+LEFT JOIN 
+    grados grados_per ON alta.per_grado = grados_per.grado_id
+LEFT JOIN 
+    grados grados_pcivil ON planilla.pcivil_gradi = grados_pcivil.grado_id
+LEFT JOIN 
+    plazas plazas ON maquina.maq_plaza = plazas.pla_id
+LEFT JOIN 
+    plazas plazas_pcivil ON planilla.pcivil_plaza = plazas_pcivil.pla_id
+WHERE 
+    maquina.maq_situacion = 1
+ORDER BY maq_id DESC";
 
     // Agregar condición de búsqueda por nombre si se proporciona
     if (!empty($maq_nombre)) {
@@ -167,10 +194,10 @@ public static function eliminarAPI()
     try {
         $maq_id = $_POST['maq_id'];
         $maquina = Maquina::find($maq_id);
-        $maquina->maq_situacion = '1'; // Cambiar a la situación deseada para eliminar o inhabilitar
+        $maquina->maq_situacion = 2; // Cambiar a la situación deseada para eliminar o inhabilitar
         $resultado = $maquina->actualizar();
 
-        if ($resultado['resultado'] == 1) {
+        if ($resultado) {
             echo json_encode([
                 'mensaje' => 'Máquina eliminada correctamente',
                 'codigo' => 1

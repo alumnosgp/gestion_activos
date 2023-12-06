@@ -8,6 +8,7 @@ class Maquina extends ActiveRecord
     'maq_disco_capacidad', 'maq_plaza', 'maq_per_alta', 'maq_per_planilla', 'maq_procesador_capacidad', 'maq_lic_so', 
     'maq_office', 'maq_lic_office', 'maq_antivirus', 'maq_lic_antv', 'maq_uso', 'maq_situacion', 'maq_sistema_op'];
     protected static $idTabla = 'maq_id';
+    protected static $situacionTabla = 'maq_situacion';
 
     public $maq_id;
     public $maq_tipo;

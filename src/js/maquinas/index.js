@@ -51,39 +51,12 @@ const datatable = new Datatable("#tablaMaquinas", {
       data: "maq_tipo",
     },
     {
-      title: "PLAZA",
-      data: null,
-      render: function (data, type, row, meta) {
-        return row.maq_plaza;
-      }
-    },
-
-
-    {
       title: "NOMBRE DEL ENCARGADO",
       data: null,
       render: function (data, type, row, meta) {
-        return row.maq_per_planilla + ' ' + row.maq_per_alta;
+        return row.pcivil_nombre + ' ' + row.per_nombre;
       } 
     },
-  { 
-    title: "NOMBRE DEL ENCARGADO",
-    data: null,
-    render: function (data, type, row, meta) {
-      // Combina los valores de las columnas en una sola columna
-      return row.maq_per_planilla + ' ' + row.maq_per_alta;
-    } 
-  },
-
-
-    {
-      title: "NOMBRE DEL ENCARGADO",
-      data: null,
-      render: function (data, type, row, meta) {
-        return row.maq_per_planilla + ' ' + row.maq_per_alta;
-      } 
-    },
-
     {
       title: "RAM",
       data: "maq_ram_capacidad",
@@ -121,7 +94,32 @@ const datatable = new Datatable("#tablaMaquinas", {
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) =>
-        `<button class="btn btn-warning" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Modificar</button>`,
+      `<button class="btn btn-warning" 
+      data-id='${row.maq_id}' 
+      data-nombre='${row.maq_nombre}' 
+      data-mac='${row.maq_mac}' 
+      data-tipo='${row.maq_tipo}' 
+      data-percatalogoalta='${row.maq_per_alta}' 
+      data-pernombre='${row.per_nombre}' 
+      data-pergrado='${row.per_grado}' 
+      data-perplaza='${row.per_plaza}' 
+      data-planillacatalogo='${row.maq_per_planilla}' 
+      data-planillanombre='${row.pcivil_nombre}' 
+      data-planillagrado='${row.pcivil_gradi}' 
+      data-planillaplaza='${row.pcivil_plaza}' 
+      data-ram='${row.maq_ram_capacidad}' 
+      data-hdd='${row.maq_tipo_disco_duro}' 
+      data-disco='${row.maq_disco_capacidad}' 
+      data-procesador='${row.maq_procesador_capacidad}' 
+      data-sistema='${row.maq_sistema_op}' 
+      data-sistemalic='${row.maq_lic_so}' 
+      data-office='${row.maq_office}' 
+      data-officelic='${row.maq_lic_office}' 
+      data-antivirus='${row.maq_antivirus}' 
+      data-antiviruslic='${row.maq_lic_antv}' 
+      data-uso='${row.maq_uso}'>
+      Modificar
+      </button>`,
     },
     {
       title: "ELIMINAR",
@@ -129,7 +127,7 @@ const datatable = new Datatable("#tablaMaquinas", {
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) =>
-        `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`,
+      `<button class="btn btn-danger" data-id='${row.maq_id}'>Eliminar</button>`,
     },
     {
       title: "Inventario",
@@ -137,7 +135,7 @@ const datatable = new Datatable("#tablaMaquinas", {
       searchable: false,
       orderable: false,
       render: (data, type, row, meta) => 
-        `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
+      `<button class="btn btn-success" data-id='${data}' data-nombre='${row.maq_nombre}' data-mac='${row.maq_mac}' data-tipo='${row.maq_tipo}' data-plaza='${row.maq_plaza}' data-ram='${row.maq_ram_capacidad}' data-hdd='${row.maq_tipo_disco_duro}' data-disco='${row.maq_disco_capacidad}' data-procesador='${row.maq_procesador_capacidad}' data-sistema='${row.maq_sistema_op}' data-office='${row.maq_office}' data-antivirus='${row.maq_antivirus}' data-uso='${row.maq_uso}'>Imprimir PDF</button>`
     },
   ],
 });
@@ -289,52 +287,6 @@ const eliminar = async (e) => {
   }
 };
 
-const modificar = async () => {
-  if (!validarFormulario(formulario, ["maq_id"])) {
-    alert("Debe llenar todos los campos");
-    return;
-  }
-
-  const body = new FormData(formulario);
-  for (var pair of body.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
-  }
-
-  const url = "/gestion_activos/API/maquinas/modificar";
-  const config = {
-    method: "POST",
-    body,
-  };
-  try {
-    const respuesta = await fetch(url, config);
-    const data = await respuesta.json();
-    console.log(data);
-    const { codigo, mensaje, detalle } = data;
-    let icon = "info";
-    switch (codigo) {
-      case 1:
-        formulario.reset();
-        icon = "success";
-        buscar();
-        cancelarAccion();
-        break;
-      case 0:
-        icon = "error";
-        console.log(detalle);
-        break;
-
-      default:
-        break;
-    }
-
-    Toast.fire({
-      icon,
-      text: mensaje,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const buscarNombres = async () => {
   let per_catalogo = formulario.maq_per_alta.value;
@@ -466,6 +418,53 @@ const validarDireccionMAC = async () => {
   typingTimeout = setTimeout(fetchData, 4500);
 };
 
+const modificar = async () => {
+  if (!validarFormulario(formulario, 
+    ['maq_id','maq_per_alta','per_nombre','maq_plaza','per_grado','per_plaza','maq_per_planilla','pcivil_nombre','pcivil_gradi','pcivil_plaza'])) {
+    alert("Debe llenar todos los campos");
+    return;
+  }
+
+  const body = new FormData(formulario);
+  for (var pair of body.entries()) {
+    console.log(pair[0] + ", " + pair[1]);
+  }
+
+  const url = "/gestion_activos/API/maquinas/modificar";
+  const config = {
+    method: "POST",
+    body,
+  };
+  try {
+    const respuesta = await fetch(url, config);
+    const data = await respuesta.json();
+    console.log(data);
+    const { codigo, mensaje, detalle } = data;
+    let icon = "info";
+    switch (codigo) {
+      case 1:
+        formulario.reset();
+          icon = "success";
+          buscar();
+        cancelarAccion();
+        break;
+      case 0:
+        icon = "error";
+        console.log(detalle);
+        break;
+
+      default:
+        break;
+    }
+
+    Toast.fire({
+      icon,
+      text: mensaje,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const traeDatos = (e) => {
   const button = e.target;
@@ -473,14 +472,24 @@ const traeDatos = (e) => {
   const nombre = button.dataset.nombre;
   const mac = button.dataset.mac;
   const tipo = button.dataset.tipo;
-  const plaza = button.dataset.plaza;
+  const percatalogoalta = button.dataset.percatalogoalta;
+  const pernombre = button.dataset.pernombre;
+  const pergrado = button.dataset.pergrado;
+  const perplaza = button.dataset.perplaza;
+  const planillacatalogo = button.dataset.planillacatalogo;
+  const planillanombre = button.dataset.planillanombre;
+  const planillagrado = button.dataset.planillagrado;
+  const planillaplaza = button.dataset.planillaplaza;
   const ram = button.dataset.ram;
   const hdd = button.dataset.hdd;
   const disco = button.dataset.disco;
   const procesador = button.dataset.procesador;
   const sistema = button.dataset.sistema;
+  const sistemalic = button.dataset.sistemalic;
   const office = button.dataset.office;
+  const officelic = button.dataset.officelic;
   const antivirus = button.dataset.antivirus;
+  const antiviruslic = button.dataset.antiviruslic;
   const uso = button.dataset.uso;
 
   const dataset = {
@@ -488,14 +497,24 @@ const traeDatos = (e) => {
     nombre,
     mac,
     tipo,
-    plaza,
+    percatalogoalta,
+    pernombre,
+    pergrado,
+    perplaza,
+    planillacatalogo,
+    planillanombre,
+    planillagrado,
+    planillaplaza,
     ram,
     hdd,
     disco,
     procesador,
     sistema,
+    sistemalic,
     office,
+    officelic,
     antivirus,
+    antiviruslic,
     uso
 
   };
@@ -506,14 +525,24 @@ const traeDatos = (e) => {
   body.append("maq_nombre", nombre);
   body.append("maq_mac", mac);
   body.append("maq_tipo", tipo);
-  body.append("maq_plaza", plaza);
+  body.append("maq_per_alta", percatalogoalta);
+  body.append("per_nombre", pernombre);
+  body.append("per_grado", pergrado);
+  body.append("per_plaza", perplaza);
+  body.append("maq_per_planilla", planillacatalogo);
+  body.append("pcivil_nombre", planillanombre);
+  body.append("pcivil_gradi", planillagrado);
+  body.append("pcivil_plaza", planillaplaza);
   body.append("maq_ram_capacidad", ram);
   body.append("maq_tipo_disco_duro", hdd);
   body.append("maq_disco_capacidad", disco);
   body.append("maq_procesador_capacidad", procesador);
   body.append("maq_sistema_op", sistema);
+  body.append("maq_lic_so", sistemalic);
   body.append("maq_office", office);
+  body.append("maq_lic_office", officelic);
   body.append("maq_antivirus", antivirus);
+  body.append("maq_lic_antv", antiviruslic);
   body.append("maq_uso", uso);
 };
 
@@ -521,21 +550,49 @@ const colocarDatos = (dataset) => {
   formulario.maq_nombre.value = dataset.nombre;
   formulario.maq_mac.value = dataset.mac;
   formulario.maq_tipo.value = dataset.tipo;
-  formulario.maq_plaza.value = dataset.plaza;
+  formulario.maq_per_alta.value = dataset.percatalogoalta;
+  formulario.per_nombre.value = dataset.pernombre;
+  formulario.per_grado.value = dataset.pergrado;
+  formulario.per_plaza.value = dataset.perplaza;
+  formulario.maq_per_planilla.value = dataset.planillacatalogo;
+  formulario.pcivil_nombre.value = dataset.planillanombre;
+  formulario.pcivil_gradi.value = dataset.planillagrado;
+  formulario.pcivil_plaza.value = dataset.planillaplaza; 
   formulario.maq_ram_capacidad.value = dataset.ram;
   formulario.maq_tipo_disco_duro.value = dataset.hdd;
   formulario.maq_disco_capacidad.value = dataset.disco;
   formulario.maq_procesador_capacidad.value = dataset.procesador;
-  formulario.maq_sistema_op.value = dataset.sistema;
-  formulario.maq_office.value = dataset.office;
-  formulario.maq_antivirus.value = dataset.antivirus;
+
+  for (var i = 0; i < formulario.maq_sistema_op.length; i++) {
+    if (formulario.maq_sistema_op.options[i].text === dataset.sistema) {
+      formulario.maq_sistema_op.selectedIndex = i;
+      break;
+    }
+  }
+ 
+  for (var i = 0; i < formulario.maq_office.length; i++) {
+    if (formulario.maq_office.options[i].text === dataset.office) {
+      formulario.maq_office.selectedIndex = i;
+      break;
+    }
+  }
+
+  for (var i = 0; i < formulario.maq_antivirus.length; i++) {
+    if (formulario.maq_antivirus.options[i].text === dataset.antivirus) {
+      formulario.maq_antivirus.selectedIndex = i;
+      break;
+    }
+  }
+
+  formulario.maq_lic_so.value = dataset.sistemalic;
+  formulario.maq_lic_office.value = dataset.officelic;
+  formulario.maq_lic_antv.value = dataset.antiviruslic;
   formulario.maq_uso.value = dataset.uso;
   formulario.maq_id.value = dataset.id;
+  console.log(dataset);
 
   btnGuardar.disabled = true;
   btnGuardar.parentElement.style.display = "none";
-  btnBuscar.disabled = true
-  btnBuscar.parentElement.style.display = "none";
   btnModificar.disabled = false;
   btnModificar.parentElement.style.display = "";
   btnCancelar.disabled = false;
@@ -545,8 +602,6 @@ const colocarDatos = (dataset) => {
 const cancelarAccion = () => {
   btnGuardar.disabled = false;
   btnGuardar.parentElement.style.display = "";
-  btnBuscar.disabled = false
-  btnBuscar.parentElement.style.display = "";
   btnModificar.disabled = true;
   btnModificar.parentElement.style.display = "none";
   btnCancelar.disabled = true;
@@ -603,8 +658,3 @@ per_catalogo.addEventListener("input", buscarNombres);
 pcivil_catalogo.addEventListener("input", buscarPlanillero);
 mac_maquina.addEventListener("input", validarDireccionMAC);
 
-$('.macaddress').mask('AA:AA:AA:AA:AA:AA', {
-  onKeyPress: function(str, e, obj){
-      $(obj).val(str.toUpperCase());
-  }
-});

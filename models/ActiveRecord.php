@@ -9,6 +9,7 @@ class ActiveRecord {
     protected static $columnasDB = [];
 
     protected static $idTabla = '';
+    protected static $situacionTabla = '';
 
     // Alertas y Mensajes
     protected static $alertas = [];
@@ -131,7 +132,7 @@ class ActiveRecord {
 
     // Eliminar un registro - Toma el ID de Active Record
     public function eliminar() {
-        $query = "UPDATE "  . static::$tabla . " SET situacion = 0 WHERE id = " . self::$db->quote($this->id);
+        $query = "UPDATE "  . static::$tabla ." SET " . static::$situacionTabla . " = 2 WHERE ". static::$idTabla ." = " . self::$db->quote(static::$idTabla);
         $resultado = self::$db->exec($query);
         return $resultado;
     }

@@ -42,7 +42,7 @@ const datatable = new Datatable('#tablaOffices', {
             data: 'off_id',
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}' >Eliminar</button>`
+            render: (data, type, row, meta) => `<button class="btn btn-danger" data-id='${data}'>Eliminar</button>`
         },
 
     ]
